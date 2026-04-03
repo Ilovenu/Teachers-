@@ -998,13 +998,37 @@ document.getElementById('ov').addEventListener('click',function(e){if(e.target==
 // Excel Database Management
 let plotDatabase = [];
 
-// Auto-load database from localStorage on page start
+// Auto-load database from central storage only
 function autoLoadDatabase() {
-  const savedData = localStorage.getItem('plotDatabaseExcel');
-  if (savedData) {
+  console.log('Loading data from central storage...');
+  // Always try to load from shared storage first (central data)
+  tryLoadFromSharedStorage();
+}
+
+// Try to load from shared storage with fallback to default data
+function tryLoadFromSharedStorage() {
+  const gistId = '5397a86680129b2d3534059577f8865c';
+  const githubToken = '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';
+  
+  fetch(`https://api.github.com/gists/${gistId}`, {
+    headers: {
+      'Authorization': `token ${githubToken}`
+    }
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('GitHub API request failed');
+    }
+    return response.json();
+  })
+  .then(data => {
     try {
-      plotDatabase = JSON.parse(savedData);
-      // Restore O object from saved data
+      const sharedData = JSON.parse(data.files['teachers_colony_database.json'].content);
+      
+      // Load shared data into plotDatabase
+      plotDatabase = sharedData;
+      
+      // Restore O object from shared data
       plotDatabase.forEach(record => {
         if (record['Plot Number'] && record['Owner Name'] && record['Primary Mobile']) {
           const plotNum = parseInt(record['Plot Number']);
@@ -1017,21 +1041,26 @@ function autoLoadDatabase() {
         }
       });
       
+      // Save to localStorage for future use
+      localStorage.setItem('plotDatabaseExcel', JSON.stringify(plotDatabase));
+      
       // Refresh display after loading
       setTimeout(() => {
         refreshPlotDisplay();
       }, 100);
       
-      console.log(`Auto-loaded ${plotDatabase.length} plot registrations from previous session.`);
-    } catch (error) {
-      console.error('Error loading saved database:', error);
-      // If localStorage fails, load from CSV
+      console.log(`Successfully loaded ${plotDatabase.length} plot registrations from shared storage.`);
+      showNotification('Data loaded from cloud storage!');
+    } catch (parseError) {
+      console.error('Error parsing shared data:', parseError);
       loadDefaultData();
     }
-  } else {
-    // If no saved data, load from CSV
+  })
+  .catch(error => {
+    console.error('Error loading from shared storage:', error);
+    console.log('Falling back to embedded default data...');
     loadDefaultData();
-  }
+  });
 }
 
 // Load data from embedded CSV data
@@ -1133,8 +1162,8 @@ function loadDefaultData() {
 92,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
 93,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
 94,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
-95,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
-96,"Abdul Wajid","+917893774846",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+95,"Abdul Wajid","+917893774846",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+96,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
 97,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
 98,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
 99,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
@@ -1357,19 +1386,154 @@ function saveToLocalStorage() {
     // Also upload to shared storage for multi-user access
     uploadToSharedStorage();
     
-    // Download CSV as backup
-    downloadDatabaseCSV();
+    // Save to central CSV hub
+    saveToCentralCSVHub();
+    
+    // Download CSV as backup - commented out to prevent auto-download on page load
+    // downloadDatabaseCSV();
   } catch (error) {
     console.error('Error saving to localStorage:', error);
   }
 }
 
+// Test GitHub API connection with detailed diagnostics
+function testGitHubConnection() {
+  const githubToken = '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'; // Replace with your actual new token
+  const gistId = '5397a86680129b2d3534059577f8865c';
+  
+  console.log('=== GITHUB API DIAGNOSTIC TEST ===');
+  console.log('1. Testing token format...');
+  console.log('Token:', githubToken.substring(0, 10) + '...');
+  console.log('Token length:', githubToken.length);
+  console.log('Token starts with ghp_:', githubToken.startsWith('ghp_'));
+  
+  console.log('2. Testing Gist access...');
+  console.log('Gist ID:', gistId);
+  console.log('Gist URL:', `https://gist.github.com/${gistId}`);
+  
+  // Test 1: Simple token validation
+  if (!githubToken || githubToken === 'PASTE_YOUR_NEW_TOKEN_HERE') {
+    console.error('❌ ERROR: Please replace PASTE_YOUR_NEW_TOKEN_HERE with actual GitHub token');
+    showNotification('❌ Please add your GitHub token in the code');
+    return false;
+  }
+  
+  // Test 2: Try to access the gist
+  fetch(`https://api.github.com/gists/${gistId}`, {
+    headers: {
+      'Authorization': `token ${githubToken}`
+    }
+  })
+  .then(response => {
+    console.log('3. GitHub API response received...');
+    console.log('Response status:', response.status);
+    console.log('Response OK:', response.ok);
+    console.log('Response URL:', response.url);
+    
+    if (response.status === 401) {
+      console.error('❌ ERROR: GitHub token authentication failed');
+      console.error('SOLUTION: Generate new token at https://github.com/settings/tokens');
+      console.error('REQUIRED: Token must have "gist" and "public_repo" permissions');
+      throw new Error('GitHub token is invalid or expired. Generate a new token from: https://github.com/settings/tokens');
+    } else if (response.status === 403) {
+      console.error('❌ ERROR: GitHub token lacks required permissions');
+      console.error('SOLUTION: Re-generate token with "gist" and "public_repo" scopes');
+      throw new Error('GitHub token missing required permissions. Add "gist" and "public_repo" scopes.');
+    } else if (response.status === 404) {
+      console.error('❌ ERROR: Gist not found');
+      console.error('SOLUTION: Check if gist exists at: https://gist.github.com/' + gistId);
+      console.error('ALTERNATIVE: Create new gist and update gistId in code');
+      throw new Error('Gist not found - check gist ID');
+    } else if (response.status === 422) {
+      console.error('❌ ERROR: Invalid data format');
+      console.error('SOLUTION: Check JSON structure being sent to GitHub');
+      throw new Error('Invalid data format. Check JSON structure.');
+    } else if (!response.ok) {
+      console.error('❌ ERROR: HTTP request failed');
+      console.error('Status:', response.status);
+      console.error('Status Text:', response.statusText);
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('4. GitHub API SUCCESS!');
+    console.log('Gist files:', Object.keys(data.files));
+    console.log('Gist URL:', data.html_url);
+    console.log('=== DIAGNOSTIC COMPLETE ===');
+    showNotification('✅ GitHub API connection successful!');
+    return true;
+  })
+  .catch(error => {
+    console.error('=== NETWORK ERROR ===');
+    console.error('Error type:', error.name);
+    console.error('Error message:', error.message);
+    console.error('=== DIAGNOSTIC FAILED ===');
+    showNotification(`❌ GitHub API Error: ${error.message}`);
+    return false;
+  });
+}
+
+// Alternative: Create new gist if current one doesn't exist
+function createNewGist() {
+  const githubToken = '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'; // Replace with your actual new token
+  
+  if (githubToken === 'PASTE_YOUR_NEW_TOKEN_HERE') {
+    showNotification('❌ Please add your GitHub token first');
+    return;
+  }
+  
+  console.log('Creating new GitHub Gist...');
+  
+  const newGistData = {
+    description: 'Teachers Colony Plot Database - New Gist',
+    public: true,
+    files: {
+      'teachers_colony_database.json': {
+        content: JSON.stringify(plotDatabase, null, 2)
+      }
+    }
+  };
+  
+  fetch('https://api.github.com/gists', {
+    method: 'POST',
+    headers: {
+      'Authorization': `token ${githubToken}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newGistData)
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('New gist created:', data.html_url);
+    console.log('New gist ID:', data.id);
+    showNotification(`✅ New gist created! ID: ${data.id}`);
+    
+    // Update the gist ID in the code
+    console.log('Please update gistId in code to:', data.id);
+  })
+  .catch(error => {
+    console.error('Error creating new gist:', error);
+    showNotification(`❌ Failed to create new gist: ${error.message}`);
+  });
+}
+
 // Upload data to shared Google Sheet (for multi-user access)
 function uploadToSharedStorage() {
+  console.log('=== UPLOAD TO SHARED STORAGE STARTED ===');
+  console.log('Current plot database length:', plotDatabase.length);
+  console.log('Plot database sample:', plotDatabase.slice(0, 2));
+  
   if (plotDatabase.length === 0) {
     console.log('No data to upload to shared storage');
     return;
   }
+  
+  console.log('Starting upload to shared storage...');
+  console.log('Data to upload:', plotDatabase.length, 'records');
+  
+  // Show upload started notification
+  showNotification('🔄 Uploading to central database...');
   
   // Option 1: Google Sheets API (requires setup)
   // Option 2: GitHub Gist (simpler)
@@ -1387,8 +1551,16 @@ function uploadToSharedStorage() {
   };
   
   // You need to set your GitHub token in the config
-  const githubToken = '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'; // Replace with actual token
+  const githubToken = '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'; // Replace with your actual new token
   const gistId = '5397a86680129b2d3534059577f8865c'; // Create a gist and get its ID
+  
+  console.log('=== GITHUB API REQUEST DETAILS ===');
+  console.log('Gist ID:', gistId);
+  console.log('Token first 10 chars:', githubToken.substring(0, 10) + '...');
+  console.log('Request URL:', `https://api.github.com/gists/${gistId}`);
+  console.log('Request method: PATCH');
+  console.log('Request data size:', JSON.stringify(gistData).length, 'bytes');
+  console.log('Request data preview:', JSON.stringify(gistData).substring(0, 200) + '...');
   
   fetch(`https://api.github.com/gists/${gistId}`, {
     method: 'PATCH',
@@ -1398,22 +1570,72 @@ function uploadToSharedStorage() {
     },
     body: JSON.stringify(gistData)
   })
-  .then(response => response.json())
+  .then(response => {
+    console.log('=== GITHUB API RESPONSE RECEIVED ===');
+    console.log('Response status:', response.status);
+    console.log('Response OK:', response.ok);
+    console.log('Response headers:', response.headers);
+    console.log('Response URL:', response.url);
+    
+    if (response.status === 401) {
+      console.error('❌ ERROR: GitHub token is invalid or expired. Please generate a new token.');
+      throw new Error('GitHub token is invalid or expired. Please generate a new token.');
+    } else if (response.status === 404) {
+      console.error('❌ ERROR: Gist not found. Check the gist ID.');
+      throw new Error('Gist not found. Check the gist ID.');
+    } else if (response.status === 422) {
+      console.error('❌ ERROR: Invalid data format. Check the JSON structure.');
+      throw new Error('Invalid data format. Check the JSON structure.');
+    } else if (!response.ok) {
+      console.error('❌ ERROR: HTTP request failed');
+      console.error('Status:', response.status);
+      console.error('Status Text:', response.statusText);
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
   .then(data => {
+    console.log('=== GITHUB API UPLOAD SUCCESS ===');
     console.log('Successfully uploaded to shared storage:', data.html_url);
-    showNotification('Data saved to shared storage! All users can see updates.');
+    console.log('Response data:', data);
+    console.log('Gist files updated:', Object.keys(data.files));
+    console.log('=== UPLOAD PROCESS COMPLETE ===');
+    showNotification('✅ Data saved to central database! All users can see updates.');
   })
   .catch(error => {
+    console.error('=== UPLOAD ERROR DETAILS ===');
     console.error('Error uploading to shared storage:', error);
+    console.error('Error name:', error.name);
+    console.error('Error message:', error.message);
+    console.error('Error stack:', error.stack);
+    console.error('=== UPLOAD PROCESS FAILED ===');
     // Fallback to local storage only
-    showNotification('Using local storage only. Shared storage unavailable.');
+    showNotification(`❌ Failed to save to central database: ${error.message}`);
+  });
+}
+
+// Manual save function for testing
+function manualSaveToCentral() {
+  console.log('Manual save triggered...');
+  console.log('Current plot database:', plotDatabase.length, 'records');
+  
+  if (plotDatabase.length === 0) {
+    showNotification('⚠️ No data to save!');
+    return;
+  }
+  
+  // Test connection first
+  testGitHubConnection().then(success => {
+    if (success) {
+      uploadToSharedStorage();
+    }
   });
 }
 
 // Load data from shared storage
 function loadFromSharedStorage() {
   const gistId = '5397a86680129b2d3534059577f8865c'; // Same gist ID as above
-  const githubToken = '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'; // Same token as above
+  const githubToken = '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'; // Replace with your actual new token
   
   fetch(`https://api.github.com/gists/${gistId}`, {
     headers: {
@@ -1457,6 +1679,85 @@ function mergePlotData(localData, sharedData) {
   });
   
   return Object.values(merged);
+}
+
+// Save to Central CSV Hub
+function saveToCentralCSVHub() {
+  if (plotDatabase.length === 0) {
+    console.log('No data to save to central CSV hub');
+    return;
+  }
+
+  // Create CSV content matching the master database format
+  let csvContent = 'Plot Number,Owner Name,Primary Mobile,Alternative Mobile,Plot Size,Status,Registration Date,Owner Type,Colony,Location,Last Updated\n';
+  
+  plotDatabase.forEach(record => {
+    const csvRow = [
+      record['Plot Number'] || '',
+      `"${record['Owner Name'] || ''}"`,
+      record['Primary Mobile'] || '',
+      record['Alternative Mobile'] || '',
+      `"${record['Plot Size'] || ''}"`,
+      record['Status'] || 'Available',
+      record['Registration Date'] || '',
+      record['Owner Type'] || 'Primary',
+      record['Colony'] || 'Teachers Colony',
+      record['Location'] || 'Machilipatnam',
+      new Date().toISOString()
+    ];
+    csvContent += csvRow.join(',') + '\n';
+  });
+
+  // Upload to central CSV hub using multiple methods for redundancy
+  
+  // Method 1: GitHub Gist CSV
+  const gistCSVData = {
+    description: `Teachers Colony Central CSV Database - Updated ${new Date().toLocaleString()}`,
+    public: true,
+    files: {
+      'teachers_colony_master_database.csv': {
+        content: csvContent
+      }
+    }
+  };
+
+  const githubToken = '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';
+  const gistId = '5397a86680129b2d3534059577f8865c';
+
+  // Upload CSV to GitHub Gist
+  fetch(`https://api.github.com/gists/${gistId}`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `token ${githubToken}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(gistCSVData)
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Successfully saved CSV to central hub:', data.html_url);
+    showNotification('Data saved to central CSV hub!');
+  })
+  .catch(error => {
+    console.error('Error saving to central CSV hub:', error);
+    // Fallback: Save to localStorage as backup
+    localStorage.setItem('centralCSVBackup', csvContent);
+    showNotification('Central hub unavailable. Data saved locally.');
+  });
+
+  // Method 2: Create downloadable CSV file for manual backup
+  const blob = new Blob([csvContent], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `teachers_colony_central_backup_${new Date().toISOString().split('T')[0]}.csv`;
+  a.style.display = 'none';
+  document.body.appendChild(a);
+  
+  // Store the download link for later use
+  window.centralCSVDownloadLink = url;
+  
+  console.log('Central CSV hub save initiated');
 }
 
 // Show notification to user
@@ -1624,6 +1925,7 @@ function saveDatabase() {
 // Handle form submission with Excel database
 document.getElementById('plot-form').addEventListener('submit', function(e) {
   e.preventDefault();
+  console.log('=== FORM SUBMISSION STARTED ===');
   console.log('Form submission started...');
   console.log('Current plot:', window.currentPlot);
   
@@ -1639,18 +1941,17 @@ document.getElementById('plot-form').addEventListener('submit', function(e) {
     return;
   }
   
-  // Format mobile number with +91 if not already formatted
   const formattedMobile = mobile.startsWith('+91') ? mobile : `+91${mobile}`;
   const formattedAltMobile = altMobile ? (altMobile.startsWith('+91') ? altMobile : `+91${altMobile}`) : '';
   
   console.log('Formatted mobile:', {formattedMobile, formattedAltMobile});
   
-  // Create registration record
   const registration = {
     'Plot Number': window.currentPlot,
     'Owner Name': name,
     'Primary Mobile': formattedMobile,
     'Alternative Mobile': formattedAltMobile,
+    'Plot Size': plotSize,
     'Status': 'owned',
     'Registration Date': new Date().toLocaleDateString(),
     'Colony': 'Teachers Colony',
@@ -1659,14 +1960,14 @@ document.getElementById('plot-form').addEventListener('submit', function(e) {
   
   console.log('Registration record:', registration);
   
-  // Add to database
   plotDatabase.push(registration);
   console.log('Plot database after push:', plotDatabase.length);
+  console.log('Updated plot database:', plotDatabase.slice(-3)); // Show last 3 records
   
-  // Save to localStorage for persistence
-  saveToLocalStorage();
+  // Test immediate save to central storage
+  console.log('=== TESTING IMMEDIATE SAVE ===');
+  uploadToSharedStorage();
   
-  // Add to the O object to show as owned
   O[window.currentPlot] = [{n: name, p: formattedMobile}];
   if (formattedAltMobile) {
     O[window.currentPlot].push({n: name, p: formattedAltMobile});
@@ -1674,16 +1975,59 @@ document.getElementById('plot-form').addEventListener('submit', function(e) {
   
   console.log('O object after registration:', O);
   
-  // Show success message
   alert(`Registration successful for Plot ${window.currentPlot}!\n\nName: ${name}\nMobile: ${formattedMobile}\nPlot Size: ${plotSize}\n\nData saved in Excel database format.`);
   closeModal();
   
-  // Immediately update the specific plot that was registered
   setTimeout(() => {
     console.log('Updating plot display...');
     refreshPlotDisplay();
   }, 100);
 });
+
+// Mark as contacted function
+function markAsContacted() {
+  console.log('Mark as contacted function called...');
+  console.log('Current plot:', window.currentPlot);
+  
+  const name = document.getElementById('reg-name').value || 'Contacted Lead';
+  const mobile = document.getElementById('reg-mobile').value || '0000000000';
+  
+  console.log('Contact form data:', {name, mobile});
+  
+  // Format mobile number
+  const formattedMobile = mobile.startsWith('+91') ? mobile : `+91${mobile}`;
+  
+  // Create contacted record
+  const contacted = {
+    'Plot Number': window.currentPlot,
+    'Owner Name': name,
+    'Primary Mobile': formattedMobile,
+    'Alternative Mobile': '',
+    'Status': 'contacted',
+    'Registration Date': new Date().toLocaleDateString(),
+    'Colony': 'Teachers Colony',
+    'Location': 'Machilipatnam'
+  };
+  
+  console.log('Contacted record:', contacted);
+  
+  // Add to database
+  plotDatabase.push(contacted);
+  console.log('Plot database after adding contacted:', plotDatabase.length);
+  
+  // Save to central storage
+  saveToLocalStorage();
+  
+  // Refresh display
+  setTimeout(() => {
+    refreshPlotDisplay();
+  }, 100);
+  
+  // Close modal
+  closeModal();
+  
+  alert(`Plot ${window.currentPlot} marked as contacted!`);
+}
 
 // Refresh plot display after loading data
 function refreshPlotDisplay() {
@@ -1733,18 +2077,49 @@ function refreshPlotDisplay() {
   console.log('Plot display refreshed');
 }
 
+// Update header statistics
+function updateHeaderStats() {
+  const totalPlots = 175;
+  const ownedPlots = plotDatabase.filter(record => record['Status'] === 'owned').length;
+  const contactedPlots = plotDatabase.filter(record => record['Status'] === 'contacted').length;
+  const availablePlots = totalPlots - ownedPlots - contactedPlots;
+  const ownershipRate = ((ownedPlots / totalPlots) * 100).toFixed(1);
+  
+  // Update statistics display if elements exist
+  const totalElement = document.getElementById('total-plots');
+  const ownedElement = document.getElementById('owned-plots');
+  const availableElement = document.getElementById('available-plots');
+  const rateElement = document.getElementById('ownership-rate');
+  
+  if (totalElement) totalElement.textContent = totalPlots;
+  if (ownedElement) ownedElement.textContent = ownedPlots;
+  if (availableElement) availableElement.textContent = availablePlots;
+  if (rateElement) rateElement.textContent = ownershipRate + '%';
+  
+  console.log(`Stats updated: ${ownedPlots} owned, ${contactedPlots} contacted, ${availablePlots} available (${ownershipRate}% ownership)`);
+}
+
 // Document Upload Functions
 function handleFileUpload(event) {
   const files = event.target.files;
-  if (files.length === 0) return;
+  const documentsList = document.getElementById('documents-list');
   
+  // Clear existing documents list
+  documentsList.innerHTML = '';
+  
+  // Add uploaded documents to list
+  Array.from(files).forEach(file => {
+    const documentItem = createUploadedDocumentItem(file);
+    documentsList.appendChild(documentItem);
+  });
+  
+  // Simulate upload progress
   const uploadProgress = document.getElementById('upload-progress');
   const progressBar = document.getElementById('progress-bar');
   const progressText = document.getElementById('progress-text');
   
   uploadProgress.style.display = 'block';
   
-  // Simulate upload progress
   let progress = 0;
   const interval = setInterval(() => {
     progress += Math.random() * 15;
@@ -1755,7 +2130,7 @@ function handleFileUpload(event) {
       setTimeout(() => {
         uploadProgress.style.display = 'none';
         progressBar.style.width = '0%';
-        saveDocumentsToStorage(files);
+        saveToLocalStorage();
         addUploadedDocuments(files);
         alert(`Documents uploaded successfully!\n\n\u{1F4C1} Storage: Browser localStorage\n\u{1F4CD} Location: Your device only\n\u{1F510} Accessible: This website only\n\nNote: Documents are saved in your browser's local storage and will be available when you visit this website again.`);
       }, 500);
@@ -1766,12 +2141,17 @@ function handleFileUpload(event) {
   }, 200);
 }
 
+function saveToLocalStorage() {
+  // Save to local storage
+  localStorage.setItem('documents', JSON.stringify(plotDatabase));
+}
+
 function saveDocumentsToStorage(files) {
-  // GitHub repository configuration
+  // GitHub repository configuration - Disabled for deployment
   const githubConfig = {
-    owner: 'your-username', // Replace with your GitHub username
-    repo: 'teachers-colony-documents', // Repository name
-    token: 'your-github-token', // Replace with your GitHub personal access token
+    owner: 'Ilovenu', // Your GitHub username
+    repo: 'Teachers-', // Current repository
+    token: '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', // Your GitHub token
     branch: 'main'
   };
   
