@@ -1008,7 +1008,7 @@ function autoLoadDatabase() {
 // Try to load from shared storage with fallback to default data
 function tryLoadFromSharedStorage() {
   const gistId = '5397a86680129b2d3534059577f8865c';
-  const githubToken = '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';
+  const githubToken = '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';
   
   fetch(`https://api.github.com/gists/${gistId}`, {
     headers: {
@@ -1398,7 +1398,7 @@ function saveToLocalStorage() {
 
 // Test GitHub API connection with detailed diagnostics
 function testGitHubConnection() {
-  const githubToken = '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'; // Replace with your actual new token
+  const githubToken = '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'; // Replace with your actual new token
   const gistId = '5397a86680129b2d3534059577f8865c';
   
   console.log('=== GITHUB API DIAGNOSTIC TEST ===');
@@ -1476,7 +1476,7 @@ function testGitHubConnection() {
 
 // Alternative: Create new gist if current one doesn't exist
 function createNewGist() {
-  const githubToken = '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'; // Replace with your actual new token
+  const githubToken = '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'; // Replace with your actual new token
   
   if (githubToken === 'PASTE_YOUR_NEW_TOKEN_HERE') {
     showNotification('❌ Please add your GitHub token first');
@@ -1551,7 +1551,7 @@ function uploadToSharedStorage() {
   };
   
   // You need to set your GitHub token in the config
-  const githubToken = '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'; // Replace with your actual new token
+  const githubToken = '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'; // Replace with your actual new token
   const gistId = '5397a86680129b2d3534059577f8865c'; // Create a gist and get its ID
   
   console.log('=== GITHUB API REQUEST DETAILS ===');
@@ -1635,7 +1635,7 @@ function manualSaveToCentral() {
 // Load data from shared storage
 function loadFromSharedStorage() {
   const gistId = '5397a86680129b2d3534059577f8865c'; // Same gist ID as above
-  const githubToken = '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'; // Replace with your actual new token
+  const githubToken = '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'; // Replace with your actual new token
   
   fetch(`https://api.github.com/gists/${gistId}`, {
     headers: {
@@ -1721,7 +1721,7 @@ function saveToCentralCSVHub() {
     }
   };
 
-  const githubToken = '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';
+  const githubToken = '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';
   const gistId = '5397a86680129b2d3534059577f8865c';
 
   // Upload CSV to GitHub Gist
@@ -2151,7 +2151,7 @@ function saveDocumentsToStorage(files) {
   const githubConfig = {
     owner: 'Ilovenu', // Your GitHub username
     repo: 'Teachers-', // Current repository
-    token: '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', // Your GitHub token
+    token: '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', // Your GitHub token
     branch: 'main'
   };
   
