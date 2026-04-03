@@ -71,7 +71,7 @@ echo "📊 Current Configuration:"
 echo "=========================="
 echo "• Gist ID: 5397a86680129b2d3534059577f8865c"
 echo "• Gist URL: https://gist.github.com/Ilovenu/5397a86680129b2d3534059577f8865c"
-echo "• Token: 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"
+echo "• Token: [REDACTED - Set in config.js]"
 echo "• File: teachers_colony_database.json"
 echo ""
 
