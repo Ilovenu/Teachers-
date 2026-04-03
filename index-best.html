@@ -419,8 +419,12 @@
             justify-content: center;
         }
 
+        .modal-overlay.show {
+            display: flex !important;
+        }
+
         .modal-overlay.open {
-            display: flex;
+            display: flex !important;
         }
 
         .modal {
@@ -672,7 +676,6 @@
                     <li><a href="#gallery">🖼️ Gallery</a></li>
                     <li><a href="#contact">📞 Contact</a></li>
                     <li><a href="#" onclick="api.refreshFromGitHub(); return false;">🔄 Refresh</a></li>
-                    <li><a href="#" onclick="openTokenModal(); return false;" style="background: #ff9800;">🔑 Fix Token</a></li>
                 </ul>
             </div>
         </nav>
@@ -892,14 +895,22 @@
         <form id="token-form">
             <div class="form-group">
                 <label class="form-label" for="github-token">GitHub Token *</label>
-                <input type="text" id="github-token" class="form-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" required>
+                <input type="text" id="github-token" class="form-input" placeholder="github_pat_xxxxxxxxxxxxxxxxxxxx" required>
                 <small style="color: #666; font-size: 0.8rem; margin-top: 5px; display: block;">
-                    Get token from: github.com/settings/tokens → Generate new token → gist scope
+                    <strong>⚠️ CURRENT TOKEN LACKS GIST PERMISSIONS</strong><br>
+                    <strong>Required:</strong> Token must have <strong>gist</strong> scope for read/write access<br><br>
+                    <strong>Quick Fix:</strong><br>
+                    1. <a href="https://github.com/settings/tokens" target="_blank">Click here to create new token</a><br>
+                    2. Click "Generate new token (classic)"<br>
+                    3. <strong>✅ CHECK "gist" SCOPE</strong> (required for Gist operations)<br>
+                    4. Generate token → Copy → Paste here<br><br>
+                    <strong>Without gist scope:</strong> 403 Forbidden error<br>
+                    <strong>With gist scope:</strong> Full Gist read/write access
                 </small>
             </div>
             
             <div class="form-group">
-                <label class="form-label" for="gist-id">Gist ID (optional)</label>
+                <label class="form-label" for="gist-id">Gist ID (Optional)</label>
                 <input type="text" id="gist-id" class="form-input" placeholder="5397a86680129b2d3534059577f8865c">
                 <small style="color: #666; font-size: 0.8rem; margin-top: 5px; display: block;">
                     Leave blank to use current Gist ID
@@ -937,17 +948,11 @@
             </div>
             
             <div class="form-group">
-                <label class="form-label" for="reg-size">Plot Size *</label>
-                <select id="reg-size" class="form-select" required>
-                    <option value="">Select plot size</option>
-                    <option value="167 Sq. Yards">167 Sq. Yards</option>
-                    <option value="200 Sq. Yards">200 Sq. Yards</option>
-                    <option value="250 Sq. Yards">250 Sq. Yards</option>
-                    <option value="300 Sq. Yards">300 Sq. Yards</option>
-                </select>
+                <label class="form-label" for="reg-size">Plot Size (Optional)</label>
+                <input type="text" id="reg-size" class="form-input" placeholder="e.g., 167 Sq. Yards">
             </div>
             
-            <button type="submit" class="btn-primary">📝 Save Registration</button>
+            <button type="submit" class="btn-primary" onclick="console.log('Button clicked'); return true;">📝 Save Registration</button>
             <button type="button" class="btn-contact" onclick="handleMarkAsContacted()">📞 Mark as Contacted</button>
             <button type="button" class="btn-secondary" onclick="api.closeModal()">Cancel</button>
         </form>
@@ -966,6 +971,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Teachers Colony Application - Best Model Version');
     
+    // Initialize API first to load GitHub data
+    window.api = new TeachersColonyAPI();
+    console.log('API initialized:', window.api);
+    
     // Add export button to navigation
     const headerNav = document.querySelector('.nav-links');
     if (headerNav) {
@@ -975,18 +984,31 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Handle form submission
-    document.getElementById('plot-form').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const formData = {
-            ownerName: document.getElementById('reg-name').value,
-            primaryMobile: document.getElementById('reg-mobile').value,
-            alternativeMobile: document.getElementById('reg-alt-mobile').value,
-            plotSize: document.getElementById('reg-size').value
-        };
-        
-        await api.handleRegistrationSubmit(formData);
-    });
+    const plotForm = document.getElementById('plot-form');
+    if (plotForm) {
+        plotForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            console.log('Form submission triggered');
+            
+            if (!window.api) {
+                console.error('API not initialized');
+                return;
+            }
+            
+            const formData = {
+                ownerName: document.getElementById('reg-name').value,
+                primaryMobile: document.getElementById('reg-mobile').value,
+                alternativeMobile: document.getElementById('reg-alt-mobile').value,
+                plotSize: document.getElementById('reg-size').value
+            };
+            
+            console.log('Form data:', formData);
+            await window.api.handleRegistrationSubmit(formData);
+        });
+        console.log('Form submission handler attached');
+    } else {
+        console.error('Plot form not found');
+    }
     
     // Handle mark as contacted
     window.handleMarkAsContacted = async function() {
@@ -1038,18 +1060,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Token modal functions
 function openTokenModal() {
-    document.getElementById('token-modal').classList.add('open');
+    document.getElementById('token-modal').classList.add('show');
     
     // Pre-fill current values
-    const currentToken = localStorage.getItem('github_token') || CONFIG.GITHUB.token;
-    const currentGistId = localStorage.getItem('gist_id') || CONFIG.GITHUB.gistId;
+    const currentToken = localStorage.getItem('github_token') || GITHUB_CONFIG.token;
+    const currentGistId = localStorage.getItem('gist_id') || GITHUB_CONFIG.gistId;
     
     document.getElementById('github-token').value = currentToken;
     document.getElementById('gist-id').value = currentGistId;
 }
 
 function closeTokenModal() {
-    document.getElementById('token-modal').classList.remove('open');
+    document.getElementById('token-modal').classList.remove('show');
 }
 
 // Auto-detect 401 errors and show token fix

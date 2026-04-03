@@ -13,7 +13,58 @@ class TeachersColonyAPI {
     // Initialize the application
     init() {
         console.log('Teachers Colony API Initialized');
-        this.loadFromSharedStorage();
+        console.log('GITHUB_CONFIG:', GITHUB_CONFIG);
+        console.log('APP_CONFIG:', APP_CONFIG);
+        console.log('PLOT_LAYOUT:', PLOT_LAYOUT);
+        
+        // Show GitHub status immediately
+        this.checkGitHubAccess();
+    }
+
+    // Check GitHub access and show status
+    async checkGitHubAccess() {
+        try {
+            const response = await fetch(`${GITHUB_CONFIG.apiEndpoint}/${GITHUB_CONFIG.gistId}`, {
+                headers: {
+                    'Authorization': `token ${GITHUB_CONFIG.token}`
+                }
+            });
+
+            if (response.status === 403) {
+                this.showGitHubTokenRequired();
+            } else if (response.ok) {
+                this.loadFromSharedStorage();
+            } else {
+                throw new Error(`GitHub API Error: ${response.status}`);
+            }
+        } catch (error) {
+            console.error('GitHub access check failed:', error);
+            this.showGitHubTokenRequired();
+        }
+    }
+
+    // Show GitHub token required modal
+    showGitHubTokenRequired() {
+        this.showNotification('GitHub Gist access required. Please update your token with "gist" scope.', 'error');
+        
+        // Auto-open token modal after delay
+        setTimeout(() => {
+            // Try to open the token modal
+            const tokenModal = document.getElementById('token-modal');
+            if (tokenModal) {
+                tokenModal.classList.add('show');
+                
+                // Pre-fill current values
+                const currentToken = GITHUB_CONFIG.token;
+                const currentGistId = GITHUB_CONFIG.gistId;
+                
+                const tokenInput = document.getElementById('github-token');
+                const gistInput = document.getElementById('gist-id');
+                
+                if (tokenInput) tokenInput.value = currentToken;
+                if (gistInput) gistInput.value = currentGistId;
+            }
+        }, 2000);
     }
 
     // ==========================================
@@ -24,22 +75,57 @@ class TeachersColonyAPI {
     async loadFromSharedStorage() {
         try {
             console.log('Loading data from GitHub Gist ONLY...');
+            console.log('Using token:', GITHUB_CONFIG.token ? GITHUB_CONFIG.token.substring(0, 10) + '...' : 'undefined');
+            console.log('Using gist ID:', GITHUB_CONFIG.gistId);
+            console.log('API endpoint:', GITHUB_CONFIG.apiEndpoint);
             
             // Show loading state
             this.showNotification('Loading data from GitHub...', 'info');
             
-            const response = await fetch(`${CONFIG.GITHUB.apiEndpoint}/${CONFIG.GITHUB.gistId}`, {
+            const url = `${GITHUB_CONFIG.apiEndpoint}/${GITHUB_CONFIG.gistId}`;
+            console.log('Fetching from URL:', url);
+            
+            const response = await fetch(url, {
                 headers: {
-                    'Authorization': `token ${CONFIG.GITHUB.token}`
+                    'Authorization': `token ${GITHUB_CONFIG.token}`
                 }
             });
 
+            console.log('Response status:', response.status);
+            console.log('Response headers:', response.headers);
+
             if (!response.ok) {
+                if (response.status === 403) {
+                    // Try read-only access with public gist
+                    console.log('403 error, trying public gist access...');
+                    const publicResponse = await fetch(url);
+                    if (publicResponse.ok) {
+                        const data = await publicResponse.json();
+                        console.log('Successfully loaded data from public GitHub Gist:', data.html_url);
+                        console.log('Gist files:', Object.keys(data.files || {}));
+                        
+                        if (!data.files || !data.files['teachers_colony_database.json']) {
+                            throw new Error('Database file not found in GitHub Gist');
+                        }
+                        
+                        const sharedData = JSON.parse(data.files['teachers_colony_database.json'].content);
+                        this.plotDatabase = sharedData;
+                        console.log('Loaded', this.plotDatabase.length, 'records from public GitHub Gist');
+                        
+                        // Refresh display
+                        this.updateStatistics();
+                        this.initializePlots();
+                        
+                        this.showNotification(`Data loaded from public GitHub! ${this.plotDatabase.length} records found. (Read-only mode)`, 'success');
+                        return true;
+                    }
+                }
                 throw new Error(`GitHub API Error: ${response.status} - ${response.statusText}`);
             }
 
             const data = await response.json();
             console.log('Successfully loaded data from GitHub Gist:', data.html_url);
+            console.log('Gist files:', Object.keys(data.files || {}));
             
             // Check if the file exists
             if (!data.files || !data.files['teachers_colony_database.json']) {
@@ -58,12 +144,28 @@ class TeachersColonyAPI {
             return true;
         } catch (error) {
             console.error('Error loading from GitHub Gist:', error);
-            this.showNotification(`GitHub Error: ${error.message}. Please check your token and Gist.`, 'error');
+            console.error('Error details:', {
+                message: error.message,
+                stack: error.stack,
+                name: error.name
+            });
             
-            // Initialize with empty database if GitHub fails
-            this.plotDatabase = [];
-            this.updateStatistics();
-            this.initializePlots();
+            // Check if it's a network error
+            if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+                this.showNotification('Network error. Loading from local storage...', 'error');
+            } else if (error.message.includes('401')) {
+                this.showNotification('GitHub token error. Loading from local storage...', 'error');
+            } else if (error.message.includes('403')) {
+                this.showNotification('GitHub access restricted. Loading from local storage...', 'error');
+            } else if (error.message.includes('404')) {
+                this.showNotification('GitHub Gist not found. Loading from local storage...', 'error');
+            } else {
+                this.showNotification(`GitHub Error: ${error.message}. Loading from local storage...`, 'error');
+            }
+            
+            console.log('Falling back to localStorage...');
+            // Load from localStorage as final fallback
+            await this.loadFromLocalStorage();
             
             return false;
         }
@@ -73,27 +175,50 @@ class TeachersColonyAPI {
     // DATA SAVING FUNCTIONS
     // ==========================================
 
-    // Save data to GitHub Gist ONLY
-    async saveToLocalStorage() {
+    // Load data from localStorage (fallback)
+    async loadFromLocalStorage() {
         try {
-            console.log('Saving data to GitHub Gist ONLY...');
+            const savedData = localStorage.getItem('plotDatabase');
+            if (savedData) {
+                this.plotDatabase = JSON.parse(savedData);
+                console.log('Loaded', this.plotDatabase.length, 'records from localStorage');
+            } else {
+                console.log('No saved data found, starting with empty database');
+                this.plotDatabase = [];
+            }
             
-            // Show saving state
-            this.showNotification('Saving to GitHub...', 'info');
+            // Update UI
+            this.updateStatistics();
+            this.initializePlots();
+            
+            this.showNotification(`Loaded ${this.plotDatabase.length} records from local storage.`, 'success');
+        } catch (error) {
+            console.error('Error loading from localStorage:', error);
+            this.plotDatabase = [];
+            this.updateStatistics();
+            this.initializePlots();
+        }
+    }
+
+    // Save data to GitHub Gist ONLY
+    async saveToGitHub() {
+        try {
+            console.log('Saving to GitHub Gist...');
+            this.showNotification('Saving to GitHub Gist...', 'info');
             
             // Upload directly to GitHub Gist (central storage only)
             const success = await this.uploadToSharedStorage();
             
             if (success) {
-                this.showNotification('Data saved to GitHub successfully!', 'success');
+                this.showNotification('Data saved to GitHub Gist successfully!', 'success');
             } else {
-                this.showNotification('Failed to save to GitHub. Please check your connection.', 'error');
+                this.showNotification('Failed to save to GitHub Gist. Please check your token permissions.', 'error');
             }
             
             return success;
         } catch (error) {
             console.error('Error saving to GitHub:', error);
-            this.showNotification('Error saving to GitHub. Please try again.', 'error');
+            this.showNotification('Error saving to GitHub Gist. Please update your token with "gist" scope.', 'error');
             return false;
         }
     }
@@ -108,7 +233,7 @@ class TeachersColonyAPI {
         
         try {
             const gistData = {
-                description: `${CONFIG.APP.name} - Updated ${new Date().toLocaleString()} - ${this.plotDatabase.length} records`,
+                description: `${APP_CONFIG.name} - Updated ${new Date().toLocaleString()} - ${this.plotDatabase.length} records`,
                 public: true,
                 files: {
                     'teachers_colony_database.json': {
@@ -119,26 +244,37 @@ class TeachersColonyAPI {
             
             console.log('Uploading to GitHub Gist:', this.plotDatabase.length, 'records');
             
-            const response = await fetch(`${CONFIG.GITHUB.apiEndpoint}/${CONFIG.GITHUB.gistId}`, {
+            const response = await fetch(`${GITHUB_CONFIG.apiEndpoint}/${GITHUB_CONFIG.gistId}`, {
                 method: 'PATCH',
                 headers: {
-                    'Authorization': `token ${CONFIG.GITHUB.token}`,
+                    'Authorization': `token ${GITHUB_CONFIG.token}`,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(gistData)
             });
             
             if (!response.ok) {
+                if (response.status === 403) {
+                    this.showNotification('Cannot save to GitHub: Token lacks gist write permissions. Data saved locally only.', 'error');
+                    console.log('403 error on upload, saving to localStorage only');
+                    await this.saveToLocalStorage();
+                    return false;
+                }
                 throw new Error(`Upload failed: ${response.status} - ${response.statusText}`);
             }
             
             const data = await response.json();
             console.log('Successfully uploaded to GitHub Gist:', data.html_url);
-            console.log('GitHub URL:', CONFIG.GITHUB.gistUrl);
+            console.log('GitHub URL:', GITHUB_CONFIG.gistUrl);
             
+            this.showNotification('Data saved to GitHub successfully!', 'success');
             return true;
         } catch (error) {
             console.error('Error uploading to GitHub Gist:', error);
+            this.showNotification('Saving to local storage only. GitHub sync unavailable.', 'error');
+            
+            // Save to localStorage as fallback
+            await this.saveToLocalStorage();
             throw error; // Re-throw to handle in calling function
         }
     }
@@ -150,7 +286,7 @@ class TeachersColonyAPI {
     // Initialize all plots
     initializePlots() {
         // Fill all plot rows from configuration
-        [...CONFIG.PLOT_LAYOUT.left, ...CONFIG.PLOT_LAYOUT.right].forEach(row => {
+        [...PLOT_LAYOUT.left, ...PLOT_LAYOUT.right].forEach(row => {
             this.fill(row.rowId, row.plots);
         });
     }
@@ -165,12 +301,14 @@ class TeachersColonyAPI {
             const plotData = this.plotDatabase.find(p => p['Plot Number'] == plotNum);
             let status = 'available';
             let ownerName = '';
-            let mobile = '';
             
             if (plotData) {
-                status = plotData['Status'];
+                // Handle both "Available" and "available" status from GitHub
+                const plotStatus = plotData['Status'] || 'available';
+                status = plotStatus.toLowerCase() === 'available' ? 'available' : 
+                        plotStatus.toLowerCase() === 'owned' ? 'owned' : 
+                        plotStatus.toLowerCase() === 'contacted' ? 'contacted' : 'available';
                 ownerName = plotData['Owner Name'];
-                mobile = plotData['Primary Mobile'];
             }
             
             html += `<td class="${status}" onclick="api.openModal(${plotNum})">
@@ -180,7 +318,7 @@ class TeachersColonyAPI {
                 html += `<span class="po">${ownerName}</span>`;
             }
             
-            if (mobile && status === 'contacted') {
+            if (status === 'contacted') {
                 html += `<span class="pc">Contacted</span>`;
             }
             
@@ -196,9 +334,9 @@ class TeachersColonyAPI {
 
     // Update statistics
     updateStatistics() {
-        const totalPlots = CONFIG.APP.totalPlots;
-        const ownedPlots = this.plotDatabase.filter(p => p['Status'] === 'owned').length;
-        const contactedPlots = this.plotDatabase.filter(p => p['Status'] === 'contacted').length;
+        const totalPlots = APP_CONFIG.totalPlots;
+        const ownedPlots = this.plotDatabase.filter(p => (p['Status'] || '').toLowerCase() === 'owned').length;
+        const contactedPlots = this.plotDatabase.filter(p => (p['Status'] || '').toLowerCase() === 'contacted').length;
         const availablePlots = totalPlots - ownedPlots - contactedPlots;
         
         document.getElementById('total-plots').textContent = totalPlots;
@@ -216,25 +354,28 @@ class TeachersColonyAPI {
     // Open modal for plot registration
     openModal(plotNumber) {
         this.currentPlotNumber = plotNumber;
-        document.getElementById('plotNumber').textContent = plotNumber;
-        document.getElementById('plotModal').classList.add('show');
+        document.getElementById('modal-plot').textContent = 'Plot #' + plotNumber;
+        document.getElementById('modal').classList.add('show');
         
         // Clear form
-        document.getElementById('registrationForm').reset();
+        document.getElementById('plot-form').reset();
         
         // Check if plot is already registered
         const existingData = this.plotDatabase.find(p => parseInt(p['Plot Number']) === plotNumber);
         if (existingData) {
-            document.getElementById('ownerName').value = existingData['Owner Name'] || '';
-            document.getElementById('primaryMobile').value = existingData['Primary Mobile'] || '';
-            document.getElementById('alternativeMobile').value = existingData['Alternative Mobile'] || '';
-            document.getElementById('plotSize').value = existingData['Plot Size'] || '';
+            document.getElementById('reg-name').value = existingData['Owner Name'] || '';
+            document.getElementById('reg-mobile').value = existingData['Primary Mobile'] || '';
+            document.getElementById('reg-alt-mobile').value = existingData['Alternative Mobile'] || '';
+            document.getElementById('reg-size').value = existingData['Plot Size'] || '';
         }
     }
 
     // Close modal
     closeModal() {
-        document.getElementById('plotModal').classList.remove('show');
+        const modalOverlay = document.getElementById('modal');
+        if (modalOverlay && modalOverlay.parentElement) {
+            modalOverlay.parentElement.classList.remove('show');
+        }
         this.currentPlotNumber = null;
     }
 
@@ -247,11 +388,11 @@ class TeachersColonyAPI {
         const ownerName = formData.ownerName;
         const primaryMobile = formData.primaryMobile;
         const alternativeMobile = formData.alternativeMobile;
-        const plotSize = formData.plotSize;
+        const plotSize = formData.plotSize || 'Not specified';
         
-        if (!ownerName || !primaryMobile || !plotSize) {
+        if (!ownerName || !primaryMobile) {
             this.showNotification('Please fill in all required fields', 'error');
-            return false;
+            return;
         }
         
         // Format mobile numbers
@@ -275,8 +416,8 @@ class TeachersColonyAPI {
         // Add new record
         this.plotDatabase.push(registration);
         
-        // Save to storage
-        await this.saveToLocalStorage();
+        // Save to GitHub Gist only
+        await this.saveToGitHub();
         
         // Refresh display
         this.initializePlots();
@@ -301,7 +442,7 @@ class TeachersColonyAPI {
             'Owner Name': ownerName,
             'Primary Mobile': formattedMobile,
             'Alternative Mobile': '',
-            'Plot Size': '167 Sq. Yards',
+            'Plot Size': 'Not specified',
             'Status': 'contacted',
             'Registration Date': new Date().toLocaleDateString()
         };
@@ -312,8 +453,8 @@ class TeachersColonyAPI {
         // Add contacted record
         this.plotDatabase.push(contacted);
         
-        // Save to storage
-        await this.saveToLocalStorage();
+        // Save to GitHub Gist only
+        await this.saveToGitHub();
         
         // Refresh display
         this.initializePlots();
@@ -344,7 +485,7 @@ class TeachersColonyAPI {
         
         setTimeout(() => {
             notification.classList.remove('show');
-        }, CONFIG.UI.notificationDuration);
+        }, 3000); // 3 seconds default
     }
 
     // Refresh data from GitHub
