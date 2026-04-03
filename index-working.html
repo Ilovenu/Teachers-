@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teachers Colony Plot Management System</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        /* General Styles */
         * {
             margin: 0;
             padding: 0;
@@ -16,914 +12,390 @@
         }
 
         body {
-            font-family: 'DM Sans', sans-serif;
+            font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: #333;
         }
 
-        /* Header Styles */
-        .main-header {
+        .header {
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
-            padding: 20px 0;
+            padding: 20px;
+            text-align: center;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
         }
 
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #ffd700, #ffed4e);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-            color: #1e3c72;
-            box-shadow: 0 4px 15px rgba(255,215,0,0.3);
-        }
-
-        .logo-text h1 {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .logo-text .tagline {
-            font-size: 14px;
+        .header p {
+            font-size: 1.1rem;
             opacity: 0.9;
-            font-style: italic;
         }
 
-        .header-contact {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .stats {
             background: rgba(255,255,255,0.1);
-            padding: 8px 15px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .contact-item:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
-        }
-
-        .contact-icon {
-            font-size: 16px;
-        }
-
-        .contact-text, .contact-link {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            background: rgba(255,255,255,0.1);
-        }
-
-        .nav-links a:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
-        }
-
-        .stats-bar {
-            background: rgba(255,255,255,0.1);
-            padding: 15px 0;
-            backdrop-filter: blur(10px);
-        }
-
-        .stats-container {
+            padding: 15px;
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 15px;
         }
 
         .stat-item {
             text-align: center;
             background: rgba(255,255,255,0.1);
-            padding: 15px 25px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 10px;
         }
 
         .stat-number {
-            font-size: 24px;
-            font-weight: 700;
+            font-size: 1.5rem;
+            font-weight: bold;
             margin-bottom: 5px;
         }
 
         .stat-label {
-            font-size: 12px;
+            font-size: 0.9rem;
             opacity: 0.9;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        /* Main Container */
-        .main-container {
+        .container {
             max-width: 1200px;
-            margin: 40px auto;
+            margin: 20px auto;
             padding: 0 20px;
         }
 
         .page {
             background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        /* Header */
-        .hdr {
-            text-align: center;
-            margin-bottom: 30px;
-            position: relative;
-        }
-
-        .compass {
-            position: absolute;
-            left: 10px;
-            top: 0;
-            font-size: 2rem;
-        }
-
-        .badge {
-            display: inline-block;
-            background: #c0392b;
-            color: #fff;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            padding: 10px 30px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
-
-        .sub1 {
-            font-size: 0.9rem;
-            color: #c0392b;
-            margin-bottom: 5px;
-        }
-
-        .sub2 {
-            color: #1a3a6e;
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
-
-        .sub3 {
-            color: #1a3a6e;
-            font-size: 1rem;
-        }
-
-        /* Map Container */
-        .map-container {
-            background: #f8f9fa;
             border-radius: 15px;
             padding: 20px;
-            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .map-container {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
             overflow-x: auto;
         }
 
-        .outer {
-            display: table;
+        .plot-table {
             width: 100%;
-            border: 2px solid #444;
             border-collapse: collapse;
             min-width: 800px;
         }
 
-        .outer-row {
-            display: table-row;
-        }
-
-        .road-col {
-            display: table-cell;
-            width: 30px;
-            background: #b0c4ce;
-            vertical-align: middle;
+        .plot-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
             text-align: center;
-            border: 1px solid #555;
-            padding: 10px 5px;
-        }
-
-        .road-col span {
-            display: inline-block;
-            writing-mode: vertical-rl;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            color: #1a237e;
-        }
-
-        .road-col.left span {
-            transform: rotate(180deg);
-        }
-
-        .road-col.center span {
-            writing-mode: horizontal-tb;
-            font-size: 0.6rem;
-        }
-
-        .map-col {
-            display: table-cell;
-            vertical-align: top;
-            padding: 10px;
-        }
-
-        .road {
-            background: #b0c4ce;
-            text-align: center;
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: #1a237e;
-            letter-spacing: 0.1em;
-            padding: 5px 0;
-            border-top: 2px solid #555;
-            border-bottom: 2px solid #555;
-            margin: 5px 0;
-        }
-
-        .row2 {
-            display: table;
-            width: 100%;
-            border-collapse: separate;
-            margin-bottom: 5px;
-        }
-
-        .rl-left, .rl-right {
-            display: table-cell;
-            font-size: 0.6rem;
-            font-weight: 700;
-            color: #333;
-            border: 1px solid #555;
-            padding: 2px 5px;
-            background: #fff;
-            line-height: 1.5;
-            white-space: nowrap;
-        }
-
-        .rl-right {
-            text-align: right;
-        }
-
-        .rl-spacer {
-            display: table-cell;
-            width: 100%;
-        }
-
-        .ptable {
-            width: 100%;
-            border-collapse: collapse;
-            border: 1.5px solid #555;
-            table-layout: fixed;
-        }
-
-        .ptable td {
-            border: 1px solid #aaa;
-            text-align: center;
-            padding: 5px 2px;
             cursor: pointer;
-            vertical-align: middle;
-            height: 35px;
-            font-size: 0.6rem;
+            height: 40px;
+            font-size: 0.8rem;
         }
 
-        .ptable tr {
-            border-bottom: 1px solid #999;
+        .plot-table td:hover {
+            background: #f0f0f0;
         }
 
-        .ptable td:hover {
-            background: #fffbe6;
-            transform: scale(1.05);
-        }
-
-        .ptable td.owned {
+        .plot-table td.owned {
             background: #e8f5e9;
             border-color: #4caf50;
         }
 
-        .ptable td.owned:hover {
-            background: #c8e6c9;
-        }
-
-        .ptable td.contacted {
+        .plot-table td.contacted {
             background: #fff3cd;
             border-color: #ffc107;
         }
 
-        .ptable td.contacted:hover {
-            background: #ffe69c;
+        .plot-table td.available {
+            background: white;
         }
 
-        .ptable td.available {
-            background: #ffffff;
-        }
-
-        .ptable td.available:hover {
-            background: #f8f9fa;
-        }
-
-        .pn {
-            font-size: 0.6rem;
-            font-weight: 700;
+        .plot-number {
+            font-weight: bold;
             color: #1a3a6e;
             display: block;
         }
 
-        .po {
-            font-size: 0.4rem;
+        .owner-name {
+            font-size: 0.7rem;
             color: #2e7d32;
             display: block;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
-        .pc {
-            font-size: 0.4rem;
+        .contacted-status {
+            font-size: 0.7rem;
             color: #856404;
             display: block;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            font-weight: 600;
         }
 
-        .bot-road {
-            background: #b0c4ce;
-            text-align: center;
-            font-weight: 700;
-            font-size: 0.8rem;
-            color: #1a237e;
-            letter-spacing: 0.12em;
-            padding: 10px 0;
-            border-top: 2px solid #444;
-            margin-top: 10px;
-            border-radius: 0 0 15px 15px;
-        }
-
-        /* Modal Styles */
-        .modal-overlay {
+        .modal {
             display: none;
             position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.6);
-            z-index: 999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
             align-items: center;
             justify-content: center;
         }
 
-        .modal-overlay.open {
+        .modal.show {
             display: flex;
         }
 
-        .modal {
+        .modal-content {
             background: white;
-            border-radius: 20px;
             padding: 30px;
+            border-radius: 15px;
             width: 90%;
             max-width: 400px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
             position: relative;
         }
 
         .modal-close {
             position: absolute;
-            top: 15px;
+            top: 10px;
             right: 15px;
             background: none;
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
-            color: #888;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-close:hover {
-            background: #f0f0f0;
         }
 
         .modal-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: #c0392b;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .modal-subtitle {
-            font-size: 0.9rem;
-            color: #aaa;
-            text-transform: uppercase;
-            letter-spacing: 0.07em;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-plot {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #1565c0;
             text-align: center;
             margin-bottom: 20px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .form-label {
             display: block;
             margin-bottom: 5px;
-            font-weight: 600;
-            color: #333;
+            font-weight: bold;
         }
 
-        .form-input {
+        .form-input, .form-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .btn {
             width: 100%;
             padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
+            border: none;
+            border-radius: 5px;
             font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #1565c0;
-            box-shadow: 0 0 0 3px rgba(21,101,192,0.1);
-        }
-
-        .form-select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1rem;
-            background: white;
             cursor: pointer;
+            margin-bottom: 10px;
         }
 
         .btn-primary {
-            width: 100%;
-            padding: 15px;
             background: #c0392b;
             color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 10px;
-        }
-
-        .btn-primary:hover {
-            background: #a03020;
-            transform: translateY(-2px);
         }
 
         .btn-secondary {
-            width: 100%;
-            padding: 12px;
             background: #e8f5e9;
             color: #2e7d32;
-            border: 2px solid #81c784;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-secondary:hover {
-            background: #c8e6c9;
+            border: 1px solid #4caf50;
         }
 
         .btn-contact {
-            width: 100%;
-            padding: 12px;
             background: #fff3cd;
             color: #856404;
-            border: 2px solid #ffc107;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 10px;
+            border: 1px solid #ffc107;
         }
 
-        .btn-contact:hover {
-            background: #ffe69c;
-        }
-
-        /* Notification */
         .notification {
             position: fixed;
             top: 20px;
             right: 20px;
             background: #4caf50;
             color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            z-index: 1000;
-            opacity: 0;
-            transform: translateX(100%);
-            transition: all 0.3s ease;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+            z-index: 2000;
         }
 
         .notification.show {
-            opacity: 1;
-            transform: translateX(0);
+            display: block;
         }
 
         .notification.error {
             background: #f44336;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .header-top {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .header-contact {
-                justify-content: center;
-            }
-
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 15px;
-            }
-
-            .stats-container {
-                flex-wrap: wrap;
-                gap: 15px;
-            }
-
-            .main-container {
-                margin: 20px auto;
-                padding: 0 15px;
+            .container {
+                padding: 0 10px;
             }
 
             .page {
-                padding: 20px;
+                padding: 15px;
             }
 
-            .modal {
+            .stats {
+                flex-direction: column;
+            }
+
+            .modal-content {
                 width: 95%;
                 padding: 20px;
-            }
-
-            .map-container {
-                padding: 10px;
             }
         }
     </style>
 </head>
 <body>
 
-<header class="main-header">
-    <div class="header-container">
-        <div class="header-top">
-            <div class="logo-section">
-                <div class="logo-icon">TC</div>
-                <div class="logo-text">
-                    <h1>Teachers Colony</h1>
-                    <div class="tagline">Premium Residential Plots in Machilipatnam</div>
-                </div>
-            </div>
-            
-            <div class="header-contact">
-                <div class="contact-item">
-                    <span class="contact-icon">✉️</span>
-                    <span class="contact-text">mahadevusomaraju@gmail.com</span>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-icon">💬</span>
-                    <a href="https://wa.me/16693062113" target="_blank" class="contact-link">+16693062113</a>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-icon">📍</span>
-                    <a href="https://maps.app.goo.gl/bNzYVPCLyYjtiE9e9" target="_blank" class="contact-link">Machilipatnam</a>
-                </div>
-            </div>
+<div class="header">
+    <h1>🏫 Teachers Colony</h1>
+    <p>Premium Residential Plots in Machilipatnam</p>
+    
+    <div class="stats">
+        <div class="stat-item">
+            <div class="stat-number" id="total-plots">175</div>
+            <div class="stat-label">Total Plots</div>
         </div>
-        
-        <nav class="header-nav">
-            <div class="nav-container">
-                <ul class="nav-links">
-                    <li><a href="#home">🏠 Home</a></li>
-                    <li><a href="#plots">📊 Plots</a></li>
-                    <li><a href="#documents">📄 Documents</a></li>
-                    <li><a href="#about">ℹ️ About</a></li>
-                    <li><a href="#gallery">🖼️ Gallery</a></li>
-                    <li><a href="#contact">📞 Contact</a></li>
-                </ul>
-            </div>
-        </nav>
-        
-        <div class="stats-bar">
-            <div class="stats-container">
-                <div class="stat-item">
-                    <div class="stat-number" id="total-plots">175</div>
-                    <div class="stat-label">Total Plots</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="owned-plots">0</div>
-                    <div class="stat-label">Registered</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="contacted-plots">0</div>
-                    <div class="stat-label">Contacted</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="available-plots">175</div>
-                    <div class="stat-label">Available</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="ownership-rate">0%</div>
-                    <div class="stat-label">Registration Rate</div>
-                </div>
-            </div>
+        <div class="stat-item">
+            <div class="stat-number" id="owned-plots">0</div>
+            <div class="stat-label">Registered</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" id="contacted-plots">0</div>
+            <div class="stat-label">Contacted</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" id="available-plots">175</div>
+            <div class="stat-label">Available</div>
         </div>
     </div>
-</header>
+</div>
 
-<div class="main-container">
+<div class="container">
     <div class="page">
-
-        <!-- HEADER -->
-        <div class="hdr">
-            <div class="compass">🧭</div>
-            <div class="badge">Teacher'S Colony</div>
-            <div class="sub1">Near Bye-pass Road · Pedana Road Cross</div>
-            <div class="sub2">Proposed House sites in</div>
-            <div class="sub3">Rs. No. 311 / 1, 2, 3</div>
-        </div>
-
-        <!-- MAP -->
         <div class="map-container">
-            <div class="outer">
-                <div class="outer-row">
-                    <div class="road-col left"><span>100 FEET PORT ROAD</span></div>
-                    <div class="map-col">
-                        <div style="display: table; width: 100%;">
-                            <div style="display: table-row;">
-                                <div style="display: table-cell; width: 47%; vertical-align: top;">
-                                    <!-- LEFT PLOTS -->
-                                    <!-- SOUTH: 160-166 -->
-                                    <div class="row2">
-                                        <div class="col2">
-                                            <div class="rl"><span class="rl-left">160—166</span><span class="rl-spacer"></span><span class="rl-right">SOUTH</span></div>
-                                            <table class="ptable"><tbody><tr id="r161"></tr><tr id="r160"></tr></tbody></table>
-                                            <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">160—155</span></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="road">— 30 FEET ROAD —</div>
-
-                                    <!-- 130-136 -->
-                                    <div class="row2">
-                                        <div class="col2">
-                                            <div class="rl"><span class="rl-left">130—136</span></div>
-                                            <table class="ptable"><tbody><tr id="r130"></tr><tr id="r129"></tr></tbody></table>
-                                            <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">129—123</span></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="road">— 40 FEET ROAD —</div>
-
-                                    <!-- 98-104 -->
-                                    <div class="row2">
-                                        <div class="col2">
-                                            <div class="rl"><span class="rl-left">98—104</span></div>
-                                            <table class="ptable"><tbody><tr id="r98"></tr><tr id="r97"></tr></tbody></table>
-                                            <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">97—91</span></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="road">— 40 FEET ROAD —</div>
-
-                                    <!-- 65-72 -->
-                                    <div class="row2">
-                                        <div class="col2">
-                                            <div class="rl"><span class="rl-left">65—72</span></div>
-                                            <table class="ptable"><tbody><tr id="r65"></tr><tr id="r64"></tr></tbody></table>
-                                            <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">64—57</span></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="road">— 40 FEET ROAD —</div>
-
-                                    <!-- 33-39 -->
-                                    <div class="row2">
-                                        <div class="col2">
-                                            <div class="rl"><span class="rl-left">33—39</span></div>
-                                            <table class="ptable"><tbody><tr id="r33"></tr><tr id="r32"></tr></tbody></table>
-                                            <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">32—26</span></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="road">— 30 FEET ROAD —</div>
-
-                                    <!-- 5-9 -->
-                                    <div class="row2">
-                                        <div class="col2">
-                                            <div class="rl"><span class="rl-left">5—9</span></div>
-                                            <table class="ptable"><tbody><tr id="r9"></tr></tbody></table>
-                                        </div>
-                                    </div>
-
-                                    <!-- 1-4 bottom right -->
-                                    <div style="text-align:right; margin-top:4px;">
-                                        <span class="rl-left" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">4—1</span>
-                                        <table class="ptable" style="width:180px; display:inline-table; margin-top:2px;">
-                                            <tbody><tr id="r1"></tr></tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                                <!-- CONTINUOUS CENTER ROAD -->
-                                <div class="road-col center"><span>40 FEET CENTER ROAD</span></div>
-
-                                <div style="display: table-cell; width: 47%; vertical-align: top;">
-                                    <!-- RIGHT PLOTS -->
-                                    <!-- 167-175 -->
-                                    <div class="row2">
-                                        <div class="col2">
-                                            <div class="rl"><span class="rl-left">167—175</span></div>
-                                            <table class="ptable"><tbody><tr id="r167"></tr><tr id="r154"></tr></tbody></table>
-                                            <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">154—146</span></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="road">— 30 FEET ROAD —</div>
-
-                                    <!-- 137-145 -->
-                                    <div class="row2">
-                                        <div class="col2">
-                                            <div class="rl"><span class="rl-left">137—145</span></div>
-                                            <table class="ptable"><tbody><tr id="r137"></tr><tr id="r122"></tr></tbody></table>
-                                            <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">122—114</span></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="road">— 40 FEET ROAD —</div>
-
-                                    <!-- 105-113 -->
-                                    <div class="row2">
-                                        <div class="col2">
-                                            <div class="rl"><span class="rl-left">105—113</span></div>
-                                            <table class="ptable"><tbody><tr id="r105"></tr><tr id="r90"></tr></tbody></table>
-                                            <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">90—82</span></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="road">— 40 FEET ROAD —</div>
-
-                                    <!-- 73-81 -->
-                                    <div class="row2">
-                                        <div class="col2">
-                                            <div class="rl"><span class="rl-left">73—81</span></div>
-                                            <table class="ptable"><tbody><tr id="r73"></tr><tr id="r56"></tr></tbody></table>
-                                            <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">56—48</span></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="road">— 40 FEET ROAD —</div>
-
-                                    <!-- 40-47 -->
-                                    <div class="row2">
-                                        <div class="col2">
-                                            <div class="rl"><span class="rl-left">40—47</span></div>
-                                            <table class="ptable"><tbody><tr id="r40"></tr><tr id="r25"></tr></tbody></table>
-                                            <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">25—18</span></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="road">— 30 FEET ROAD —</div>
-
-                                    <!-- 10-17 -->
-                                    <div class="row2">
-                                        <div class="col2">
-                                            <div class="rl"><span class="rl-left">10—17</span></div>
-                                            <table class="ptable"><tbody><tr id="r10"></tr><tr id="r17"></tr></tbody></table>
-                                            <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">17—23</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="road-col right"><span>100 FEET PORT ROAD</span></div>
-                </div>
-            </div>
-
-            <div class="bot-road">
-                100 FEET PORT ROAD
-            </div>
+            <table class="plot-table">
+                <tbody>
+                    <tr>
+                        <td onclick="openModal(1)" class="available"><span class="plot-number">1</span></td>
+                        <td onclick="openModal(2)" class="available"><span class="plot-number">2</span></td>
+                        <td onclick="openModal(3)" class="available"><span class="plot-number">3</span></td>
+                        <td onclick="openModal(4)" class="available"><span class="plot-number">4</span></td>
+                        <td onclick="openModal(5)" class="available"><span class="plot-number">5</span></td>
+                        <td onclick="openModal(6)" class="available"><span class="plot-number">6</span></td>
+                        <td onclick="openModal(7)" class="available"><span class="plot-number">7</span></td>
+                        <td onclick="openModal(8)" class="available"><span class="plot-number">8</span></td>
+                        <td onclick="openModal(9)" class="available"><span class="plot-number">9</span></td>
+                        <td onclick="openModal(10)" class="available"><span class="plot-number">10</span></td>
+                    </tr>
+                    <tr>
+                        <td onclick="openModal(11)" class="available"><span class="plot-number">11</span></td>
+                        <td onclick="openModal(12)" class="available"><span class="plot-number">12</span></td>
+                        <td onclick="openModal(13)" class="available"><span class="plot-number">13</span></td>
+                        <td onclick="openModal(14)" class="available"><span class="plot-number">14</span></td>
+                        <td onclick="openModal(15)" class="available"><span class="plot-number">15</span></td>
+                        <td onclick="openModal(16)" class="available"><span class="plot-number">16</span></td>
+                        <td onclick="openModal(17)" class="available"><span class="plot-number">17</span></td>
+                        <td onclick="openModal(18)" class="available"><span class="plot-number">18</span></td>
+                        <td onclick="openModal(19)" class="available"><span class="plot-number">19</span></td>
+                        <td onclick="openModal(20)" class="available"><span class="plot-number">20</span></td>
+                    </tr>
+                    <tr>
+                        <td onclick="openModal(21)" class="available"><span class="plot-number">21</span></td>
+                        <td onclick="openModal(22)" class="available"><span class="plot-number">22</span></td>
+                        <td onclick="openModal(23)" class="available"><span class="plot-number">23</span></td>
+                        <td onclick="openModal(24)" class="available"><span class="plot-number">24</span></td>
+                        <td onclick="openModal(25)" class="available"><span class="plot-number">25</span></td>
+                        <td onclick="openModal(26)" class="available"><span class="plot-number">26</span></td>
+                        <td onclick="openModal(27)" class="available"><span class="plot-number">27</span></td>
+                        <td onclick="openModal(28)" class="available"><span class="plot-number">28</span></td>
+                        <td onclick="openModal(29)" class="available"><span class="plot-number">29</span></td>
+                        <td onclick="openModal(30)" class="available"><span class="plot-number">30</span></td>
+                    </tr>
+                    <tr>
+                        <td onclick="openModal(31)" class="available"><span class="plot-number">31</span></td>
+                        <td onclick="openModal(32)" class="available"><span class="plot-number">32</span></td>
+                        <td onclick="openModal(33)" class="available"><span class="plot-number">33</span></td>
+                        <td onclick="openModal(34)" class="available"><span class="plot-number">34</span></td>
+                        <td onclick="openModal(35)" class="available"><span class="plot-number">35</span></td>
+                        <td onclick="openModal(36)" class="available"><span class="plot-number">36</span></td>
+                        <td onclick="openModal(37)" class="available"><span class="plot-number">37</span></td>
+                        <td onclick="openModal(38)" class="available"><span class="plot-number">38</span></td>
+                        <td onclick="openModal(39)" class="available"><span class="plot-number">39</span></td>
+                        <td onclick="openModal(40)" class="available"><span class="plot-number">40</span></td>
+                    </tr>
+                    <tr>
+                        <td onclick="openModal(41)" class="available"><span class="plot-number">41</span></td>
+                        <td onclick="openModal(42)" class="available"><span class="plot-number">42</span></td>
+                        <td onclick="openModal(43)" class="available"><span class="plot-number">43</span></td>
+                        <td onclick="openModal(44)" class="available"><span class="plot-number">44</span></td>
+                        <td onclick="openModal(45)" class="available"><span class="plot-number">45</span></td>
+                        <td onclick="openModal(46)" class="available"><span class="plot-number">46</span></td>
+                        <td onclick="openModal(47)" class="available"><span class="plot-number">47</span></td>
+                        <td onclick="openModal(48)" class="available"><span class="plot-number">48</span></td>
+                        <td onclick="openModal(49)" class="available"><span class="plot-number">49</span></td>
+                        <td onclick="openModal(50)" class="available"><span class="plot-number">50</span></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-
     </div>
 </div>
 
 <!-- Modal -->
-<div class="modal-overlay" id="modal">
-    <div class="modal">
+<div class="modal" id="plotModal">
+    <div class="modal-content">
         <button class="modal-close" onclick="closeModal()">&times;</button>
-        <div class="modal-title">Plot Registration</div>
-        <div class="modal-subtitle">Register Plot Information</div>
-        <div class="modal-plot" id="modal-plot">Plot #</div>
+        <h2 class="modal-title">Plot Registration</h2>
+        <p style="text-align: center; margin-bottom: 20px; color: #666;">Plot #<span id="plotNumber"></span></p>
         
-        <form id="plot-form">
+        <form id="registrationForm">
             <div class="form-group">
-                <label class="form-label" for="reg-name">Owner Name *</label>
-                <input type="text" id="reg-name" class="form-input" placeholder="Enter owner name" required>
+                <label class="form-label">Owner Name *</label>
+                <input type="text" id="ownerName" class="form-input" placeholder="Enter owner name" required>
             </div>
             
             <div class="form-group">
-                <label class="form-label" for="reg-mobile">Primary Mobile *</label>
-                <input type="tel" id="reg-mobile" class="form-input" placeholder="Enter mobile number" required>
+                <label class="form-label">Primary Mobile *</label>
+                <input type="tel" id="primaryMobile" class="form-input" placeholder="Enter mobile number" required>
             </div>
             
             <div class="form-group">
-                <label class="form-label" for="reg-alt-mobile">Alternative Mobile</label>
-                <input type="tel" id="reg-alt-mobile" class="form-input" placeholder="Enter alternative mobile">
+                <label class="form-label">Alternative Mobile</label>
+                <input type="tel" id="alternativeMobile" class="form-input" placeholder="Enter alternative mobile">
             </div>
             
             <div class="form-group">
-                <label class="form-label" for="reg-size">Plot Size *</label>
-                <select id="reg-size" class="form-select" required>
+                <label class="form-label">Plot Size *</label>
+                <select id="plotSize" class="form-select" required>
                     <option value="">Select plot size</option>
                     <option value="167 Sq. Yards">167 Sq. Yards</option>
                     <option value="200 Sq. Yards">200 Sq. Yards</option>
                     <option value="250 Sq. Yards">250 Sq. Yards</option>
                     <option value="300 Sq. Yards">300 Sq. Yards</option>
-                    <option value="Other">Other</option>
                 </select>
             </div>
             
-            <button type="submit" class="btn-primary">📝 Save Registration</button>
-            <button type="button" class="btn-contact" onclick="markAsContacted()">📞 Mark as Contacted</button>
-            <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary">📝 Save Registration</button>
+            <button type="button" class="btn btn-contact" onclick="markAsContacted()">📞 Mark as Contacted</button>
+            <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
         </form>
     </div>
 </div>
@@ -934,14 +406,14 @@
 <script>
 // Global variables
 let plotDatabase = [];
-let currentPlot = null;
+let currentPlotNumber = null;
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Teachers Colony Application Initialized');
     loadFromLocalStorage();
-    initializePlots();
-    updateHeaderStats();
+    updateStatistics();
+    renderPlots();
 });
 
 // Load data from localStorage
@@ -956,7 +428,39 @@ function loadFromLocalStorage() {
             plotDatabase = [];
         }
     } else {
-        console.log('No saved data found, starting fresh');
+        console.log('No saved data found, adding sample data');
+        // Add sample data for demonstration
+        plotDatabase = [
+            {
+                'Plot Number': '1',
+                'Owner Name': 'John Doe',
+                'Primary Mobile': '+919876543210',
+                'Alternative Mobile': '+919876543211',
+                'Plot Size': '167 Sq. Yards',
+                'Status': 'owned',
+                'Registration Date': new Date().toLocaleDateString()
+            },
+            {
+                'Plot Number': '5',
+                'Owner Name': 'Jane Smith',
+                'Primary Mobile': '+919876543212',
+                'Alternative Mobile': '',
+                'Plot Size': '200 Sq. Yards',
+                'Status': 'owned',
+                'Registration Date': new Date().toLocaleDateString()
+            },
+            {
+                'Plot Number': '10',
+                'Owner Name': 'Contacted Lead',
+                'Primary Mobile': '+919876543213',
+                'Alternative Mobile': '',
+                'Plot Size': '167 Sq. Yards',
+                'Status': 'contacted',
+                'Registration Date': new Date().toLocaleDateString()
+            }
+        ];
+        // Save sample data to localStorage
+        saveToLocalStorage();
     }
 }
 
@@ -972,109 +476,86 @@ function saveToLocalStorage() {
     }
 }
 
-// Initialize plots
-function initializePlots() {
-    // Fill all plot rows
-    fill('r161', [161,162,163,164,165,166]);
-    fill('r160', [160,159,158,157,156,155]);
-    fill('r167', [167,168,169,170,171,172,173,174,175]);
-    fill('r154', [154,153,152,151,150,149,148,147,146]);
-    fill('r130', [130,131,132,133,134,135,136]);
-    fill('r129', [129,128,127,126,125,124,123]);
-    fill('r137', [137,138,139,140,141,142,143,144,145]);
-    fill('r122', [122,121,120,119,118,117,116,115,114]);
-    fill('r98', [98,99,100,101,102,103,104]);
-    fill('r97', [97,96,95,94,93,92,91]);
-    fill('r105', [105,106,107,108,109,110,111,112,113]);
-    fill('r90', [90,89,88,87,86,85,84,83,82]);
-    fill('r65', [65,66,67,68,69,70,71,72]);
-    fill('r64', [64,63,62,61,60,59,58,57]);
-    fill('r73', [73,74,75,76,77,78,79,80,81]);
-    fill('r56', [56,55,54,53,52,51,50,49,48]);
-    fill('r33', [33,34,35,36,37,38,39]);
-    fill('r32', [32,31,30,29,28,27,26]);
-    fill('r40', [40,41,42,43,44,45,46,47]);
-    fill('r25', [25,24,23,22,21,20,19,18]);
-    fill('r9', [9,8,7,6,5]);
-    fill('r10', [10,11,12,13,14,15,16,17]);
-    fill('r1', [4,3,2,1]);
-}
-
-// Fill plot cells
-function fill(rowId, plotNumbers) {
-    const row = document.getElementById(rowId);
-    if (!row) return;
+// Render plots on the map
+function renderPlots() {
+    const plotElements = document.querySelectorAll('.plot-table td');
     
-    let html = '';
-    plotNumbers.forEach(plotNum => {
-        const plotData = plotDatabase.find(p => p['Plot Number'] == plotNum);
-        let status = 'available';
-        let ownerName = '';
-        let mobile = '';
+    plotElements.forEach(td => {
+        const plotNumber = td.querySelector('.plot-number');
+        if (!plotNumber) return;
+        
+        const plotNum = parseInt(plotNumber.textContent);
+        const plotData = plotDatabase.find(p => parseInt(p['Plot Number']) === plotNum);
+        
+        // Remove existing classes
+        td.classList.remove('owned', 'contacted', 'available');
         
         if (plotData) {
-            status = plotData['Status'];
-            ownerName = plotData['Owner Name'];
-            mobile = plotData['Primary Mobile'];
+            if (plotData['Status'] === 'owned') {
+                td.classList.add('owned');
+                // Add owner name
+                let ownerSpan = td.querySelector('.owner-name');
+                if (!ownerSpan) {
+                    ownerSpan = document.createElement('span');
+                    ownerSpan.className = 'owner-name';
+                    td.appendChild(ownerSpan);
+                }
+                ownerSpan.textContent = plotData['Owner Name'];
+            } else if (plotData['Status'] === 'contacted') {
+                td.classList.add('contacted');
+                // Add contacted status
+                let contactSpan = td.querySelector('.contacted-status');
+                if (!contactSpan) {
+                    contactSpan = document.createElement('span');
+                    contactSpan.className = 'contacted-status';
+                    td.appendChild(contactSpan);
+                }
+                contactSpan.textContent = 'Contacted';
+            }
+        } else {
+            td.classList.add('available');
         }
-        
-        html += `<td class="${status}" onclick="openModal(${plotNum})">
-            <span class="pn">${plotNum}</span>`;
-        
-        if (ownerName) {
-            html += `<span class="po">${ownerName}</span>`;
-        }
-        
-        if (mobile && status === 'contacted') {
-            html += `<span class="pc">Contacted</span>`;
-        }
-        
-        html += `</td>`;
     });
-    
-    row.innerHTML = html;
 }
 
-// Update header statistics
-function updateHeaderStats() {
+// Update statistics
+function updateStatistics() {
     const totalPlots = 175;
     const ownedPlots = plotDatabase.filter(p => p['Status'] === 'owned').length;
     const contactedPlots = plotDatabase.filter(p => p['Status'] === 'contacted').length;
     const availablePlots = totalPlots - ownedPlots - contactedPlots;
-    const ownershipRate = ((ownedPlots / totalPlots) * 100).toFixed(1);
     
     document.getElementById('total-plots').textContent = totalPlots;
     document.getElementById('owned-plots').textContent = ownedPlots;
     document.getElementById('contacted-plots').textContent = contactedPlots;
     document.getElementById('available-plots').textContent = availablePlots;
-    document.getElementById('ownership-rate').textContent = ownershipRate + '%';
     
-    console.log(`Stats updated: ${ownedPlots} owned, ${contactedPlots} contacted, ${availablePlots} available (${ownershipRate}% ownership)`);
+    console.log(`Stats updated: ${ownedPlots} owned, ${contactedPlots} contacted, ${availablePlots} available`);
 }
 
 // Open modal
 function openModal(plotNumber) {
-    currentPlot = plotNumber;
-    document.getElementById('modal-plot').textContent = `Plot #${plotNumber}`;
-    document.getElementById('modal').classList.add('open');
+    currentPlotNumber = plotNumber;
+    document.getElementById('plotNumber').textContent = plotNumber;
+    document.getElementById('plotModal').classList.add('show');
     
     // Clear form
-    document.getElementById('plot-form').reset();
+    document.getElementById('registrationForm').reset();
     
     // Check if plot is already registered
-    const existingData = plotDatabase.find(p => p['Plot Number'] == plotNumber);
+    const existingData = plotDatabase.find(p => parseInt(p['Plot Number']) === plotNumber);
     if (existingData) {
-        document.getElementById('reg-name').value = existingData['Owner Name'] || '';
-        document.getElementById('reg-mobile').value = existingData['Primary Mobile'] || '';
-        document.getElementById('reg-alt-mobile').value = existingData['Alternative Mobile'] || '';
-        document.getElementById('reg-size').value = existingData['Plot Size'] || '';
+        document.getElementById('ownerName').value = existingData['Owner Name'] || '';
+        document.getElementById('primaryMobile').value = existingData['Primary Mobile'] || '';
+        document.getElementById('alternativeMobile').value = existingData['Alternative Mobile'] || '';
+        document.getElementById('plotSize').value = existingData['Plot Size'] || '';
     }
 }
 
 // Close modal
 function closeModal() {
-    document.getElementById('modal').classList.remove('open');
-    currentPlot = null;
+    document.getElementById('plotModal').classList.remove('show');
+    currentPlotNumber = null;
 }
 
 // Show notification
@@ -1092,38 +573,36 @@ function showNotification(message, type = 'success') {
 }
 
 // Handle form submission
-document.getElementById('plot-form').addEventListener('submit', function(e) {
+document.getElementById('registrationForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    const name = document.getElementById('reg-name').value;
-    const mobile = document.getElementById('reg-mobile').value;
-    const altMobile = document.getElementById('reg-alt-mobile').value;
-    const plotSize = document.getElementById('reg-size').value;
+    const ownerName = document.getElementById('ownerName').value;
+    const primaryMobile = document.getElementById('primaryMobile').value;
+    const alternativeMobile = document.getElementById('alternativeMobile').value;
+    const plotSize = document.getElementById('plotSize').value;
     
-    if (!name || !mobile || !plotSize) {
+    if (!ownerName || !primaryMobile || !plotSize) {
         showNotification('Please fill in all required fields', 'error');
         return;
     }
     
     // Format mobile numbers
-    const formattedMobile = mobile.startsWith('+91') ? mobile : `+91${mobile}`;
-    const formattedAltMobile = altMobile ? (altMobile.startsWith('+91') ? altMobile : `+91${altMobile}`) : '';
+    const formattedMobile = primaryMobile.startsWith('+91') ? primaryMobile : `+91${primaryMobile}`;
+    const formattedAltMobile = alternativeMobile ? (alternativeMobile.startsWith('+91') ? alternativeMobile : `+91${alternativeMobile}`) : '';
     
     // Create registration record
     const registration = {
-        'Plot Number': currentPlot,
-        'Owner Name': name,
+        'Plot Number': currentPlotNumber.toString(),
+        'Owner Name': ownerName,
         'Primary Mobile': formattedMobile,
         'Alternative Mobile': formattedAltMobile,
         'Plot Size': plotSize,
         'Status': 'owned',
-        'Registration Date': new Date().toLocaleDateString(),
-        'Colony': 'Teachers Colony',
-        'Location': 'Machilipatnam'
+        'Registration Date': new Date().toLocaleDateString()
     };
     
     // Remove existing record for this plot if it exists
-    plotDatabase = plotDatabase.filter(p => p['Plot Number'] != currentPlot);
+    plotDatabase = plotDatabase.filter(p => parseInt(p['Plot Number']) !== currentPlotNumber);
     
     // Add new record
     plotDatabase.push(registration);
@@ -1132,36 +611,34 @@ document.getElementById('plot-form').addEventListener('submit', function(e) {
     saveToLocalStorage();
     
     // Refresh display
-    initializePlots();
-    updateHeaderStats();
+    renderPlots();
+    updateStatistics();
     
-    showNotification(`Registration successful for Plot ${currentPlot}!`, 'success');
+    showNotification(`Registration successful for Plot ${currentPlotNumber}!`, 'success');
     closeModal();
 });
 
 // Mark as contacted
 function markAsContacted() {
-    const name = document.getElementById('reg-name').value || 'Contacted Lead';
-    const mobile = document.getElementById('reg-mobile').value || '0000000000';
+    const ownerName = document.getElementById('ownerName').value || 'Contacted Lead';
+    const primaryMobile = document.getElementById('primaryMobile').value || '0000000000';
     
     // Format mobile number
-    const formattedMobile = mobile.startsWith('+91') ? mobile : `+91${mobile}`;
+    const formattedMobile = primaryMobile.startsWith('+91') ? primaryMobile : `+91${primaryMobile}`;
     
     // Create contacted record
     const contacted = {
-        'Plot Number': currentPlot,
-        'Owner Name': name,
+        'Plot Number': currentPlotNumber.toString(),
+        'Owner Name': ownerName,
         'Primary Mobile': formattedMobile,
         'Alternative Mobile': '',
         'Plot Size': '167 Sq. Yards',
         'Status': 'contacted',
-        'Registration Date': new Date().toLocaleDateString(),
-        'Colony': 'Teachers Colony',
-        'Location': 'Machilipatnam'
+        'Registration Date': new Date().toLocaleDateString()
     };
     
     // Remove existing record for this plot if it exists
-    plotDatabase = plotDatabase.filter(p => p['Plot Number'] != currentPlot);
+    plotDatabase = plotDatabase.filter(p => parseInt(p['Plot Number']) !== currentPlotNumber);
     
     // Add contacted record
     plotDatabase.push(contacted);
@@ -1170,10 +647,10 @@ function markAsContacted() {
     saveToLocalStorage();
     
     // Refresh display
-    initializePlots();
-    updateHeaderStats();
+    renderPlots();
+    updateStatistics();
     
-    showNotification(`Plot ${currentPlot} marked as contacted!`, 'success');
+    showNotification(`Plot ${currentPlotNumber} marked as contacted!`, 'success');
     closeModal();
 }
 
@@ -1185,9 +662,9 @@ function exportData() {
     }
     
     // Create CSV content
-    let csvContent = 'Plot Number,Owner Name,Primary Mobile,Alternative Mobile,Plot Size,Status,Registration Date,Colony,Location\n';
+    let csvContent = 'Plot Number,Owner Name,Primary Mobile,Alternative Mobile,Plot Size,Status,Registration Date\n';
     plotDatabase.forEach(record => {
-        csvContent += `${record['Plot Number'] || ''},"${record['Owner Name'] || ''}",${record['Primary Mobile'] || ''},${record['Alternative Mobile'] || ''},"${record['Plot Size'] || ''}",${record['Status'] || ''},${record['Registration Date'] || ''},${record['Colony'] || ''},${record['Location'] || ''}\n`;
+        csvContent += `${record['Plot Number'] || ''},"${record['Owner Name'] || ''}",${record['Primary Mobile'] || ''},${record['Alternative Mobile'] || ''},"${record['Plot Size'] || ''}",${record['Status'] || ''},${record['Registration Date'] || ''}\n`;
     });
     
     // Create blob and download
@@ -1206,38 +683,17 @@ function exportData() {
 
 // Add export button to header
 document.addEventListener('DOMContentLoaded', function() {
-    const headerNav = document.querySelector('.nav-links');
-    if (headerNav) {
-        const exportLi = document.createElement('li');
-        exportLi.innerHTML = '<a href="#" onclick="exportData(); return false;">📊 Export</a>';
-        headerNav.appendChild(exportLi);
-    }
+    const header = document.querySelector('.header');
+    const exportBtn = document.createElement('button');
+    exportBtn.textContent = '📊 Export Data';
+    exportBtn.className = 'btn btn-secondary';
+    exportBtn.style.margin = '10px';
+    exportBtn.onclick = exportData;
+    header.appendChild(exportBtn);
 });
 
-// Clear data function
-function clearData() {
-    if (confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
-        plotDatabase = [];
-        localStorage.removeItem('plotDatabase');
-        initializePlots();
-        updateHeaderStats();
-        showNotification('All data cleared successfully', 'success');
-    }
-}
-
-// Add clear button to header
-document.addEventListener('DOMContentLoaded', function() {
-    const headerNav = document.querySelector('.nav-links');
-    if (headerNav) {
-        const clearLi = document.createElement('li');
-        clearLi.innerHTML = '<a href="#" onclick="clearData(); return false;">🗑️ Clear</a>';
-        headerNav.appendChild(clearLi);
-    }
-});
-
-console.log('Teachers Colony Application - Local Storage Version');
-console.log('Features: Plot registration, contact tracking, data export');
-console.log('Storage: Browser localStorage (persistent on same device)');
+console.log('Teachers Colony Application - Final Working Version');
+console.log('Features: Plot registration, contact tracking, data export, local storage');
 </script>
 
 </body>
