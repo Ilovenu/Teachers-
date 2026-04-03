@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teachers Colony Plot Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
+        /* General Styles */
         * {
             margin: 0;
             padding: 0;
@@ -12,74 +16,217 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'DM Sans', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: #333;
         }
 
-        .header {
+        /* Header Styles */
+        .main-header {
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
-            padding: 20px;
-            text-align: center;
+            padding: 20px 0;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        .header p {
-            font-size: 1.1rem;
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #1e3c72;
+            box-shadow: 0 4px 15px rgba(255,215,0,0.3);
+        }
+
+        .logo-text h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .logo-text .tagline {
+            font-size: 14px;
             opacity: 0.9;
+            font-style: italic;
         }
 
-        .stats {
+        .header-contact {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             background: rgba(255,255,255,0.1);
-            padding: 15px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .contact-icon {
+            font-size: 16px;
+        }
+
+        .contact-text, .contact-link {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .stats-bar {
+            background: rgba(255,255,255,0.1);
+            padding: 15px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .stats-container {
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 20px;
         }
 
         .stat-item {
             text-align: center;
             background: rgba(255,255,255,0.1);
-            padding: 10px 20px;
-            border-radius: 10px;
+            padding: 15px 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
         }
 
         .stat-number {
-            font-size: 1.5rem;
-            font-weight: bold;
+            font-size: 24px;
+            font-weight: 700;
             margin-bottom: 5px;
         }
 
         .stat-label {
-            font-size: 0.9rem;
+            font-size: 12px;
             opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .container {
+        /* Main Container */
+        .main-container {
             max-width: 1200px;
-            margin: 20px auto;
+            margin: 40px auto;
             padding: 0 20px;
         }
 
         .page {
             background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
+        /* Header */
+        .hdr {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .compass {
+            position: absolute;
+            left: 10px;
+            top: 0;
+            font-size: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #c0392b;
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 10px 30px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .sub1 {
+            font-size: 0.9rem;
+            color: #c0392b;
+            margin-bottom: 5px;
+        }
+
+        .sub2 {
+            color: #1a3a6e;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .sub3 {
+            color: #1a3a6e;
+            font-size: 1rem;
+        }
+
+        /* Map Container */
         .map-container {
             background: #f8f9fa;
-            border-radius: 10px;
-            padding: 15px;
+            border-radius: 15px;
+            padding: 20px;
             overflow-x: auto;
         }
 
@@ -261,162 +408,314 @@
             border-radius: 0 0 15px 15px;
         }
 
-        .modal {
+        /* Modal Styles */
+        .modal-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 999;
             align-items: center;
             justify-content: center;
         }
 
-        .modal.show {
+        .modal-overlay.open {
             display: flex;
         }
 
-        .modal-content {
+        .modal {
             background: white;
+            border-radius: 20px;
             padding: 30px;
-            border-radius: 15px;
             width: 90%;
             max-width: 400px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
             position: relative;
         }
 
         .modal-close {
             position: absolute;
-            top: 10px;
+            top: 15px;
             right: 15px;
             background: none;
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
+            color: #888;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: #f0f0f0;
         }
 
         .modal-title {
-            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
             color: #c0392b;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .modal-subtitle {
+            font-size: 0.9rem;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-plot {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1565c0;
             text-align: center;
             margin-bottom: 20px;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .form-label {
             display: block;
             margin-bottom: 5px;
-            font-weight: bold;
+            font-weight: 600;
+            color: #333;
         }
 
-        .form-input, .form-select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        .btn {
+        .form-input {
             width: 100%;
             padding: 12px;
-            border: none;
-            border-radius: 5px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
             font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #1565c0;
+            box-shadow: 0 0 0 3px rgba(21,101,192,0.1);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: white;
             cursor: pointer;
-            margin-bottom: 10px;
         }
 
         .btn-primary {
+            width: 100%;
+            padding: 15px;
             background: #c0392b;
             color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        .btn-primary:hover {
+            background: #a03020;
+            transform: translateY(-2px);
         }
 
         .btn-secondary {
+            width: 100%;
+            padding: 12px;
             background: #e8f5e9;
             color: #2e7d32;
-            border: 1px solid #4caf50;
+            border: 2px solid #81c784;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         .btn-contact {
+            width: 100%;
+            padding: 12px;
             background: #fff3cd;
             color: #856404;
-            border: 1px solid #ffc107;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
         }
 
+        .btn-contact:hover {
+            background: #ffe69c;
+        }
+
+        /* Notification */
         .notification {
             position: fixed;
             top: 20px;
             right: 20px;
             background: #4caf50;
             color: white;
-            padding: 15px;
-            border-radius: 5px;
-            display: none;
-            z-index: 2000;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
         }
 
         .notification.show {
-            display: block;
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .notification.error {
             background: #f44336;
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 0 10px;
+            .header-top {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .header-contact {
+                justify-content: center;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .stats-container {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .main-container {
+                margin: 20px auto;
+                padding: 0 15px;
             }
 
             .page {
-                padding: 15px;
+                padding: 20px;
             }
 
-            .stats {
-                flex-direction: column;
-            }
-
-            .modal-content {
+            .modal {
                 width: 95%;
                 padding: 20px;
+            }
+
+            .map-container {
+                padding: 10px;
             }
         }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <h1>🏫 Teachers Colony</h1>
-    <p>Premium Residential Plots in Machilipatnam</p>
-    
-    <div class="stats">
-        <div class="stat-item">
-            <div class="stat-number" id="total-plots">175</div>
-            <div class="stat-label">Total Plots</div>
+<header class="main-header">
+    <div class="header-container">
+        <div class="header-top">
+            <div class="logo-section">
+                <div class="logo-icon">TC</div>
+                <div class="logo-text">
+                    <h1>Teachers Colony</h1>
+                    <div class="tagline">Premium Residential Plots in Machilipatnam</div>
+                </div>
+            </div>
+            
+            <div class="header-contact">
+                <div class="contact-item">
+                    <span class="contact-icon">✉️</span>
+                    <span class="contact-text">mahadevusomaraju@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">💬</span>
+                    <a href="https://wa.me/16693062113" target="_blank" class="contact-link">+16693062113</a>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📍</span>
+                    <a href="https://maps.app.goo.gl/bNzYVPCLyYjtiE9e9" target="_blank" class="contact-link">Machilipatnam</a>
+                </div>
+            </div>
         </div>
-        <div class="stat-item">
-            <div class="stat-number" id="owned-plots">0</div>
-            <div class="stat-label">Registered</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number" id="contacted-plots">0</div>
-            <div class="stat-label">Contacted</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number" id="available-plots">175</div>
-            <div class="stat-label">Available</div>
+        
+        <nav class="header-nav">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="#home">🏠 Home</a></li>
+                    <li><a href="#plots">📊 Plots</a></li>
+                    <li><a href="#documents">📄 Documents</a></li>
+                    <li><a href="#about">ℹ️ About</a></li>
+                    <li><a href="#gallery">🖼️ Gallery</a></li>
+                    <li><a href="#contact">📞 Contact</a></li>
+                    <li><a href="#" onclick="api.refreshFromGitHub(); return false;">🔄 Refresh</a></li>
+                    <li><a href="#" onclick="openTokenModal(); return false;" style="background: #ff9800;">🔑 Fix Token</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+        <div class="stats-bar">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number" id="total-plots">175</div>
+                    <div class="stat-label">Total Plots</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="owned-plots">0</div>
+                    <div class="stat-label">Registered</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="contacted-plots">0</div>
+                    <div class="stat-label">Contacted</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="available-plots">175</div>
+                    <div class="stat-label">Available</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="ownership-rate">0%</div>
+                    <div class="stat-label">Registration Rate</div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</header>
 
-<div class="container">
+<div class="main-container">
     <div class="page">
+
+        <!-- HEADER -->
+        <div class="hdr">
+            <div class="compass">🧭</div>
+            <div class="badge">Teacher'S Colony</div>
+            <div class="sub1">Near Bye-pass Road · Pedana Road Cross</div>
+            <div class="sub2">Proposed House sites in</div>
+            <div class="sub3">Rs. No. 311 / 1, 2, 3</div>
+        </div>
+
         <!-- MAP -->
         <div class="map-container">
             <div class="outer">
@@ -579,35 +878,67 @@
                 100 FEET PORT ROAD
             </div>
         </div>
+
+    </div>
+</div>
+
+<!-- Token Update Modal -->
+<div class="modal-overlay" id="token-modal">
+    <div class="modal">
+        <button class="modal-close" onclick="closeTokenModal()">&times;</button>
+        <div class="modal-title">Update GitHub Token</div>
+        <div class="modal-subtitle">Enter your GitHub Personal Access Token</div>
+        
+        <form id="token-form">
+            <div class="form-group">
+                <label class="form-label" for="github-token">GitHub Token *</label>
+                <input type="text" id="github-token" class="form-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" required>
+                <small style="color: #666; font-size: 0.8rem; margin-top: 5px; display: block;">
+                    Get token from: github.com/settings/tokens → Generate new token → gist scope
+                </small>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="gist-id">Gist ID (optional)</label>
+                <input type="text" id="gist-id" class="form-input" placeholder="5397a86680129b2d3534059577f8865c">
+                <small style="color: #666; font-size: 0.8rem; margin-top: 5px; display: block;">
+                    Leave blank to use current Gist ID
+                </small>
+            </div>
+            
+            <button type="submit" class="btn-primary">🔑 Update Token</button>
+            <button type="button" class="btn-secondary" onclick="closeTokenModal()">Cancel</button>
+        </form>
     </div>
 </div>
 
 <!-- Modal -->
-<div class="modal" id="plotModal">
-    <div class="modal-content">
-        <button class="modal-close" onclick="closeModal()">&times;</button>
-        <h2 class="modal-title">Plot Registration</h2>
-        <p style="text-align: center; margin-bottom: 20px; color: #666;">Plot #<span id="plotNumber"></span></p>
+<div class="modal-overlay" id="modal">
+    <div class="modal">
+        <button class="modal-close" onclick="api.closeModal()">&times;</button>
+        <div class="modal-title">Plot Registration</div>
+        <div class="modal-subtitle">Register Plot Information</div>
+        <div class="modal-plot" id="modal-plot">Plot #</div>
         
-        <form id="registrationForm">
+        <form id="plot-form">
             <div class="form-group">
-                <label class="form-label">Owner Name *</label>
-                <input type="text" id="ownerName" class="form-input" placeholder="Enter owner name" required>
+                <label class="form-label" for="reg-name">Owner Name *</label>
+                <input type="text" id="reg-name" class="form-input" placeholder="Enter owner name" required>
             </div>
             
             <div class="form-group">
-                <label class="form-label">Primary Mobile *</label>
-                <input type="tel" id="primaryMobile" class="form-input" placeholder="Enter mobile number" required>
+                <label class="form-label" for="reg-mobile">Primary Mobile *</label>
+                <input type="tel" id="reg-mobile" class="form-input" placeholder="Enter mobile number" required>
             </div>
             
             <div class="form-group">
-                <label class="form-label">Alternative Mobile</label>
-                <input type="tel" id="alternativeMobile" class="form-input" placeholder="Enter alternative mobile">
+                <label class="form-label" for="reg-alt-mobile">Alternative Mobile</label>
+                <input type="tel" id="reg-alt-mobile" class="form-input" placeholder="Enter alternative mobile">
             </div>
             
             <div class="form-group">
-                <label class="form-label">Plot Size *</label>
-                <select id="plotSize" class="form-select" required>
+                <label class="form-label" for="reg-size">Plot Size *</label>
+                <select id="reg-size" class="form-select" required>
                     <option value="">Select plot size</option>
                     <option value="167 Sq. Yards">167 Sq. Yards</option>
                     <option value="200 Sq. Yards">200 Sq. Yards</option>
@@ -616,9 +947,9 @@
                 </select>
             </div>
             
-            <button type="submit" class="btn btn-primary">📝 Save Registration</button>
-            <button type="button" class="btn btn-contact" onclick="markAsContacted()">📞 Mark as Contacted</button>
-            <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+            <button type="submit" class="btn-primary">📝 Save Registration</button>
+            <button type="button" class="btn-contact" onclick="handleMarkAsContacted()">📞 Mark as Contacted</button>
+            <button type="button" class="btn-secondary" onclick="api.closeModal()">Cancel</button>
         </form>
     </div>
 </div>
@@ -626,447 +957,114 @@
 <!-- Notification -->
 <div class="notification" id="notification"></div>
 
+<!-- Load Configuration and API -->
+<script src="config.js"></script>
+<script src="api.js"></script>
+
 <script>
-// Global variables
-let plotDatabase = [];
-let currentPlotNumber = null;
-
-// Initialize the application
+// Initialize application
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Teachers Colony Application Initialized');
-    loadFromLocalStorage();
-    updateStatistics();
-    initializePlots();
+    console.log('Teachers Colony Application - Best Model Version');
+    
+    // Add export button to navigation
+    const headerNav = document.querySelector('.nav-links');
+    if (headerNav) {
+        const exportLi = document.createElement('li');
+        exportLi.innerHTML = '<a href="#" onclick="api.exportData(); return false;">📊 Export</a>';
+        headerNav.appendChild(exportLi);
+    }
+    
+    // Handle form submission
+    document.getElementById('plot-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = {
+            ownerName: document.getElementById('reg-name').value,
+            primaryMobile: document.getElementById('reg-mobile').value,
+            alternativeMobile: document.getElementById('reg-alt-mobile').value,
+            plotSize: document.getElementById('reg-size').value
+        };
+        
+        await api.handleRegistrationSubmit(formData);
+    });
+    
+    // Handle mark as contacted
+    window.handleMarkAsContacted = async function() {
+        const formData = {
+            ownerName: document.getElementById('reg-name').value,
+            primaryMobile: document.getElementById('reg-mobile').value
+        };
+        
+        await api.markAsContacted(formData);
+    };
+    
+    // Handle token form submission
+    document.getElementById('token-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const newToken = document.getElementById('github-token').value;
+        const newGistId = document.getElementById('gist-id').value;
+        
+        // Update configuration
+        if (newToken) {
+            CONFIG.GITHUB.token = newToken;
+        }
+        
+        if (newGistId) {
+            CONFIG.GITHUB.gistId = newGistId;
+        }
+        
+        // Save to localStorage for persistence
+        localStorage.setItem('github_token', newToken);
+        if (newGistId) {
+            localStorage.setItem('gist_id', newGistId);
+        }
+        
+        // Update API instance
+        window.api = new TeachersColonyAPI();
+        
+        // Test the new token
+        api.showNotification('Testing new GitHub token...', 'info');
+        const success = await api.loadFromSharedStorage();
+        
+        if (success) {
+            closeTokenModal();
+            api.showNotification('GitHub token updated successfully!', 'success');
+        } else {
+            api.showNotification('Token update failed. Please check your token.', 'error');
+        }
+    });
 });
 
-// Initialize plots
-function initializePlots() {
-    // Fill all plot rows
-    fill('r161', [161,162,163,164,165,166]);
-    fill('r160', [160,159,158,157,156,155]);
-    fill('r167', [167,168,169,170,171,172,173,174,175]);
-    fill('r154', [154,153,152,151,150,149,148,147,146]);
-    fill('r130', [130,131,132,133,134,135,136]);
-    fill('r129', [129,128,127,126,125,124,123]);
-    fill('r137', [137,138,139,140,141,142,143,144,145]);
-    fill('r122', [122,121,120,119,118,117,116,115,114]);
-    fill('r98', [98,99,100,101,102,103,104]);
-    fill('r97', [97,96,95,94,93,92,91]);
-    fill('r105', [105,106,107,108,109,110,111,112,113]);
-    fill('r90', [90,89,88,87,86,85,84,83,82]);
-    fill('r65', [65,66,67,68,69,70,71,72]);
-    fill('r64', [64,63,62,61,60,59,58,57]);
-    fill('r73', [73,74,75,76,77,78,79,80,81]);
-    fill('r56', [56,55,54,53,52,51,50,49,48]);
-    fill('r33', [33,34,35,36,37,38,39]);
-    fill('r32', [32,31,30,29,28,27,26]);
-    fill('r40', [40,41,42,43,44,45,46,47]);
-    fill('r25', [25,24,23,22,21,20,19,18]);
-    fill('r9', [9,8,7,6,5]);
-    fill('r10', [10,11,12,13,14,15,16,17]);
-    fill('r1', [4,3,2,1]);
-}
-
-// Fill plot cells
-function fill(rowId, plotNumbers) {
-    const row = document.getElementById(rowId);
-    if (!row) return;
+// Token modal functions
+function openTokenModal() {
+    document.getElementById('token-modal').classList.add('open');
     
-    let html = '';
-    plotNumbers.forEach(plotNum => {
-        const plotData = plotDatabase.find(p => p['Plot Number'] == plotNum);
-        let status = 'available';
-        let ownerName = '';
-        let mobile = '';
-        
-        if (plotData) {
-            status = plotData['Status'];
-            ownerName = plotData['Owner Name'];
-            mobile = plotData['Primary Mobile'];
-        }
-        
-        html += `<td class="${status}" onclick="openModal(${plotNum})">
-            <span class="pn">${plotNum}</span>`;
-        
-        if (ownerName) {
-            html += `<span class="po">${ownerName}</span>`;
-        }
-        
-        if (mobile && status === 'contacted') {
-            html += `<span class="pc">Contacted</span>`;
-        }
-        
-        html += `</td>`;
-    });
+    // Pre-fill current values
+    const currentToken = localStorage.getItem('github_token') || CONFIG.GITHUB.token;
+    const currentGistId = localStorage.getItem('gist_id') || CONFIG.GITHUB.gistId;
     
-    row.innerHTML = html;
+    document.getElementById('github-token').value = currentToken;
+    document.getElementById('gist-id').value = currentGistId;
 }
 
-// Render plots on the map (refresh existing plots)
-function renderPlots() {
-    initializePlots();
+function closeTokenModal() {
+    document.getElementById('token-modal').classList.remove('open');
 }
 
-// Load data from localStorage and GitHub Gist
-function loadFromLocalStorage() {
-    // First try to load from central GitHub Gist
-    loadFromSharedStorage();
-}
-
-// Load data from shared storage (GitHub Gist)
-function loadFromSharedStorage() {
-    const gistId = '5397a86680129b2d3534059577f8865c';
-    const githubToken = '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';
-    
-    fetch(`https://api.github.com/gists/${gistId}`, {
-        headers: {
-            'Authorization': `token ${githubToken}`
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('GitHub API request failed');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Successfully loaded data from GitHub Gist:', data.html_url);
-        try {
-            const sharedData = JSON.parse(data.files['teachers_colony_database.json'].content);
-            plotDatabase = sharedData;
-            console.log('Loaded', plotDatabase.length, 'records from central storage');
-            
-            // Save to localStorage as backup
-            localStorage.setItem('plotDatabase', JSON.stringify(plotDatabase));
-            
-            // Refresh display
-            updateStatistics();
-            initializePlots();
-            
-            showNotification('Data loaded from cloud storage!');
-        } catch (parseError) {
-            console.error('Error parsing central storage data:', parseError);
-            loadDefaultData();
-        }
-    })
-    .catch(error => {
-        console.error('Error loading from central storage:', error);
-        console.log('Falling back to localStorage...');
-        loadFromLocalStorageFallback();
-    });
-}
-
-// Fallback to load from localStorage
-function loadFromLocalStorageFallback() {
-    const savedData = localStorage.getItem('plotDatabase');
-    if (savedData) {
-        try {
-            plotDatabase = JSON.parse(savedData);
-            console.log('Loaded', plotDatabase.length, 'records from localStorage');
-            updateStatistics();
-            initializePlots();
-        } catch (error) {
-            console.error('Error loading from localStorage:', error);
-            plotDatabase = [];
-            loadDefaultData();
-        }
-    } else {
-        loadDefaultData();
-    }
-}
-
-// Load default sample data
-function loadDefaultData() {
-    console.log('Loading default sample data...');
-    // Add sample data for demonstration using actual plot numbers from the layout
-    plotDatabase = [
-        {
-            'Plot Number': '16',
-            'Owner Name': 'L. Subramanyam',
-            'Primary Mobile': '+918499899833',
-            'Alternative Mobile': '',
-            'Plot Size': '167 Sq. Yards',
-            'Status': 'owned',
-            'Registration Date': new Date().toLocaleDateString()
-        },
-        {
-            'Plot Number': '17',
-            'Owner Name': 'Jogi Kanakadurga',
-            'Primary Mobile': '+919963729133',
-            'Alternative Mobile': '',
-            'Plot Size': '167 Sq. Yards',
-            'Status': 'owned',
-            'Registration Date': new Date().toLocaleDateString()
-        },
-        {
-            'Plot Number': '25',
-            'Owner Name': 'K. Nagambicamani',
-            'Primary Mobile': '+919949726566',
-            'Alternative Mobile': '',
-            'Plot Size': '167 Sq. Yards',
-            'Status': 'owned',
-            'Registration Date': new Date().toLocaleDateString()
-        },
-        {
-            'Plot Number': '27',
-            'Owner Name': 'M. Sekhar',
-            'Primary Mobile': '+919866172123',
-            'Alternative Mobile': '',
-            'Plot Size': '167 Sq. Yards',
-            'Status': 'owned',
-            'Registration Date': new Date().toLocaleDateString()
-        },
-        {
-            'Plot Number': '1',
-            'Owner Name': 'Contacted Lead',
-            'Primary Mobile': '+919876543213',
-            'Alternative Mobile': '',
-            'Plot Size': '167 Sq. Yards',
-            'Status': 'contacted',
-            'Registration Date': new Date().toLocaleDateString()
-        }
-    ];
-    
-    // Save sample data to localStorage
-    localStorage.setItem('plotDatabase', JSON.stringify(plotDatabase));
-    
-    // Update display
-    updateStatistics();
-    initializePlots();
-    
-    console.log('Loaded default sample data');
-}
-
-// Save data to localStorage and GitHub Gist
-function saveToLocalStorage() {
-    try {
-        localStorage.setItem('plotDatabase', JSON.stringify(plotDatabase));
-        console.log('Saved', plotDatabase.length, 'records to localStorage');
-        showNotification('Data saved locally!', 'success');
-        
-        // Also upload to GitHub Gist for central storage
-        uploadToSharedStorage();
-    } catch (error) {
-        console.error('Error saving to localStorage:', error);
-        showNotification('Error saving data', 'error');
-    }
-}
-
-// Upload data to GitHub Gist
-function uploadToSharedStorage() {
-    if (plotDatabase.length === 0) {
-        console.log('No data to upload to shared storage');
-        return;
-    }
-    
-    const gistData = {
-        description: `Teachers Colony Plot Database - Updated ${new Date().toLocaleString()}`,
-        public: true,
-        files: {
-            'teachers_colony_database.json': {
-                content: JSON.stringify(plotDatabase, null, 2)
+// Auto-detect 401 errors and show token fix
+window.addEventListener('error', function(e) {
+    if (e.message && e.message.includes('401')) {
+        setTimeout(() => {
+            if (confirm('GitHub token error detected! Would you like to update your token?')) {
+                openTokenModal();
             }
-        }
-    };
-    
-    const githubToken = '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';
-    const gistId = '5397a86680129b2d3534059577f8865c';
-    
-    fetch(`https://api.github.com/gists/${gistId}`, {
-        method: 'PATCH',
-        headers: {
-            'Authorization': `token ${githubToken}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(gistData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Successfully uploaded to shared storage:', data.html_url);
-        showNotification('Data saved to central storage! All users can see updates.');
-    })
-    .catch(error => {
-        console.error('Error uploading to shared storage:', error);
-        showNotification('Using local storage only. Central storage unavailable.');
-    });
-}
-
-// Update statistics
-function updateStatistics() {
-    const totalPlots = 175;
-    const ownedPlots = plotDatabase.filter(p => p['Status'] === 'owned').length;
-    const contactedPlots = plotDatabase.filter(p => p['Status'] === 'contacted').length;
-    const availablePlots = totalPlots - ownedPlots - contactedPlots;
-    
-    document.getElementById('total-plots').textContent = totalPlots;
-    document.getElementById('owned-plots').textContent = ownedPlots;
-    document.getElementById('contacted-plots').textContent = contactedPlots;
-    document.getElementById('available-plots').textContent = availablePlots;
-    
-    console.log(`Stats updated: ${ownedPlots} owned, ${contactedPlots} contacted, ${availablePlots} available`);
-}
-
-// Open modal
-function openModal(plotNumber) {
-    currentPlotNumber = plotNumber;
-    document.getElementById('plotNumber').textContent = plotNumber;
-    document.getElementById('plotModal').classList.add('show');
-    
-    // Clear form
-    document.getElementById('registrationForm').reset();
-    
-    // Check if plot is already registered
-    const existingData = plotDatabase.find(p => parseInt(p['Plot Number']) === plotNumber);
-    if (existingData) {
-        document.getElementById('ownerName').value = existingData['Owner Name'] || '';
-        document.getElementById('primaryMobile').value = existingData['Primary Mobile'] || '';
-        document.getElementById('alternativeMobile').value = existingData['Alternative Mobile'] || '';
-        document.getElementById('plotSize').value = existingData['Plot Size'] || '';
+        }, 1000);
     }
-}
-
-// Close modal
-function closeModal() {
-    document.getElementById('plotModal').classList.remove('show');
-    currentPlotNumber = null;
-}
-
-// Show notification
-function showNotification(message, type = 'success') {
-    const notification = document.getElementById('notification');
-    notification.textContent = message;
-    notification.className = 'notification show';
-    if (type === 'error') {
-        notification.classList.add('error');
-    }
-    
-    setTimeout(() => {
-        notification.classList.remove('show');
-    }, 3000);
-}
-
-// Handle form submission
-document.getElementById('registrationForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const ownerName = document.getElementById('ownerName').value;
-    const primaryMobile = document.getElementById('primaryMobile').value;
-    const alternativeMobile = document.getElementById('alternativeMobile').value;
-    const plotSize = document.getElementById('plotSize').value;
-    
-    if (!ownerName || !primaryMobile || !plotSize) {
-        showNotification('Please fill in all required fields', 'error');
-        return;
-    }
-    
-    // Format mobile numbers
-    const formattedMobile = primaryMobile.startsWith('+91') ? primaryMobile : `+91${primaryMobile}`;
-    const formattedAltMobile = alternativeMobile ? (alternativeMobile.startsWith('+91') ? alternativeMobile : `+91${alternativeMobile}`) : '';
-    
-    // Create registration record
-    const registration = {
-        'Plot Number': currentPlotNumber.toString(),
-        'Owner Name': ownerName,
-        'Primary Mobile': formattedMobile,
-        'Alternative Mobile': formattedAltMobile,
-        'Plot Size': plotSize,
-        'Status': 'owned',
-        'Registration Date': new Date().toLocaleDateString()
-    };
-    
-    // Remove existing record for this plot if it exists
-    plotDatabase = plotDatabase.filter(p => parseInt(p['Plot Number']) !== currentPlotNumber);
-    
-    // Add new record
-    plotDatabase.push(registration);
-    
-    // Save to localStorage
-    saveToLocalStorage();
-    
-    // Refresh display
-    renderPlots();
-    updateStatistics();
-    
-    showNotification(`Registration successful for Plot ${currentPlotNumber}!`, 'success');
-    closeModal();
 });
 
-// Mark as contacted
-function markAsContacted() {
-    const ownerName = document.getElementById('ownerName').value || 'Contacted Lead';
-    const primaryMobile = document.getElementById('primaryMobile').value || '0000000000';
-    
-    // Format mobile number
-    const formattedMobile = primaryMobile.startsWith('+91') ? primaryMobile : `+91${primaryMobile}`;
-    
-    // Create contacted record
-    const contacted = {
-        'Plot Number': currentPlotNumber.toString(),
-        'Owner Name': ownerName,
-        'Primary Mobile': formattedMobile,
-        'Alternative Mobile': '',
-        'Plot Size': '167 Sq. Yards',
-        'Status': 'contacted',
-        'Registration Date': new Date().toLocaleDateString()
-    };
-    
-    // Remove existing record for this plot if it exists
-    plotDatabase = plotDatabase.filter(p => parseInt(p['Plot Number']) !== currentPlotNumber);
-    
-    // Add contacted record
-    plotDatabase.push(contacted);
-    
-    // Save to localStorage
-    saveToLocalStorage();
-    
-    // Refresh display
-    renderPlots();
-    updateStatistics();
-    
-    showNotification(`Plot ${currentPlotNumber} marked as contacted!`, 'success');
-    closeModal();
-}
-
-// Export data function
-function exportData() {
-    if (plotDatabase.length === 0) {
-        showNotification('No data to export', 'error');
-        return;
-    }
-    
-    // Create CSV content
-    let csvContent = 'Plot Number,Owner Name,Primary Mobile,Alternative Mobile,Plot Size,Status,Registration Date\n';
-    plotDatabase.forEach(record => {
-        csvContent += `${record['Plot Number'] || ''},"${record['Owner Name'] || ''}",${record['Primary Mobile'] || ''},${record['Alternative Mobile'] || ''},"${record['Plot Size'] || ''}",${record['Status'] || ''},${record['Registration Date'] || ''}\n`;
-    });
-    
-    // Create blob and download
-    const blob = new Blob([csvContent], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `teachers_colony_database_${new Date().toISOString().split('T')[0]}.csv`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-    
-    showNotification(`Database exported successfully! ${plotDatabase.length} records exported.`, 'success');
-}
-
-// Add export button to header
-document.addEventListener('DOMContentLoaded', function() {
-    const header = document.querySelector('.header');
-    const exportBtn = document.createElement('button');
-    exportBtn.textContent = '📊 Export Data';
-    exportBtn.className = 'btn btn-secondary';
-    exportBtn.style.margin = '10px';
-    exportBtn.onclick = exportData;
-    header.appendChild(exportBtn);
-});
-
-console.log('Teachers Colony Application - Fixed Version');
-console.log('Features: Plot registration, contact tracking, data export, local storage');
+console.log('Teachers Colony Application - Best Model Loaded');
+console.log('Features: Modular Architecture, Easy Token Updates, Central Storage, Original Layout');
 </script>
 
 </body>

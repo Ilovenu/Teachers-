@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teachers Colony Plot Management System</title>
+    <title>Teachers Colony - GitHub Deployment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
+        /* General Styles */
         * {
             margin: 0;
             padding: 0;
@@ -12,74 +16,263 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'DM Sans', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: #333;
         }
 
-        .header {
+        /* Header Styles */
+        .main-header {
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
-            padding: 20px;
-            text-align: center;
+            padding: 20px 0;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        .header p {
-            font-size: 1.1rem;
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #1e3c72;
+            box-shadow: 0 4px 15px rgba(255,215,0,0.3);
+        }
+
+        .logo-text h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .logo-text .tagline {
+            font-size: 14px;
             opacity: 0.9;
+            font-style: italic;
         }
 
-        .stats {
+        .header-contact {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             background: rgba(255,255,255,0.1);
-            padding: 15px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .contact-icon {
+            font-size: 16px;
+        }
+
+        .contact-text, .contact-link {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .stats-bar {
+            background: rgba(255,255,255,0.1);
+            padding: 15px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .stats-container {
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 20px;
         }
 
         .stat-item {
             text-align: center;
             background: rgba(255,255,255,0.1);
-            padding: 10px 20px;
-            border-radius: 10px;
+            padding: 15px 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
         }
 
         .stat-number {
-            font-size: 1.5rem;
-            font-weight: bold;
+            font-size: 24px;
+            font-weight: 700;
             margin-bottom: 5px;
         }
 
         .stat-label {
-            font-size: 0.9rem;
+            font-size: 12px;
             opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .container {
+        /* Main Container */
+        .main-container {
             max-width: 1200px;
-            margin: 20px auto;
+            margin: 40px auto;
             padding: 0 20px;
         }
 
         .page {
             background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
+        /* Deployment Info */
+        .deployment-info {
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .deployment-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .deployment-info p {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .deployment-info .url {
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 1.1rem;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+
+        .deployment-info .features {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .deployment-info .feature {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Header */
+        .hdr {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .compass {
+            position: absolute;
+            left: 10px;
+            top: 0;
+            font-size: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #c0392b;
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 10px 30px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .sub1 {
+            font-size: 0.9rem;
+            color: #c0392b;
+            margin-bottom: 5px;
+        }
+
+        .sub2 {
+            color: #1a3a6e;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .sub3 {
+            color: #1a3a6e;
+            font-size: 1rem;
+        }
+
+        /* Map Container */
         .map-container {
             background: #f8f9fa;
-            border-radius: 10px;
-            padding: 15px;
+            border-radius: 15px;
+            padding: 20px;
             overflow-x: auto;
         }
 
@@ -261,162 +454,337 @@
             border-radius: 0 0 15px 15px;
         }
 
-        .modal {
+        /* Modal Styles */
+        .modal-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 999;
             align-items: center;
             justify-content: center;
         }
 
-        .modal.show {
-            display: flex;
+        .modal-overlay.show {
+            display: flex !important;
         }
 
-        .modal-content {
+        .modal {
             background: white;
+            border-radius: 20px;
             padding: 30px;
-            border-radius: 15px;
             width: 90%;
             max-width: 400px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
             position: relative;
         }
 
         .modal-close {
             position: absolute;
-            top: 10px;
+            top: 15px;
             right: 15px;
             background: none;
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
+            color: #888;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: #f0f0f0;
         }
 
         .modal-title {
-            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
             color: #c0392b;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .modal-subtitle {
+            font-size: 0.9rem;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-plot {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1565c0;
             text-align: center;
             margin-bottom: 20px;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .form-label {
             display: block;
             margin-bottom: 5px;
-            font-weight: bold;
+            font-weight: 600;
+            color: #333;
         }
 
-        .form-input, .form-select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        .btn {
+        .form-input {
             width: 100%;
             padding: 12px;
-            border: none;
-            border-radius: 5px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
             font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #1565c0;
+            box-shadow: 0 0 0 3px rgba(21,101,192,0.1);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: white;
             cursor: pointer;
-            margin-bottom: 10px;
         }
 
         .btn-primary {
+            width: 100%;
+            padding: 15px;
             background: #c0392b;
             color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        .btn-primary:hover {
+            background: #a03020;
+            transform: translateY(-2px);
         }
 
         .btn-secondary {
+            width: 100%;
+            padding: 12px;
             background: #e8f5e9;
             color: #2e7d32;
-            border: 1px solid #4caf50;
+            border: 2px solid #81c784;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         .btn-contact {
+            width: 100%;
+            padding: 12px;
             background: #fff3cd;
             color: #856404;
-            border: 1px solid #ffc107;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
         }
 
+        .btn-contact:hover {
+            background: #ffe69c;
+        }
+
+        /* Notification */
         .notification {
             position: fixed;
             top: 20px;
             right: 20px;
             background: #4caf50;
             color: white;
-            padding: 15px;
-            border-radius: 5px;
-            display: none;
-            z-index: 2000;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
         }
 
         .notification.show {
-            display: block;
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .notification.error {
             background: #f44336;
         }
 
+        .notification.info {
+            background: #2196f3;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 0 10px;
+            .header-top {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .header-contact {
+                justify-content: center;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .stats-container {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .main-container {
+                margin: 20px auto;
+                padding: 0 15px;
             }
 
             .page {
-                padding: 15px;
+                padding: 20px;
             }
 
-            .stats {
-                flex-direction: column;
-            }
-
-            .modal-content {
+            .modal {
                 width: 95%;
                 padding: 20px;
+            }
+
+            .map-container {
+                padding: 10px;
+            }
+
+            .deployment-info .features {
+                flex-direction: column;
+                gap: 10px;
             }
         }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <h1>🏫 Teachers Colony</h1>
-    <p>Premium Residential Plots in Machilipatnam</p>
-    
-    <div class="stats">
-        <div class="stat-item">
-            <div class="stat-number" id="total-plots">175</div>
-            <div class="stat-label">Total Plots</div>
+<header class="main-header">
+    <div class="header-container">
+        <div class="header-top">
+            <div class="logo-section">
+                <div class="logo-icon">TC</div>
+                <div class="logo-text">
+                    <h1>Teachers Colony</h1>
+                    <div class="tagline">GitHub Deployment - All Users Access</div>
+                </div>
+            </div>
+            
+            <div class="header-contact">
+                <div class="contact-item">
+                    <span class="contact-icon">✉️</span>
+                    <span class="contact-text">mahadevusomaraju@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">💬</span>
+                    <a href="https://wa.me/16693062113" target="_blank" class="contact-link">+16693062113</a>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📍</span>
+                    <a href="https://maps.app.goo.gl/bNzYVPCLyYjtiE9e9" target="_blank" class="contact-link">Machilipatnam</a>
+                </div>
+            </div>
         </div>
-        <div class="stat-item">
-            <div class="stat-number" id="owned-plots">0</div>
-            <div class="stat-label">Registered</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number" id="contacted-plots">0</div>
-            <div class="stat-label">Contacted</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number" id="available-plots">175</div>
-            <div class="stat-label">Available</div>
+        
+        <nav class="header-nav">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="#home">🏠 Home</a></li>
+                    <li><a href="#plots">📊 Plots</a></li>
+                    <li><a href="#documents">📄 Documents</a></li>
+                    <li><a href="#about">ℹ️ About</a></li>
+                    <li><a href="#gallery">🖼️ Gallery</a></li>
+                    <li><a href="#contact">📞 Contact</a></li>
+                    <li><a href="#" onclick="exportData(); return false;">📊 Export</a></li>
+                    <li><a href="#" onclick="clearAllData(); return false;" style="background: #f44336;">🗑️ Clear</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+        <div class="stats-bar">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number" id="total-plots">175</div>
+                    <div class="stat-label">Total Plots</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="owned-plots">0</div>
+                    <div class="stat-label">Registered</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="contacted-plots">0</div>
+                    <div class="stat-label">Contacted</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="available-plots">175</div>
+                    <div class="stat-label">Available</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="ownership-rate">0%</div>
+                    <div class="stat-label">Registration Rate</div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</header>
 
-<div class="container">
+<div class="main-container">
     <div class="page">
+        
+        <!-- Deployment Info -->
+        <div class="deployment-info">
+            <h2>🌐 GitHub Deployment - All Users Access</h2>
+            <p>🎯 <strong>Deploy this file to GitHub Pages for all users to access</strong></p>
+            <div class="url">https://Ilovenu.github.io/Teachers-/index-github.html</div>
+            <div class="features">
+                <div class="feature">✅ No Token Required</div>
+                <div class="feature">✅ Local Storage Only</div>
+                <div class="feature">✅ Works Offline</div>
+                <div class="feature">✅ All Users Can Use</div>
+                <div class="feature">✅ Full Functionality</div>
+            </div>
+        </div>
+
+        <!-- HEADER -->
+        <div class="hdr">
+            <div class="compass">🧭</div>
+            <div class="badge">Teacher'S Colony</div>
+            <div class="sub1">Near Bye-pass Road · Pedana Road Cross</div>
+            <div class="sub2">Proposed House sites in</div>
+            <div class="sub3">Rs. No. 311 / 1, 2, 3</div>
+        </div>
+
         <!-- MAP -->
         <div class="map-container">
             <div class="outer">
@@ -579,35 +947,37 @@
                 100 FEET PORT ROAD
             </div>
         </div>
+
     </div>
 </div>
 
 <!-- Modal -->
-<div class="modal" id="plotModal">
-    <div class="modal-content">
+<div class="modal-overlay" id="modal">
+    <div class="modal">
         <button class="modal-close" onclick="closeModal()">&times;</button>
-        <h2 class="modal-title">Plot Registration</h2>
-        <p style="text-align: center; margin-bottom: 20px; color: #666;">Plot #<span id="plotNumber"></span></p>
+        <div class="modal-title">Plot Registration</div>
+        <div class="modal-subtitle">Register Plot Information</div>
+        <div class="modal-plot" id="modal-plot">Plot #</div>
         
-        <form id="registrationForm">
+        <form id="plot-form">
             <div class="form-group">
-                <label class="form-label">Owner Name *</label>
-                <input type="text" id="ownerName" class="form-input" placeholder="Enter owner name" required>
+                <label class="form-label" for="reg-name">Owner Name *</label>
+                <input type="text" id="reg-name" class="form-input" placeholder="Enter owner name" required>
             </div>
             
             <div class="form-group">
-                <label class="form-label">Primary Mobile *</label>
-                <input type="tel" id="primaryMobile" class="form-input" placeholder="Enter mobile number" required>
+                <label class="form-label" for="reg-mobile">Primary Mobile *</label>
+                <input type="tel" id="reg-mobile" class="form-input" placeholder="Enter mobile number" required>
             </div>
             
             <div class="form-group">
-                <label class="form-label">Alternative Mobile</label>
-                <input type="tel" id="alternativeMobile" class="form-input" placeholder="Enter alternative mobile">
+                <label class="form-label" for="reg-alt-mobile">Alternative Mobile</label>
+                <input type="tel" id="reg-alt-mobile" class="form-input" placeholder="Enter alternative mobile">
             </div>
             
             <div class="form-group">
-                <label class="form-label">Plot Size *</label>
-                <select id="plotSize" class="form-select" required>
+                <label class="form-label" for="reg-size">Plot Size *</label>
+                <select id="reg-size" class="form-select" required>
                     <option value="">Select plot size</option>
                     <option value="167 Sq. Yards">167 Sq. Yards</option>
                     <option value="200 Sq. Yards">200 Sq. Yards</option>
@@ -616,9 +986,9 @@
                 </select>
             </div>
             
-            <button type="submit" class="btn btn-primary">📝 Save Registration</button>
-            <button type="button" class="btn btn-contact" onclick="markAsContacted()">📞 Mark as Contacted</button>
-            <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+            <button type="submit" class="btn-primary">📝 Save Registration</button>
+            <button type="button" class="btn-contact" onclick="markAsContacted()">📞 Mark as Contacted</button>
+            <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
         </form>
     </div>
 </div>
@@ -627,44 +997,107 @@
 <div class="notification" id="notification"></div>
 
 <script>
-// Global variables
+// GitHub Deployment Version - Local Storage Only (No Token Required)
 let plotDatabase = [];
 let currentPlotNumber = null;
 
+// Plot Layout Configuration
+const PLOT_LAYOUT = {
+    left: [
+        { rowId: 'r161', plots: [161, 162, 163, 164, 165, 166] },
+        { rowId: 'r160', plots: [160, 159, 158, 157, 156, 155] },
+        { rowId: 'r130', plots: [130, 131, 132, 133, 134, 135, 136] },
+        { rowId: 'r129', plots: [129, 128, 127, 126, 125, 124, 123] },
+        { rowId: 'r98', plots: [98, 99, 100, 101, 102, 103, 104] },
+        { rowId: 'r97', plots: [97, 96, 95, 94, 93, 92, 91] },
+        { rowId: 'r65', plots: [65, 66, 67, 68, 69, 70, 71, 72] },
+        { rowId: 'r64', plots: [64, 63, 62, 61, 60, 59, 58, 57] },
+        { rowId: 'r33', plots: [33, 34, 35, 36, 37, 38, 39] },
+        { rowId: 'r32', plots: [32, 31, 30, 29, 28, 27, 26] },
+        { rowId: 'r9', plots: [9, 8, 7, 6, 5] },
+        { rowId: 'r1', plots: [4, 3, 2, 1] }
+    ],
+    right: [
+        { rowId: 'r167', plots: [167, 168, 169, 170, 171, 172, 173, 174, 175] },
+        { rowId: 'r154', plots: [154, 153, 152, 151, 150, 149, 148, 147, 146] },
+        { rowId: 'r137', plots: [137, 138, 139, 140, 141, 142, 143, 144, 145] },
+        { rowId: 'r122', plots: [122, 121, 120, 119, 118, 117, 116, 115, 114] },
+        { rowId: 'r105', plots: [105, 106, 107, 108, 109, 110, 111, 112, 113] },
+        { rowId: 'r90', plots: [90, 89, 88, 87, 86, 85, 84, 83, 82] },
+        { rowId: 'r73', plots: [73, 74, 75, 76, 77, 78, 79, 80, 81] },
+        { rowId: 'r56', plots: [56, 55, 54, 53, 52, 51, 50, 49, 48] },
+        { rowId: 'r40', plots: [40, 41, 42, 43, 44, 45, 46, 47] },
+        { rowId: 'r25', plots: [25, 24, 23, 22, 21, 20, 19, 18] },
+        { rowId: 'r10', plots: [10, 11, 12, 13, 14, 15, 16, 17] }
+    ]
+};
+
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Teachers Colony Application Initialized');
+    console.log('Teachers Colony GitHub Deployment Version - Initializing...');
+    
+    // Load data first
     loadFromLocalStorage();
+    
+    // Then update UI
     updateStatistics();
     initializePlots();
+    
+    console.log('Initialization complete. Plot database has', plotDatabase.length, 'records');
+    
+    // Handle form submission
+    document.getElementById('plot-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        handleRegistrationSubmit();
+    });
 });
 
-// Initialize plots
+// Load data from localStorage only
+function loadFromLocalStorage() {
+    const savedData = localStorage.getItem('plotDatabase');
+    if (savedData) {
+        try {
+            plotDatabase = JSON.parse(savedData);
+            console.log('Loaded', plotDatabase.length, 'records from localStorage');
+        } catch (error) {
+            console.error('Error loading from localStorage:', error);
+            plotDatabase = [];
+        }
+    } else {
+        console.log('No saved data found, starting with empty database');
+        plotDatabase = [];
+    }
+}
+
+// Save data to localStorage only
+function saveToLocalStorage() {
+    try {
+        const dataToSave = JSON.stringify(plotDatabase);
+        localStorage.setItem('plotDatabase', dataToSave);
+        console.log('Saved', plotDatabase.length, 'records to localStorage');
+        console.log('Data saved:', dataToSave.substring(0, 100) + '...');
+        
+        // Verify it was saved
+        const savedData = localStorage.getItem('plotDatabase');
+        if (savedData === dataToSave) {
+            console.log('✅ Data verification successful');
+            showNotification('Data saved locally!', 'success');
+        } else {
+            console.error('❌ Data verification failed');
+            showNotification('Error saving data', 'error');
+        }
+    } catch (error) {
+        console.error('Error saving to localStorage:', error);
+        showNotification('Error saving data', 'error');
+    }
+}
+
+// Initialize all plots
 function initializePlots() {
-    // Fill all plot rows
-    fill('r161', [161,162,163,164,165,166]);
-    fill('r160', [160,159,158,157,156,155]);
-    fill('r167', [167,168,169,170,171,172,173,174,175]);
-    fill('r154', [154,153,152,151,150,149,148,147,146]);
-    fill('r130', [130,131,132,133,134,135,136]);
-    fill('r129', [129,128,127,126,125,124,123]);
-    fill('r137', [137,138,139,140,141,142,143,144,145]);
-    fill('r122', [122,121,120,119,118,117,116,115,114]);
-    fill('r98', [98,99,100,101,102,103,104]);
-    fill('r97', [97,96,95,94,93,92,91]);
-    fill('r105', [105,106,107,108,109,110,111,112,113]);
-    fill('r90', [90,89,88,87,86,85,84,83,82]);
-    fill('r65', [65,66,67,68,69,70,71,72]);
-    fill('r64', [64,63,62,61,60,59,58,57]);
-    fill('r73', [73,74,75,76,77,78,79,80,81]);
-    fill('r56', [56,55,54,53,52,51,50,49,48]);
-    fill('r33', [33,34,35,36,37,38,39]);
-    fill('r32', [32,31,30,29,28,27,26]);
-    fill('r40', [40,41,42,43,44,45,46,47]);
-    fill('r25', [25,24,23,22,21,20,19,18]);
-    fill('r9', [9,8,7,6,5]);
-    fill('r10', [10,11,12,13,14,15,16,17]);
-    fill('r1', [4,3,2,1]);
+    // Fill all plot rows from configuration
+    [...PLOT_LAYOUT.left, ...PLOT_LAYOUT.right].forEach(row => {
+        fill(row.rowId, row.plots);
+    });
 }
 
 // Fill plot cells
@@ -677,12 +1110,10 @@ function fill(rowId, plotNumbers) {
         const plotData = plotDatabase.find(p => p['Plot Number'] == plotNum);
         let status = 'available';
         let ownerName = '';
-        let mobile = '';
         
         if (plotData) {
             status = plotData['Status'];
             ownerName = plotData['Owner Name'];
-            mobile = plotData['Primary Mobile'];
         }
         
         html += `<td class="${status}" onclick="openModal(${plotNum})">
@@ -692,7 +1123,7 @@ function fill(rowId, plotNumbers) {
             html += `<span class="po">${ownerName}</span>`;
         }
         
-        if (mobile && status === 'contacted') {
+        if (status === 'contacted') {
             html += `<span class="pc">Contacted</span>`;
         }
         
@@ -702,206 +1133,19 @@ function fill(rowId, plotNumbers) {
     row.innerHTML = html;
 }
 
-// Render plots on the map (refresh existing plots)
-function renderPlots() {
-    initializePlots();
-}
-
-// Load data from localStorage and GitHub Gist
-function loadFromLocalStorage() {
-    // First try to load from central GitHub Gist
-    loadFromSharedStorage();
-}
-
-// Load data from shared storage (GitHub Gist)
-function loadFromSharedStorage() {
-    const gistId = '5397a86680129b2d3534059577f8865c';
-    const githubToken = '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';
-    
-    fetch(`https://api.github.com/gists/${gistId}`, {
-        headers: {
-            'Authorization': `token ${githubToken}`
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('GitHub API request failed');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Successfully loaded data from GitHub Gist:', data.html_url);
-        try {
-            const sharedData = JSON.parse(data.files['teachers_colony_database.json'].content);
-            plotDatabase = sharedData;
-            console.log('Loaded', plotDatabase.length, 'records from central storage');
-            
-            // Save to localStorage as backup
-            localStorage.setItem('plotDatabase', JSON.stringify(plotDatabase));
-            
-            // Refresh display
-            updateStatistics();
-            initializePlots();
-            
-            showNotification('Data loaded from cloud storage!');
-        } catch (parseError) {
-            console.error('Error parsing central storage data:', parseError);
-            loadDefaultData();
-        }
-    })
-    .catch(error => {
-        console.error('Error loading from central storage:', error);
-        console.log('Falling back to localStorage...');
-        loadFromLocalStorageFallback();
-    });
-}
-
-// Fallback to load from localStorage
-function loadFromLocalStorageFallback() {
-    const savedData = localStorage.getItem('plotDatabase');
-    if (savedData) {
-        try {
-            plotDatabase = JSON.parse(savedData);
-            console.log('Loaded', plotDatabase.length, 'records from localStorage');
-            updateStatistics();
-            initializePlots();
-        } catch (error) {
-            console.error('Error loading from localStorage:', error);
-            plotDatabase = [];
-            loadDefaultData();
-        }
-    } else {
-        loadDefaultData();
-    }
-}
-
-// Load default sample data
-function loadDefaultData() {
-    console.log('Loading default sample data...');
-    // Add sample data for demonstration using actual plot numbers from the layout
-    plotDatabase = [
-        {
-            'Plot Number': '16',
-            'Owner Name': 'L. Subramanyam',
-            'Primary Mobile': '+918499899833',
-            'Alternative Mobile': '',
-            'Plot Size': '167 Sq. Yards',
-            'Status': 'owned',
-            'Registration Date': new Date().toLocaleDateString()
-        },
-        {
-            'Plot Number': '17',
-            'Owner Name': 'Jogi Kanakadurga',
-            'Primary Mobile': '+919963729133',
-            'Alternative Mobile': '',
-            'Plot Size': '167 Sq. Yards',
-            'Status': 'owned',
-            'Registration Date': new Date().toLocaleDateString()
-        },
-        {
-            'Plot Number': '25',
-            'Owner Name': 'K. Nagambicamani',
-            'Primary Mobile': '+919949726566',
-            'Alternative Mobile': '',
-            'Plot Size': '167 Sq. Yards',
-            'Status': 'owned',
-            'Registration Date': new Date().toLocaleDateString()
-        },
-        {
-            'Plot Number': '27',
-            'Owner Name': 'M. Sekhar',
-            'Primary Mobile': '+919866172123',
-            'Alternative Mobile': '',
-            'Plot Size': '167 Sq. Yards',
-            'Status': 'owned',
-            'Registration Date': new Date().toLocaleDateString()
-        },
-        {
-            'Plot Number': '1',
-            'Owner Name': 'Contacted Lead',
-            'Primary Mobile': '+919876543213',
-            'Alternative Mobile': '',
-            'Plot Size': '167 Sq. Yards',
-            'Status': 'contacted',
-            'Registration Date': new Date().toLocaleDateString()
-        }
-    ];
-    
-    // Save sample data to localStorage
-    localStorage.setItem('plotDatabase', JSON.stringify(plotDatabase));
-    
-    // Update display
-    updateStatistics();
-    initializePlots();
-    
-    console.log('Loaded default sample data');
-}
-
-// Save data to localStorage and GitHub Gist
-function saveToLocalStorage() {
-    try {
-        localStorage.setItem('plotDatabase', JSON.stringify(plotDatabase));
-        console.log('Saved', plotDatabase.length, 'records to localStorage');
-        showNotification('Data saved locally!', 'success');
-        
-        // Also upload to GitHub Gist for central storage
-        uploadToSharedStorage();
-    } catch (error) {
-        console.error('Error saving to localStorage:', error);
-        showNotification('Error saving data', 'error');
-    }
-}
-
-// Upload data to GitHub Gist
-function uploadToSharedStorage() {
-    if (plotDatabase.length === 0) {
-        console.log('No data to upload to shared storage');
-        return;
-    }
-    
-    const gistData = {
-        description: `Teachers Colony Plot Database - Updated ${new Date().toLocaleString()}`,
-        public: true,
-        files: {
-            'teachers_colony_database.json': {
-                content: JSON.stringify(plotDatabase, null, 2)
-            }
-        }
-    };
-    
-    const githubToken = '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';
-    const gistId = '5397a86680129b2d3534059577f8865c';
-    
-    fetch(`https://api.github.com/gists/${gistId}`, {
-        method: 'PATCH',
-        headers: {
-            'Authorization': `token ${githubToken}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(gistData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Successfully uploaded to shared storage:', data.html_url);
-        showNotification('Data saved to central storage! All users can see updates.');
-    })
-    .catch(error => {
-        console.error('Error uploading to shared storage:', error);
-        showNotification('Using local storage only. Central storage unavailable.');
-    });
-}
-
 // Update statistics
 function updateStatistics() {
     const totalPlots = 175;
     const ownedPlots = plotDatabase.filter(p => p['Status'] === 'owned').length;
     const contactedPlots = plotDatabase.filter(p => p['Status'] === 'contacted').length;
     const availablePlots = totalPlots - ownedPlots - contactedPlots;
+    const ownershipRate = ((ownedPlots / totalPlots) * 100).toFixed(1);
     
     document.getElementById('total-plots').textContent = totalPlots;
     document.getElementById('owned-plots').textContent = ownedPlots;
     document.getElementById('contacted-plots').textContent = contactedPlots;
     document.getElementById('available-plots').textContent = availablePlots;
+    document.getElementById('ownership-rate').textContent = ownershipRate + '%';
     
     console.log(`Stats updated: ${ownedPlots} owned, ${contactedPlots} contacted, ${availablePlots} available`);
 }
@@ -909,50 +1153,37 @@ function updateStatistics() {
 // Open modal
 function openModal(plotNumber) {
     currentPlotNumber = plotNumber;
-    document.getElementById('plotNumber').textContent = plotNumber;
-    document.getElementById('plotModal').classList.add('show');
+    document.getElementById('modal-plot').textContent = 'Plot #' + plotNumber;
+    document.getElementById('modal').classList.add('show');
     
     // Clear form
-    document.getElementById('registrationForm').reset();
+    document.getElementById('plot-form').reset();
     
     // Check if plot is already registered
     const existingData = plotDatabase.find(p => parseInt(p['Plot Number']) === plotNumber);
     if (existingData) {
-        document.getElementById('ownerName').value = existingData['Owner Name'] || '';
-        document.getElementById('primaryMobile').value = existingData['Primary Mobile'] || '';
-        document.getElementById('alternativeMobile').value = existingData['Alternative Mobile'] || '';
-        document.getElementById('plotSize').value = existingData['Plot Size'] || '';
+        document.getElementById('reg-name').value = existingData['Owner Name'] || '';
+        document.getElementById('reg-mobile').value = existingData['Primary Mobile'] || '';
+        document.getElementById('reg-alt-mobile').value = existingData['Alternative Mobile'] || '';
+        document.getElementById('reg-size').value = existingData['Plot Size'] || '';
     }
 }
 
 // Close modal
 function closeModal() {
-    document.getElementById('plotModal').classList.remove('show');
+    const modalOverlay = document.getElementById('modal');
+    if (modalOverlay && modalOverlay.parentElement) {
+        modalOverlay.parentElement.classList.remove('show');
+    }
     currentPlotNumber = null;
 }
 
-// Show notification
-function showNotification(message, type = 'success') {
-    const notification = document.getElementById('notification');
-    notification.textContent = message;
-    notification.className = 'notification show';
-    if (type === 'error') {
-        notification.classList.add('error');
-    }
-    
-    setTimeout(() => {
-        notification.classList.remove('show');
-    }, 3000);
-}
-
 // Handle form submission
-document.getElementById('registrationForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const ownerName = document.getElementById('ownerName').value;
-    const primaryMobile = document.getElementById('primaryMobile').value;
-    const alternativeMobile = document.getElementById('alternativeMobile').value;
-    const plotSize = document.getElementById('plotSize').value;
+function handleRegistrationSubmit() {
+    const ownerName = document.getElementById('reg-name').value;
+    const primaryMobile = document.getElementById('reg-mobile').value;
+    const alternativeMobile = document.getElementById('reg-alt-mobile').value;
+    const plotSize = document.getElementById('reg-size').value;
     
     if (!ownerName || !primaryMobile || !plotSize) {
         showNotification('Please fill in all required fields', 'error');
@@ -984,17 +1215,17 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     saveToLocalStorage();
     
     // Refresh display
-    renderPlots();
+    initializePlots();
     updateStatistics();
     
     showNotification(`Registration successful for Plot ${currentPlotNumber}!`, 'success');
     closeModal();
-});
+}
 
 // Mark as contacted
 function markAsContacted() {
-    const ownerName = document.getElementById('ownerName').value || 'Contacted Lead';
-    const primaryMobile = document.getElementById('primaryMobile').value || '0000000000';
+    const ownerName = document.getElementById('reg-name').value || 'Contacted Lead';
+    const primaryMobile = document.getElementById('reg-mobile').value || '0000000000';
     
     // Format mobile number
     const formattedMobile = primaryMobile.startsWith('+91') ? primaryMobile : `+91${primaryMobile}`;
@@ -1020,14 +1251,33 @@ function markAsContacted() {
     saveToLocalStorage();
     
     // Refresh display
-    renderPlots();
+    initializePlots();
     updateStatistics();
     
     showNotification(`Plot ${currentPlotNumber} marked as contacted!`, 'success');
     closeModal();
 }
 
-// Export data function
+// Show notification
+function showNotification(message, type = 'success') {
+    const notification = document.getElementById('notification');
+    notification.textContent = message;
+    notification.className = 'notification show';
+    
+    if (type === 'error') {
+        notification.style.background = '#f44336';
+    } else if (type === 'info') {
+        notification.style.background = '#2196f3';
+    } else {
+        notification.style.background = '#4caf50';
+    }
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 3000);
+}
+
+// Export data to CSV
 function exportData() {
     if (plotDatabase.length === 0) {
         showNotification('No data to export', 'error');
@@ -1054,19 +1304,20 @@ function exportData() {
     showNotification(`Database exported successfully! ${plotDatabase.length} records exported.`, 'success');
 }
 
-// Add export button to header
-document.addEventListener('DOMContentLoaded', function() {
-    const header = document.querySelector('.header');
-    const exportBtn = document.createElement('button');
-    exportBtn.textContent = '📊 Export Data';
-    exportBtn.className = 'btn btn-secondary';
-    exportBtn.style.margin = '10px';
-    exportBtn.onclick = exportData;
-    header.appendChild(exportBtn);
-});
+// Clear all data
+function clearAllData() {
+    if (confirm('Are you sure you want to clear all data? This cannot be undone!')) {
+        plotDatabase = [];
+        localStorage.removeItem('plotDatabase');
+        initializePlots();
+        updateStatistics();
+        showNotification('All data cleared successfully!', 'info');
+        console.log('All data cleared from localStorage');
+    }
+}
 
-console.log('Teachers Colony Application - Fixed Version');
-console.log('Features: Plot registration, contact tracking, data export, local storage');
+console.log('Teachers Colony GitHub Deployment Version - Ready for All Users');
+console.log('Features: Local Storage Only, No Token Required, Full Functionality');
 </script>
 
 </body>

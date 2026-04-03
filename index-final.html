@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teachers Colony Plot Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .stats {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .page {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .map-container {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            overflow-x: auto;
+        }
+
+        .plot-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        .plot-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            cursor: pointer;
+            height: 40px;
+            font-size: 0.8rem;
+        }
+
+        .plot-table td:hover {
+            background: #f0f0f0;
+        }
+
+        .plot-table td.owned {
+            background: #e8f5e9;
+            border-color: #4caf50;
+        }
+
+        .plot-table td.contacted {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+
+        .plot-table td.available {
+            background: white;
+        }
+
+        .plot-number {
+            font-weight: bold;
+            color: #1a3a6e;
+            display: block;
+        }
+
+        .owner-name {
+            font-size: 0.7rem;
+            color: #2e7d32;
+            display: block;
+        }
+
+        .contacted-status {
+            font-size: 0.7rem;
+            color: #856404;
+            display: block;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: #c0392b;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            background: #c0392b;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #4caf50;
+        }
+
+        .btn-contact {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffc107;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4caf50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+            z-index: 2000;
+        }
+
+        .notification.show {
+            display: block;
+        }
+
+        .notification.error {
+            background: #f44336;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .page {
+                padding: 15px;
+            }
+
+            .stats {
+                flex-direction: column;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>🏫 Teachers Colony</h1>
+    <p>Premium Residential Plots in Machilipatnam</p>
+    
+    <div class="stats">
+        <div class="stat-item">
+            <div class="stat-number" id="total-plots">175</div>
+            <div class="stat-label">Total Plots</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" id="owned-plots">0</div>
+            <div class="stat-label">Registered</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" id="contacted-plots">0</div>
+            <div class="stat-label">Contacted</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" id="available-plots">175</div>
+            <div class="stat-label">Available</div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="page">
+        <div class="map-container">
+            <table class="plot-table">
+                <tbody>
+                    <tr>
+                        <td onclick="openModal(1)" class="available"><span class="plot-number">1</span></td>
+                        <td onclick="openModal(2)" class="available"><span class="plot-number">2</span></td>
+                        <td onclick="openModal(3)" class="available"><span class="plot-number">3</span></td>
+                        <td onclick="openModal(4)" class="available"><span class="plot-number">4</span></td>
+                        <td onclick="openModal(5)" class="available"><span class="plot-number">5</span></td>
+                        <td onclick="openModal(6)" class="available"><span class="plot-number">6</span></td>
+                        <td onclick="openModal(7)" class="available"><span class="plot-number">7</span></td>
+                        <td onclick="openModal(8)" class="available"><span class="plot-number">8</span></td>
+                        <td onclick="openModal(9)" class="available"><span class="plot-number">9</span></td>
+                        <td onclick="openModal(10)" class="available"><span class="plot-number">10</span></td>
+                    </tr>
+                    <tr>
+                        <td onclick="openModal(11)" class="available"><span class="plot-number">11</span></td>
+                        <td onclick="openModal(12)" class="available"><span class="plot-number">12</span></td>
+                        <td onclick="openModal(13)" class="available"><span class="plot-number">13</span></td>
+                        <td onclick="openModal(14)" class="available"><span class="plot-number">14</span></td>
+                        <td onclick="openModal(15)" class="available"><span class="plot-number">15</span></td>
+                        <td onclick="openModal(16)" class="available"><span class="plot-number">16</span></td>
+                        <td onclick="openModal(17)" class="available"><span class="plot-number">17</span></td>
+                        <td onclick="openModal(18)" class="available"><span class="plot-number">18</span></td>
+                        <td onclick="openModal(19)" class="available"><span class="plot-number">19</span></td>
+                        <td onclick="openModal(20)" class="available"><span class="plot-number">20</span></td>
+                    </tr>
+                    <tr>
+                        <td onclick="openModal(21)" class="available"><span class="plot-number">21</span></td>
+                        <td onclick="openModal(22)" class="available"><span class="plot-number">22</span></td>
+                        <td onclick="openModal(23)" class="available"><span class="plot-number">23</span></td>
+                        <td onclick="openModal(24)" class="available"><span class="plot-number">24</span></td>
+                        <td onclick="openModal(25)" class="available"><span class="plot-number">25</span></td>
+                        <td onclick="openModal(26)" class="available"><span class="plot-number">26</span></td>
+                        <td onclick="openModal(27)" class="available"><span class="plot-number">27</span></td>
+                        <td onclick="openModal(28)" class="available"><span class="plot-number">28</span></td>
+                        <td onclick="openModal(29)" class="available"><span class="plot-number">29</span></td>
+                        <td onclick="openModal(30)" class="available"><span class="plot-number">30</span></td>
+                    </tr>
+                    <tr>
+                        <td onclick="openModal(31)" class="available"><span class="plot-number">31</span></td>
+                        <td onclick="openModal(32)" class="available"><span class="plot-number">32</span></td>
+                        <td onclick="openModal(33)" class="available"><span class="plot-number">33</span></td>
+                        <td onclick="openModal(34)" class="available"><span class="plot-number">34</span></td>
+                        <td onclick="openModal(35)" class="available"><span class="plot-number">35</span></td>
+                        <td onclick="openModal(36)" class="available"><span class="plot-number">36</span></td>
+                        <td onclick="openModal(37)" class="available"><span class="plot-number">37</span></td>
+                        <td onclick="openModal(38)" class="available"><span class="plot-number">38</span></td>
+                        <td onclick="openModal(39)" class="available"><span class="plot-number">39</span></td>
+                        <td onclick="openModal(40)" class="available"><span class="plot-number">40</span></td>
+                    </tr>
+                    <tr>
+                        <td onclick="openModal(41)" class="available"><span class="plot-number">41</span></td>
+                        <td onclick="openModal(42)" class="available"><span class="plot-number">42</span></td>
+                        <td onclick="openModal(43)" class="available"><span class="plot-number">43</span></td>
+                        <td onclick="openModal(44)" class="available"><span class="plot-number">44</span></td>
+                        <td onclick="openModal(45)" class="available"><span class="plot-number">45</span></td>
+                        <td onclick="openModal(46)" class="available"><span class="plot-number">46</span></td>
+                        <td onclick="openModal(47)" class="available"><span class="plot-number">47</span></td>
+                        <td onclick="openModal(48)" class="available"><span class="plot-number">48</span></td>
+                        <td onclick="openModal(49)" class="available"><span class="plot-number">49</span></td>
+                        <td onclick="openModal(50)" class="available"><span class="plot-number">50</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="plotModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <h2 class="modal-title">Plot Registration</h2>
+        <p style="text-align: center; margin-bottom: 20px; color: #666;">Plot #<span id="plotNumber"></span></p>
+        
+        <form id="registrationForm">
+            <div class="form-group">
+                <label class="form-label">Owner Name *</label>
+                <input type="text" id="ownerName" class="form-input" placeholder="Enter owner name" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Primary Mobile *</label>
+                <input type="tel" id="primaryMobile" class="form-input" placeholder="Enter mobile number" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Alternative Mobile</label>
+                <input type="tel" id="alternativeMobile" class="form-input" placeholder="Enter alternative mobile">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Plot Size *</label>
+                <select id="plotSize" class="form-select" required>
+                    <option value="">Select plot size</option>
+                    <option value="167 Sq. Yards">167 Sq. Yards</option>
+                    <option value="200 Sq. Yards">200 Sq. Yards</option>
+                    <option value="250 Sq. Yards">250 Sq. Yards</option>
+                    <option value="300 Sq. Yards">300 Sq. Yards</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">📝 Save Registration</button>
+            <button type="button" class="btn btn-contact" onclick="markAsContacted()">📞 Mark as Contacted</button>
+            <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<!-- Notification -->
+<div class="notification" id="notification"></div>
+
+<script>
+// Global variables
+let plotDatabase = [];
+let currentPlotNumber = null;
+
+// Initialize the application
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Teachers Colony Application Initialized');
+    loadFromLocalStorage();
+    updateStatistics();
+    renderPlots();
+});
+
+// Load data from localStorage
+function loadFromLocalStorage() {
+    const savedData = localStorage.getItem('plotDatabase');
+    if (savedData) {
+        try {
+            plotDatabase = JSON.parse(savedData);
+            console.log('Loaded', plotDatabase.length, 'records from localStorage');
+        } catch (error) {
+            console.error('Error loading from localStorage:', error);
+            plotDatabase = [];
+        }
+    } else {
+        console.log('No saved data found, adding sample data');
+        // Add sample data for demonstration
+        plotDatabase = [
+            {
+                'Plot Number': '1',
+                'Owner Name': 'John Doe',
+                'Primary Mobile': '+919876543210',
+                'Alternative Mobile': '+919876543211',
+                'Plot Size': '167 Sq. Yards',
+                'Status': 'owned',
+                'Registration Date': new Date().toLocaleDateString()
+            },
+            {
+                'Plot Number': '5',
+                'Owner Name': 'Jane Smith',
+                'Primary Mobile': '+919876543212',
+                'Alternative Mobile': '',
+                'Plot Size': '200 Sq. Yards',
+                'Status': 'owned',
+                'Registration Date': new Date().toLocaleDateString()
+            },
+            {
+                'Plot Number': '10',
+                'Owner Name': 'Contacted Lead',
+                'Primary Mobile': '+919876543213',
+                'Alternative Mobile': '',
+                'Plot Size': '167 Sq. Yards',
+                'Status': 'contacted',
+                'Registration Date': new Date().toLocaleDateString()
+            }
+        ];
+        // Save sample data to localStorage
+        saveToLocalStorage();
+    }
+}
+
+// Save data to localStorage
+function saveToLocalStorage() {
+    try {
+        localStorage.setItem('plotDatabase', JSON.stringify(plotDatabase));
+        console.log('Saved', plotDatabase.length, 'records to localStorage');
+        showNotification('Data saved successfully!', 'success');
+    } catch (error) {
+        console.error('Error saving to localStorage:', error);
+        showNotification('Error saving data', 'error');
+    }
+}
+
+// Render plots on the map
+function renderPlots() {
+    const plotElements = document.querySelectorAll('.plot-table td');
+    
+    plotElements.forEach(td => {
+        const plotNumber = td.querySelector('.plot-number');
+        if (!plotNumber) return;
+        
+        const plotNum = parseInt(plotNumber.textContent);
+        const plotData = plotDatabase.find(p => parseInt(p['Plot Number']) === plotNum);
+        
+        // Remove existing classes
+        td.classList.remove('owned', 'contacted', 'available');
+        
+        if (plotData) {
+            if (plotData['Status'] === 'owned') {
+                td.classList.add('owned');
+                // Add owner name
+                let ownerSpan = td.querySelector('.owner-name');
+                if (!ownerSpan) {
+                    ownerSpan = document.createElement('span');
+                    ownerSpan.className = 'owner-name';
+                    td.appendChild(ownerSpan);
+                }
+                ownerSpan.textContent = plotData['Owner Name'];
+            } else if (plotData['Status'] === 'contacted') {
+                td.classList.add('contacted');
+                // Add contacted status
+                let contactSpan = td.querySelector('.contacted-status');
+                if (!contactSpan) {
+                    contactSpan = document.createElement('span');
+                    contactSpan.className = 'contacted-status';
+                    td.appendChild(contactSpan);
+                }
+                contactSpan.textContent = 'Contacted';
+            }
+        } else {
+            td.classList.add('available');
+        }
+    });
+}
+
+// Update statistics
+function updateStatistics() {
+    const totalPlots = 175;
+    const ownedPlots = plotDatabase.filter(p => p['Status'] === 'owned').length;
+    const contactedPlots = plotDatabase.filter(p => p['Status'] === 'contacted').length;
+    const availablePlots = totalPlots - ownedPlots - contactedPlots;
+    
+    document.getElementById('total-plots').textContent = totalPlots;
+    document.getElementById('owned-plots').textContent = ownedPlots;
+    document.getElementById('contacted-plots').textContent = contactedPlots;
+    document.getElementById('available-plots').textContent = availablePlots;
+    
+    console.log(`Stats updated: ${ownedPlots} owned, ${contactedPlots} contacted, ${availablePlots} available`);
+}
+
+// Open modal
+function openModal(plotNumber) {
+    currentPlotNumber = plotNumber;
+    document.getElementById('plotNumber').textContent = plotNumber;
+    document.getElementById('plotModal').classList.add('show');
+    
+    // Clear form
+    document.getElementById('registrationForm').reset();
+    
+    // Check if plot is already registered
+    const existingData = plotDatabase.find(p => parseInt(p['Plot Number']) === plotNumber);
+    if (existingData) {
+        document.getElementById('ownerName').value = existingData['Owner Name'] || '';
+        document.getElementById('primaryMobile').value = existingData['Primary Mobile'] || '';
+        document.getElementById('alternativeMobile').value = existingData['Alternative Mobile'] || '';
+        document.getElementById('plotSize').value = existingData['Plot Size'] || '';
+    }
+}
+
+// Close modal
+function closeModal() {
+    document.getElementById('plotModal').classList.remove('show');
+    currentPlotNumber = null;
+}
+
+// Show notification
+function showNotification(message, type = 'success') {
+    const notification = document.getElementById('notification');
+    notification.textContent = message;
+    notification.className = 'notification show';
+    if (type === 'error') {
+        notification.classList.add('error');
+    }
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 3000);
+}
+
+// Handle form submission
+document.getElementById('registrationForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const ownerName = document.getElementById('ownerName').value;
+    const primaryMobile = document.getElementById('primaryMobile').value;
+    const alternativeMobile = document.getElementById('alternativeMobile').value;
+    const plotSize = document.getElementById('plotSize').value;
+    
+    if (!ownerName || !primaryMobile || !plotSize) {
+        showNotification('Please fill in all required fields', 'error');
+        return;
+    }
+    
+    // Format mobile numbers
+    const formattedMobile = primaryMobile.startsWith('+91') ? primaryMobile : `+91${primaryMobile}`;
+    const formattedAltMobile = alternativeMobile ? (alternativeMobile.startsWith('+91') ? alternativeMobile : `+91${alternativeMobile}`) : '';
+    
+    // Create registration record
+    const registration = {
+        'Plot Number': currentPlotNumber.toString(),
+        'Owner Name': ownerName,
+        'Primary Mobile': formattedMobile,
+        'Alternative Mobile': formattedAltMobile,
+        'Plot Size': plotSize,
+        'Status': 'owned',
+        'Registration Date': new Date().toLocaleDateString()
+    };
+    
+    // Remove existing record for this plot if it exists
+    plotDatabase = plotDatabase.filter(p => parseInt(p['Plot Number']) !== currentPlotNumber);
+    
+    // Add new record
+    plotDatabase.push(registration);
+    
+    // Save to localStorage
+    saveToLocalStorage();
+    
+    // Refresh display
+    renderPlots();
+    updateStatistics();
+    
+    showNotification(`Registration successful for Plot ${currentPlotNumber}!`, 'success');
+    closeModal();
+});
+
+// Mark as contacted
+function markAsContacted() {
+    const ownerName = document.getElementById('ownerName').value || 'Contacted Lead';
+    const primaryMobile = document.getElementById('primaryMobile').value || '0000000000';
+    
+    // Format mobile number
+    const formattedMobile = primaryMobile.startsWith('+91') ? primaryMobile : `+91${primaryMobile}`;
+    
+    // Create contacted record
+    const contacted = {
+        'Plot Number': currentPlotNumber.toString(),
+        'Owner Name': ownerName,
+        'Primary Mobile': formattedMobile,
+        'Alternative Mobile': '',
+        'Plot Size': '167 Sq. Yards',
+        'Status': 'contacted',
+        'Registration Date': new Date().toLocaleDateString()
+    };
+    
+    // Remove existing record for this plot if it exists
+    plotDatabase = plotDatabase.filter(p => parseInt(p['Plot Number']) !== currentPlotNumber);
+    
+    // Add contacted record
+    plotDatabase.push(contacted);
+    
+    // Save to localStorage
+    saveToLocalStorage();
+    
+    // Refresh display
+    renderPlots();
+    updateStatistics();
+    
+    showNotification(`Plot ${currentPlotNumber} marked as contacted!`, 'success');
+    closeModal();
+}
+
+// Export data function
+function exportData() {
+    if (plotDatabase.length === 0) {
+        showNotification('No data to export', 'error');
+        return;
+    }
+    
+    // Create CSV content
+    let csvContent = 'Plot Number,Owner Name,Primary Mobile,Alternative Mobile,Plot Size,Status,Registration Date\n';
+    plotDatabase.forEach(record => {
+        csvContent += `${record['Plot Number'] || ''},"${record['Owner Name'] || ''}",${record['Primary Mobile'] || ''},${record['Alternative Mobile'] || ''},"${record['Plot Size'] || ''}",${record['Status'] || ''},${record['Registration Date'] || ''}\n`;
+    });
+    
+    // Create blob and download
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `teachers_colony_database_${new Date().toISOString().split('T')[0]}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+    
+    showNotification(`Database exported successfully! ${plotDatabase.length} records exported.`, 'success');
+}
+
+// Add export button to header
+document.addEventListener('DOMContentLoaded', function() {
+    const header = document.querySelector('.header');
+    const exportBtn = document.createElement('button');
+    exportBtn.textContent = '📊 Export Data';
+    exportBtn.className = 'btn btn-secondary';
+    exportBtn.style.margin = '10px';
+    exportBtn.onclick = exportData;
+    header.appendChild(exportBtn);
+});
+
+console.log('Teachers Colony Application - Final Working Version');
+console.log('Features: Plot registration, contact tracking, data export, local storage');
+</script>
+
+</body>
+</html>

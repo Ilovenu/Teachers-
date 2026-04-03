@@ -1,0 +1,46 @@
+{
+  "name": "teachers-colony",
+  "version": "1.0.0",
+  "description": "Teachers Colony Plot Management System - Interactive plot registration with real-time synchronization",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 8000",
+    "serve": "npx http-server -p 8000",
+    "build": "echo 'No build process needed - static files ready'",
+    "deploy": "bash deploy.sh",
+    "test": "echo 'Open http://localhost:8000 to test the application'"
+  },
+  "keywords": [
+    "real-estate",
+    "plot-management",
+    "teachers-colony",
+    "machilipatnam",
+    "github-gist",
+    "web-application",
+    "responsive-design"
+  ],
+  "author": {
+    "name": "Teachers Colony Management",
+    "email": "mahadevusomaraju@gmail.com",
+    "phone": "+16693062113"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ilovenu/teachers-colony.git"
+  },
+  "homepage": "https://github.com/Ilovenu/teachers-colony",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "deployment": {
+    "provider": "github-pages",
+    "skip_cleanup": true,
+    "github_token": "$GITHUB_TOKEN",
+    "keep_history": true
+  }
+}
