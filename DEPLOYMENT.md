@@ -31,7 +31,7 @@
 
 ### Current Settings
 - **Gist ID**: `5397a86680129b2d3534059577f8865c`
-- **GitHub Token**: `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`
+- **GitHub Token**: [REDACTED - Use environment variable or config.js]
 - **API**: GitHub Gist API
 - **Database**: `teachers_colony_database.json`
 
