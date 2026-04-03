@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teachers Colony - Machilipatnam | Premium Plots</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+    
+    /* Professional Header Styles */
+    .main-header {
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      color: white;
+      padding: 20px 0;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    
+    .main-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      opacity: 0.3;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #1e3c72;
+      box-shadow: 0 4px 15px rgba(255,215,0,0.3);
+    }
+    
+    .logo-text h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .logo-text .tagline {
+      font-size: 14px;
+      opacity: 0.9;
+      font-style: italic;
+    }
+    
+    .header-contact {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      padding: 8px 15px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+    }
+    
+    .contact-item:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+    
+    .contact-icon {
+      font-size: 18px;
+    }
+    
+    .contact-text {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+    }
+    
+    .contact-link {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .contact-link:hover {
+      color: #ffd700;
+    }
+    
+    .header-nav {
+      background: rgba(255,255,255,0.1);
+      padding: 12px 0;
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .nav-links a:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-1px);
+    }
+    
+    .nav-actions {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #28a745, #20c997);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(40,167,69,0.3);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(40,167,69,0.4);
+    }
+    
+    .btn-secondary {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.3);
+      transform: translateY(-2px);
+    }
+    
+    .stats-bar {
+      background: rgba(255,255,255,0.1);
+      padding: 15px 0;
+      margin-top: 15px;
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .stats-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    
+    .stat-item {
+      text-align: center;
+      padding: 0 20px;
+    }
+    
+    .stat-number {
+      font-size: 24px;
+      font-weight: 700;
+      color: #ffd700;
+      margin-bottom: 5px;
+    }
+    
+    .stat-label {
+      font-size: 12px;
+      opacity: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    @media (max-width: 768px) {
+      .header-top {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .header-contact {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+      }
+      
+      .stats-container {
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+    }
+    
+    /* Original page styles */
+    .page {
+      width: 860px;
+      margin: 0 auto;
+      background: #fff;
+      border: 7px solid #c0392b;
+      padding: 14px 14px 18px;
+    }
+    
+    /* ── HEADER ── */
+    .hdr { text-align: center; margin-bottom: 12px; position: relative; }
+    .hdr .compass { position: absolute; left: 4px; top: 0; font-size: 1.8rem; }
+    .badge {
+      display: inline-block;
+      background: #c0392b; color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700;
+      padding: 4px 24px; border-radius: 5px;
+    }
+    .sub1 { font-size: 0.68rem; color: #c0392b; margin-top: 3px; }
+    .sub2 { color: #1a3a6e; font-weight: 700; font-size: 0.88rem; margin-top: 6px; }
+    .sub3 { color: #1a3a6e; font-size: 0.8rem; }
+
+    /* ── OUTER LAYOUT: left-road | map | right-road ── */
+    .outer {
+      display: table;
+      width: 100%;
+      border: 2px solid #444;
+      border-collapse: collapse;
+    }
+    .outer-row { display: table-row; }
+    .road-col {
+      display: table-cell;
+      width: 26px;
+      background: #b0c4ce;
+      vertical-align: middle;
+      text-align: center;
+      border: 1px solid #555;
+    }
+    .road-col span {
+      display: inline-block;
+      writing-mode: vertical-rl;
+      font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.14em; color: #1a237e;
+    }
+    .road-col.left span { transform: rotate(180deg); }
+    .road-col.center span { writing-mode: horizontal-tb; font-size: 0.5rem; }
+
+    .map-col {
+      display: table-cell;
+      vertical-align: top;
+      padding: 6px 5px;
+    }
+
+    /* ── ROAD STRIP ── */
+    .road {
+      background: #b0c4ce;
+      text-align: center;
+      font-size: 0.6rem; font-weight: 700;
+      color: #1a237e; letter-spacing: 0.1em;
+      padding: 3px 0;
+      border-top: 1.5px solid #555;
+      border-bottom: 1.5px solid #555;
+      margin: 4px 0;
+    }
+
+    /* ── TWO COLUMN SECTION ── */
+    .row2 {
+      display: table;
+      width: 100%;
+      border-collapse: separate;
+      width: 100%;
+      margin-bottom: 2px;
+    }
+    .rl-left, .rl-right {
+      display: table-cell;
+      font-size: 0.55rem; font-weight: 700; color: #333;
+      border: 1px solid #555; padding: 0 3px;
+      background: #fff; line-height: 1.5;
+      white-space: nowrap;
+    }
+    .rl-right { text-align: right; }
+    .rl-spacer { display: table-cell; width: 100%; }
+
+    /* ── PLOT TABLE ── */
+    .ptable {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1.5px solid #555;
+      table-layout: fixed;
+    }
+    .ptable td {
+      border: 1px solid #aaa;
+      text-align: center;
+      padding: 3px 1px;
+      cursor: pointer;
+      vertical-align: middle;
+      height: 40px;
+      width: auto;
+    }
+    .ptable tr { border-bottom: 1px solid #999; }
+    .ptable td:hover { background: #fffbe6; }
+    .ptable td.owned { background: #e8f5e9; }
+    .ptable td.owned:hover { background: #c8e6c9; }
+    .ptable td.contacted { background: #fff3cd; }
+    .ptable td.contacted:hover { background: #ffe69c; }
+    .ptable td.available { background: #ffffff; }
+    .ptable td.available:hover { background: #f8f9fa; }
+
+    .pn { font-size: 0.63rem; font-weight: 700; color: #1a3a6e; display: block; }
+    .po { font-size: 0.38rem; color: #2e7d32; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .pc { font-size: 0.38rem; color: #856404; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 600; }
+
+    /* ── BOTTOM ROAD ── */
+    .bot-road {
+      background: #b0c4ce; text-align: center;
+      font-weight: 700; font-size: 0.7rem;
+      color: #1a237e; letter-spacing: 0.12em;
+      padding: 5px 0; border-top: 2px solid #444; margin-top: 4px;
+    }
+
+    /* ── FOOTER ── */
+    .ftr {
+      display: table; width: 100%;
+      margin-top: 10px; border-spacing: 0;
+    }
+    .ftr-left, .ftr-mid, .ftr-right { display: table-cell; vertical-align: top; }
+    .ftr-left { font-size: 0.67rem; color: #1a3a6e; line-height: 1.75; }
+    .cell-box { display: inline-block; border: 1px solid #555; padding: 6px 16px; font-size: 0.72rem; color: #333; min-width: 130px; }
+    .ftr-right { text-align: right; }
+    .sr { display: inline-block; background: #b0c4ce; color: #1a237e; font-size: 0.57rem; font-weight: 700; padding: 2px 7px; border-radius: 10px; margin-bottom: 3px; }
+
+    /* ── MODAL ── */
+    .ov { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:999; align-items:center; justify-content:center; }
+    .ov.open { display:flex; }
+    .modal { background:#fff; border-radius:14px; padding:22px 20px 18px; width:300px; box-shadow:0 16px 50px rgba(0,0,0,0.35); position:relative; }
+    .mcl { position:absolute; top:10px; right:12px; background:none; border:none; font-size:1.2rem; cursor:pointer; color:#888; }
+    .mpl { font-family:'Playfair Display',serif; font-size:2rem; color:#c0392b; font-weight:700; }
+    .mlb { font-size:0.65rem; color:#aaa; text-transform:uppercase; letter-spacing:0.07em; margin-top:10px; }
+    .mvl { font-size:0.9rem; font-weight:600; color:#1a3a6e; margin-top:2px; }
+    .mph { font-size:1rem; font-weight:700; color:#1565c0; margin-top:2px; }
+    .mc1 { display:block; width:100%; margin-top:14px; background:#c0392b; color:#fff; border:none; border-radius:9px; padding:11px; font-size:0.95rem; font-weight:700; cursor:pointer; text-decoration:none; text-align:center; font-family:'DM Sans',sans-serif; }
+    .mc2 { display:block; width:100%; margin-top:7px; background:#e8f5e9; color:#2e7d32; border:1.5px solid #81c784; border-radius:9px; padding:9px; font-size:0.85rem; font-weight:600; text-decoration:none; text-align:center; font-family:'DM Sans',sans-serif; }
+    .mno { color:#e67e22; font-size:0.85rem; text-align:center; margin-top:10px; }
+  </style>
+</head>
+<body>
+
+<header class="main-header">
+  <div class="header-container">
+    <div class="header-top">
+      <div class="logo-section">
+        <div class="logo-icon">TC</div>
+        <div class="logo-text">
+          <h1>Teachers Colony</h1>
+          <div class="tagline">Premium Residential Plots in Machilipatnam</div>
+        </div>
+      </div>
+      
+      <div class="header-contact">
+        <div class="contact-item">
+          <span class="contact-icon">✉️</span>
+          <span class="contact-text">mahadevusomaraju@gmail.com</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">💬</span>
+          <a href="https://wa.me/16693062113" target="_blank" class="contact-link">+16693062113</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">📍</span>
+          <a href="https://maps.app.goo.gl/bNzYVPCLyYjtiE9e9" target="_blank" class="contact-link">Machilipatnam</a>
+        </div>
+      </div>
+    </div>
+    
+    <nav class="header-nav">
+      <div class="nav-container">
+        <ul class="nav-links">
+          <li><a href="#home">🏠 Home</a></li>
+          <li><a href="#plots">📊 Plots</a></li>
+          <li><a href="#documents">📄 Documents</a></li>
+          <li><a href="#about">ℹ️ About</a></li>
+          <li><a href="#gallery">🖼️ Gallery</a></li>
+          <li><a href="#contact">📞 Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+    
+    <div class="stats-bar">
+      <div class="stats-container">
+        <div class="stat-item">
+          <div class="stat-number" id="total-plots">175</div>
+          <div class="stat-label">Total Plots</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="owned-plots">39</div>
+          <div class="stat-label">Contact Available</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="available-plots">136</div>
+          <div class="stat-label">Contact Not Available</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="ownership-rate">22.3%</div>
+          <div class="stat-label">Ownership Rate</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="compass">🧭</div>
+    <div class="badge">Teacher'S Colony</div>
+    <div class="sub1">Near Bye-pass Road · Pedana Road Cross</div>
+    <div class="sub2">Proposed House sites in</div>
+    <div class="sub3">Rs. No. 311 / 1, 2, 3</div>
+  </div>
+
+  <!-- MAP -->
+  <div class="outer">
+    <div class="outer-row">
+      <div class="road-col left"><span>100 FEET PORT ROAD</span></div>
+      <div class="map-col">
+        <div style="display: table; width: 100%;"></div>
+          <div style="display: table-row;">
+            <div style="display: table-cell; width: 47%; vertical-align: top;">
+              <!-- LEFT PLOTS -->
+              <!-- SOUTH: 160-166 -->
+              <div class="row2">
+                <div class="col2">
+                  <div class="rl"><span class="rl-left">160—166</span><span class="rl-spacer"></span><span class="rl-right">SOUTH</span></div>
+                  <table class="ptable"><tbody>
+                    <tr id="r161"></tr>
+                    <tr id="r160"></tr>
+                  </tbody></table>
+                  <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">160—155</span></div>
+                </div>
+              </div>
+
+              <div class="road">— 30 FEET ROAD —</div>
+
+              <!-- 130-136 -->
+              <div class="row2">
+                <div class="col2">
+                  <div class="rl"><span class="rl-left">130—136</span></div>
+                  <table class="ptable"><tbody>
+                    <tr id="r130"></tr>
+                    <tr id="r129"></tr>
+                  </tbody></table>
+                  <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">129—123</span></div>
+                </div>
+              </div>
+
+              <div class="road">— 40 FEET ROAD —</div>
+
+              <!-- 98-104 -->
+              <div class="row2">
+                <div class="col2">
+                  <div class="rl"><span class="rl-left">98—104</span></div>
+                  <table class="ptable"><tbody>
+                    <tr id="r98"></tr>
+                    <tr id="r97"></tr>
+                  </tbody></table>
+                  <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">97—91</span></div>
+                </div>
+              </div>
+
+              <div class="road">— 40 FEET ROAD —</div>
+
+              <!-- 65-72 -->
+              <div class="row2">
+                <div class="col2">
+                  <div class="rl"><span class="rl-left">65—72</span></div>
+                  <table class="ptable"><tbody>
+                    <tr id="r65"></tr>
+                    <tr id="r64"></tr>
+                  </tbody></table>
+                  <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">64—57</span></div>
+                </div>
+              </div>
+
+              <div class="road">— 40 FEET ROAD —</div>
+
+              <!-- 33-39 -->
+              <div class="row2">
+                <div class="col2">
+                  <div class="rl"><span class="rl-left">33—39</span></div>
+                  <table class="ptable"><tbody>
+                    <tr id="r33"></tr>
+                    <tr id="r32"></tr>
+                  </tbody></table>
+                  <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">32—26</span></div>
+                </div>
+              </div>
+
+              <div class="road">— 30 FEET ROAD —</div>
+
+              <!-- 5-9 -->
+              <div class="row2">
+                <div class="col2">
+                  <div class="rl"><span class="rl-left">5—9</span></div>
+                  <table class="ptable"><tbody><tr id="r9"></tr></tbody></table>
+                </div>
+              </div>
+
+              <!-- 1-4 bottom right -->
+              <div style="text-align:right; margin-top:4px;">
+                <span class="rl-left" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">4—1</span>
+                <table class="ptable" style="width:180px; display:inline-table; margin-top:2px;">
+                  <tbody><tr id="r1"></tr></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- CONTINUOUS CENTER ROAD -->
+            <div class="road-col center"><span>40 FEET CENTER ROAD</span></div>
+
+            <div style="display: table-cell; width: 47%; vertical-align: top;">
+              <!-- RIGHT PLOTS -->
+              <!-- 167-175 -->
+              <div class="row2">
+                <div class="col2">
+                  <div class="rl"><span class="rl-left">167—175</span></div>
+                  <table class="ptable"><tbody>
+                    <tr id="r167"></tr>
+                    <tr id="r154"></tr>
+                  </tbody></table>
+                  <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">154—146</span></div>
+                </div>
+              </div>
+
+              <div class="road">— 30 FEET ROAD —</div>
+
+              <!-- 137-145 -->
+              <div class="row2">
+                <div class="col2">
+                  <div class="rl"><span class="rl-left">137—145</span></div>
+                  <table class="ptable"><tbody>
+                    <tr id="r137"></tr>
+                    <tr id="r122"></tr>
+                  </tbody></table>
+                  <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">122—114</span></div>
+                </div>
+              </div>
+
+              <div class="road">— 40 FEET ROAD —</div>
+
+              <!-- 105-113 -->
+              <div class="row2">
+                <div class="col2">
+                  <div class="rl"><span class="rl-left">105—113</span></div>
+                  <table class="ptable"><tbody>
+                    <tr id="r105"></tr>
+                    <tr id="r90"></tr>
+                  </tbody></table>
+                  <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">90—82</span></div>
+                </div>
+              </div>
+
+              <div class="road">— 40 FEET ROAD —</div>
+
+              <!-- 73-81 -->
+              <div class="row2">
+                <div class="col2">
+                  <div class="rl"><span class="rl-left">73—81</span></div>
+                  <table class="ptable"><tbody>
+                    <tr id="r73"></tr>
+                    <tr id="r56"></tr>
+                  </tbody></table>
+                  <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">56—48</span></div>
+                </div>
+              </div>
+
+              <div class="road">— 40 FEET ROAD —</div>
+
+              <!-- 40-47 -->
+              <div class="row2">
+                <div class="col2">
+                  <div class="rl"><span class="rl-left">40—47</span></div>
+                  <table class="ptable"><tbody>
+                    <tr id="r40"></tr>
+                    <tr id="r25"></tr>
+                  </tbody></table>
+                  <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">25—18</span></div>
+                </div>
+              </div>
+
+              <div class="road">— 30 FEET ROAD —</div>
+
+              <!-- 10-17 -->
+              <div class="row2">
+                <div class="col2">
+                  <div class="rl"><span class="rl-left">10—17</span></div>
+                  <table class="ptable"><tbody><tr id="r10"></tr></tbody></table>
+                </div>
+              </div>
+
+              <!-- 1-4 right of center road -->
+              <div style="text-align:right; margin-top:4px;">
+                <span class="rl-left" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">4—1</span>
+                <table class="ptable" style="width:180px; display:inline-table; margin-top:2px;">
+                  <tbody><tr id="r1"></tr></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- end map-col -->
+      <div class="road-col right"><span>Z.P. CENTRE (1 K.M.)</span></div>
+    </div>
+  </div>
+
+  <div class="bot-road">100 FEET PORT ROAD</div>
+
+  <!-- DOCUMENTS SECTION -->
+  <div id="documents" style="margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 8px; border: 2px solid #c0392b;">
+    <div class="hdr" style="margin-bottom: 20px;">
+      <div class="badge" style="font-size: 1rem;">📄 Important Documents</div>
+    </div>
+    
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;">
+      <!-- Upload Section -->
+      <div style="flex: 1; background: white; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
+        <h3 style="color: #c0392b; margin-bottom: 15px; font-size: 1.1rem;">📤 Upload Documents</h3>
+        
+        <div id="upload-area" style="border: 2px dashed #c0392b; padding: 30px; text-align: center; border-radius: 8px; background: #fff5f5; cursor: pointer;" onclick="document.getElementById('file-input').click()">
+          <div style="font-size: 2rem; margin-bottom: 10px;">📁</div>
+          <div style="color: #666; margin-bottom: 10px;">Click to upload or drag and drop</div>
+          <div style="font-size: 0.85rem; color: #999;">PDF, DOC, DOCX, JPG, PNG (Max 10MB)</div>
+        </div>
+        
+        <input type="file" id="file-input" style="display: none;" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" onchange="handleFileUpload(event)">
+        
+        <div id="upload-progress" style="display: none; margin-top: 15px;">
+          <div style="background: #e9ecef; border-radius: 4px; overflow: hidden;">
+            <div id="progress-bar" style="background: #c0392b; height: 8px; width: 0%; transition: width 0.3s;"></div>
+          </div>
+          <div id="progress-text" style="font-size: 0.85rem; color: #666; margin-top: 5px;">Uploading...</div>
+        </div>
+      </div>
+      
+      <!-- Documents List -->
+      <div style="flex: 1; background: white; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
+        <h3 style="color: #c0392b; margin-bottom: 15px; font-size: 1.1rem;">📋 Available Documents</h3>
+        
+        <div id="documents-list">
+          <div style="padding: 12px; border: 1px solid #e9ecef; border-radius: 6px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 1.2rem;">📄</span>
+              <div>
+                <div style="font-weight: 600; color: #333;">Layout Plan</div>
+                <div style="font-size: 0.8rem; color: #666;">PDF • 2.5 MB</div>
+              </div>
+            </div>
+            <button onclick="downloadDocument('layout-plan')" style="background: #c0392b; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Download</button>
+          </div>
+          
+          <div style="padding: 12px; border: 1px solid #e9ecef; border-radius: 6px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 1.2rem;">📜</span>
+              <div>
+                <div style="font-weight: 600; color: #333;">Registration Papers</div>
+                <div style="font-size: 0.8rem; color: #666;">PDF • 1.8 MB</div>
+              </div>
+            </div>
+            <button onclick="downloadDocument('registration')" style="background: #c0392b; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Download</button>
+          </div>
+          
+          <div style="padding: 12px; border: 1px solid #e9ecef; border-radius: 6px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 1.2rem;">📊</span>
+              <div>
+                <div style="font-weight: 600; color: #333;">Price List</div>
+                <div style="font-size: 0.8rem; color: #666;">PDF • 856 KB</div>
+              </div>
+            </div>
+            <button onclick="downloadDocument('price-list')" style="background: #c0392b; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Download</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="ftr">
+    <div class="ftr-left">
+      <strong>Venu - Behalf of Plot 25 & 40</strong><br>
+      Teachers Colony, Machilipatnam<br>
+      Cell : +1 6693062113<br>
+      e-mail : mahadevusomaraju@gmail.com
+    </div>
+    <div class="ftr-mid"><div class="cell-box">Cell :</div></div>
+    <div class="ftr-right">
+      <div><span class="sr">OUTER RING ROAD</span></div>
+      <div><span class="sr">BYPASS</span></div>
+      <div><span class="sr">PADANA</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="ov" id="ov">
+  <div class="modal">
+    <button class="mcl" onclick="closeModal()">✕</button>
+    <div class="mpl" id="m-num"></div>
+    
+    <!-- OWNER INFO SECTION -->
+    <div id="owner-info">
+      <div class="mlb">Owner Details</div>
+      <div class="mvl" id="m-owner"></div>
+      <div id="m-contact">
+        <div class="mlb" style="margin-top:8px">Phone</div>
+        <div class="mph" id="m-phone"></div>
+        <a class="mc1" id="m-c1" href="#">📞 Call</a>
+        <a class="mc2" id="m-c2" href="#" style="display:none">📞 Call Alt. Owner</a>
+      </div>
+      <div id="m-details" style="margin-top:12px;">
+        <div class="mlb">Plot Information</div>
+        <div style="font-size:0.85rem; color:#666; margin-top:4px;">
+          <div>Size: <span id="plot-size" style="font-weight:600;">Standard Plot</span></div>
+          <div>Status: <span id="plot-status" style="font-weight:600;">Available</span></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- REGISTRATION FORM SECTION -->
+    <div id="registration-form" style="display:none;">
+      <div class="mlb">Register for this Plot</div>
+      <form id="plot-form" style="margin-top:10px;">
+        <div style="margin-bottom:8px;">
+          <label style="font-size:0.8rem; color:#666;">Name *</label>
+          <input type="text" id="reg-name" required style="width:100%; padding:6px; border:1px solid #ddd; border-radius:4px; font-size:0.9rem;">
+        </div>
+        <div style="margin-bottom:8px;">
+          <label style="font-size:0.8rem; color:#666;">Mobile Number *</label>
+          <input type="tel" id="reg-mobile" required pattern="[0-9]{10}" placeholder="10-digit number" style="width:100%; padding:6px; border:1px solid #ddd; border-radius:4px; font-size:0.9rem;">
+        </div>
+        <div style="margin-bottom:8px;">
+          <label style="font-size:0.8rem; color:#666;">Alternative Mobile</label>
+          <input type="tel" id="reg-alt-mobile" pattern="[0-9]{10}" placeholder="Optional" style="width:100%; padding:6px; border:1px solid #ddd; border-radius:4px; font-size:0.9rem;">
+        </div>
+        <div style="margin-bottom:8px;">
+          <label style="font-size:0.8rem; color:#666;">Plot Size (in yards) *</label>
+          <input type="number" id="reg-size" required min="1" max="1000" placeholder="Enter size in yards" style="width:100%; padding:6px; border:1px solid #ddd; border-radius:4px; font-size:0.9rem;">
+        </div>
+        <button type="submit" style="background:#c0392b; color:white; border:none; padding:8px 16px; border-radius:4px; font-weight:600; cursor:pointer; width:100%;">📝 Save Registration</button>
+        <button type="button" onclick="markAsContacted()" style="background:#ffc107; color:#212529; border:none; padding:8px 16px; border-radius:4px; font-weight:600; cursor:pointer; width:100%; margin-top:5px;">📞 Mark as Contacted</button>
+      </form>
+    </div>
+    
+    <div class="mno" id="m-none" style="display:none">No contact info available</div>
+  </div>
+</div>
+
+<script>
+const O = {};
+
+function fmt(p){const d=p.replace(/\D/g,'');return d.length===12&&d.startsWith('91')?`+91 ${d.slice(2,7)} ${d.slice(7)}`:p;}
+
+function makeTd(n){
+  const o=O[n];
+  const td=document.createElement('td');
+  
+  if (o) {
+    // Owned plot - green with owner name
+    td.className='owned';
+    td.innerHTML=`<span class="pn">${n}</span><span class="po">${o[0].n.split(' ').pop()}</span>`;
+  } else if (plotDatabase.find(record => record['Plot Number'] == n && record['Status'] === 'contacted')) {
+    // Contacted plot - yellow with mobile number
+    const contactedRecord = plotDatabase.find(record => record['Plot Number'] == n && record['Status'] === 'contacted');
+    td.className='contacted';
+    const mobile = contactedRecord['Primary Mobile'];
+    const shortMobile = mobile.replace('+91', '').slice(-4); // Show last 4 digits
+    td.innerHTML=`<span class="pn">${n}</span><span class="pc">${shortMobile}</span>`;
+  } else {
+    // Available plot - white
+    td.className='available';
+    td.innerHTML=`<span class="pn">${n}</span>`;
+  }
+  
+  td.onclick=()=>show(n);
+  return td;
+}
+
+function fill(id,nums){
+  const el=document.getElementById(id);
+  if(!el) return;
+  nums.forEach(n=>el.appendChild(makeTd(n)));
+}
+
+// Don't render plots initially - wait for data to load
+// fill('r161',[161,162,163,164,165,166]);
+// fill('r160',[160,159,158,157,156,155]);
+// fill('r167',[167,168,169,170,171,172,173,174,175]);
+// fill('r154',[154,153,152,151,150,149,148,147,146]);
+// fill('r130',[130,131,132,133,134,135,136]);
+// fill('r129',[129,128,127,126,125,124,123]);
+// fill('r137',[137,138,139,140,141,142,143,144,145]);
+// fill('r122',[122,121,120,119,118,117,116,115,114]);
+// fill('r98', [98,99,100,101,102,103,104]);
+// fill('r97', [97,96,95,94,93,92,91]);
+// fill('r105',[105,106,107,108,109,110,111,112,113]);
+// fill('r90', [90,89,88,87,86,85,84,83,82]);
+// fill('r65', [65,66,67,68,69,70,71,72]);
+// fill('r64', [64,63,62,61,60,59,58,57]);
+// fill('r73', [73,74,75,76,77,78,79,80,81]);
+// fill('r56', [56,55,54,53,52,51,50,49,48]);
+// fill('r33', [33,34,35,36,37,38,39]);
+// fill('r32', [32,31,30,29,28,27,26]);
+// fill('r40', [40,41,42,43,44,45,46,47]);
+// fill('r25', [25,24,23,22,21,20,19,18]);
+// fill('r9',  [9,8,7,6,5]);
+// fill('r10', [10,11,12,13,14,15,16,17]);
+// fill('r1',  [4,3,2,1]);
+
+let selectedPlots = new Set();
+
+function toggleSelection(n) {
+  const td = event.target.closest('td');
+  if (selectedPlots.has(n)) {
+    selectedPlots.delete(n);
+    td.style.backgroundColor = '';
+  } else {
+    selectedPlots.add(n);
+    td.style.backgroundColor = '#ffeb3b';
+  }
+  updateSelectionCount();
+}
+
+function updateSelectionCount() {
+  const count = selectedPlots.size;
+  document.getElementById('selection-count').textContent = `${count} plots selected`;
+}
+
+function exportToExcel() {
+  if (selectedPlots.size === 0) {
+    alert('No plots selected! Please click on plot boxes to select them.');
+    return;
+  }
+  
+  // Create CSV content
+  let csvContent = 'Plot Number,Status,Date\n';
+  selectedPlots.forEach(plot => {
+    csvContent += `${plot},Selected,${new Date().toLocaleDateString()}\n`;
+  });
+  
+  // Create blob and download
+  const blob = new Blob([csvContent], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `selected_plots_${new Date().toISOString().split('T')[0]}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  window.URL.revokeObjectURL(url);
+  
+  alert(`Exported ${selectedPlots.size} plots to Excel file!`);
+}
+
+function show(n){
+  const o=O[n];
+  document.getElementById('m-num').textContent='Plot '+n;
+  
+  // Check if plot is contacted
+  const contactedRecord = plotDatabase.find(record => record['Plot Number'] == n && record['Status'] === 'contacted');
+  
+  if(o){
+    // Owned plot
+    document.getElementById('owner-info').style.display = 'block';
+    document.getElementById('registration-form').style.display = 'none';
+    
+    document.getElementById('m-owner').textContent=o.map(x=>x.n).join(' / ');
+    document.getElementById('m-phone').textContent=fmt(o[0].p);
+    document.getElementById('m-c1').href='tel:'+o[0].p;
+    const c2=document.getElementById('m-c2');
+    if(o[1]&&o[1].p!==o[0].p){c2.href='tel:'+o[1].p;c2.style.display='block';}
+    else c2.style.display='none';
+    document.getElementById('m-contact').style.display='';
+    document.getElementById('m-none').style.display='none';
+    
+    // Show plot details
+    document.getElementById('plot-size').textContent = getPlotSize(n);
+    document.getElementById('plot-status').textContent = 'Owned';
+    document.getElementById('m-details').style.display = 'block';
+  } else if(contactedRecord) {
+    // Contacted plot - show contact info
+    document.getElementById('owner-info').style.display = 'block';
+    document.getElementById('registration-form').style.display = 'none';
+    
+    document.getElementById('m-owner').textContent = 'Contacted Lead';
+    document.getElementById('m-phone').textContent = fmt(contactedRecord['Primary Mobile']);
+    document.getElementById('m-c1').href = 'tel:' + contactedRecord['Primary Mobile'];
+    document.getElementById('m-c2').style.display = 'none';
+    document.getElementById('m-contact').style.display = '';
+    document.getElementById('m-none').style.display = 'none';
+    
+    // Show plot details
+    document.getElementById('plot-size').textContent = getPlotSize(n);
+    document.getElementById('plot-status').textContent = 'Contacted';
+    document.getElementById('m-details').style.display = 'block';
+  } else {
+    // Available plot - show registration form
+    document.getElementById('owner-info').style.display = 'none';
+    document.getElementById('registration-form').style.display = 'block';
+    
+    // Clear form
+    document.getElementById('plot-form').reset();
+    
+    // Set current plot number
+    window.currentPlot = n;
+  }
+  document.getElementById('ov').classList.add('open');
+}
+
+function getPlotSize(n) {
+  // First check if plot exists in database with size
+  const plotRecord = plotDatabase.find(record => record['Plot Number'] == n);
+  if (plotRecord && plotRecord['Plot Size']) {
+    return plotRecord['Plot Size'];
+  }
+  
+  // If not in database, return empty string
+  return '';
+}
+
+function closeModal(){document.getElementById('ov').classList.remove('open');}
+document.getElementById('ov').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+// Excel Database Management
+let plotDatabase = [];
+
+// Auto-load database from localStorage on page start
+function autoLoadDatabase() {
+  const savedData = localStorage.getItem('plotDatabaseExcel');
+  if (savedData) {
+    try {
+      plotDatabase = JSON.parse(savedData);
+      // Restore O object from saved data
+      plotDatabase.forEach(record => {
+        if (record['Plot Number'] && record['Owner Name'] && record['Primary Mobile']) {
+          const plotNum = parseInt(record['Plot Number']);
+          const owners = [];
+          owners.push({n: record['Owner Name'], p: record['Primary Mobile']});
+          if (record['Alternative Mobile']) {
+            owners.push({n: record['Owner Name'], p: record['Alternative Mobile']});
+          }
+          O[plotNum] = owners;
+        }
+      });
+      
+      // Refresh display after loading
+      setTimeout(() => {
+        refreshPlotDisplay();
+      }, 100);
+      
+      console.log(`Auto-loaded ${plotDatabase.length} plot registrations from previous session.`);
+    } catch (error) {
+      console.error('Error loading saved database:', error);
+      // If localStorage fails, load from CSV
+      loadDefaultData();
+    }
+  } else {
+    // If no saved data, load from CSV
+    loadDefaultData();
+  }
+}
+
+// Load data from embedded CSV data
+function loadDefaultData() {
+  console.log('Loading embedded CSV data...');
+  // Embed the CSV data directly to avoid CORS issues
+  const csvData = `Plot Number,Owner Name,Primary Mobile,Alternative Mobile,Plot Size,Status,Registration Date,Colony,Location
+1,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+2,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+3,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+4,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+5,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+6,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+7,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+8,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+9,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+10,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+11,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+12,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+13,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+14,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+15,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+16,"L. Subramanyam","+918499899833",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+17,"Jogi Kanakadurga","+919963729133",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+18,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+19,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+20,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+21,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+22,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+23,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+24,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+25,"K. Nagambicamani","+919949726566",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+26,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+27,"M. Sekhar","+919866172123",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+28,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+29,"MD. Basheer","+919491584669",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+30,"Kalilullah","+919000548786",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+31,"Gose","+919154078692",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+32,"MD. Basheer/Kalilullah/Gose","+919491584669",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+33,"MD. Basheer/Kalilullah/Gose","+919491584669",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+34,"MD. Basheer/Kalilullah/Gose","+919491584669",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+35,"MD. Basheer/Kalilullah/Gose","+919491584669",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+36,"MD. Basheer/Kalilullah/Gose","+919491584669",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+37,"V. Sivaji","+919949413409",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+38,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+39,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+40,"B. Radhakumari","+919491380096","+919908636250","167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+41,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+42,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+43,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+44,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+45,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+46,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+47,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+48,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+49,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+50,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+51,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+52,"P. Anjaneya Das","+919848794767",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+53,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+54,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+55,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+56,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+57,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+58,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+59,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+60,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+61,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+62,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+63,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+64,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+65,"B. Padmavathi Devi","+918074937593",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+66,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+67,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+68,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+69,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+70,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+71,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+72,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+73,"P. Rakesh","+918919112471",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+74,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+75,"Gangaraju","+919393049750",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+76,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+77,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+78,"Sambasivarao","+919492482163",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+79,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+80,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+81,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+82,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+83,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+84,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+85,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+86,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+87,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+88,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+89,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+90,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+91,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+92,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+93,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+94,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+95,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+96,"Abdul Wajid","+917893774846",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+97,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+98,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+99,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+100,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+101,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+102,"MD. Kareemullah","+919291752412",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+103,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+104,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+105,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+106,"G. Kondababu","+919989120209",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+107,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+108,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+109,"Pulagani Ramadevi","+919393652827",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+110,"M. Nalani Kumari","+919393911464","+919393652827","167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+111,"M. Nalani Kumari","+919393911464",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+112,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+113,"Collector Office Madam","+919154769111",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+114,"VV. Nagabushan","+918897972298",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+115,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+116,"V. Anitha","+918374924161",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+117,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+118,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+119,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+120,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+121,"Sudhakar","+919247402890",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+122,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+123,"MD. Abdullah","+917569958038",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+124,"S. Nagaraju","+919866341198",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+125,"L.V.N. Sastry","+919989347789",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+126,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+127,"V. Vasu","+919550529929",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+128,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+129,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+130,"CH. Rambabu","+916302122508",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+131,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+132,"CH. Nageswara Rao","+919849309522",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+133,"VV. Nagabushan","+918897972298",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+134,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+135,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+136,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+137,"M. Ramana","+919866172123","+919866172123","167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+138,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+139,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+140,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+141,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+142,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+143,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+144,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+145,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+146,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+147,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+148,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+149,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+150,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+151,"P. Kalpana Devi","+917036515490",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+152,"Tata Mounika","+917904349625",,"167 Sq. Yards","owned","2026-01-01",Teachers Colony,Machilipatnam
+153,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+154,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+155,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+156,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+157,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+158,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+159,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+160,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+161,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+162,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+163,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+164,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+165,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+166,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+167,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+168,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+169,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+170,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+171,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+172,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+173,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+174,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam
+175,"",,"","167 Sq. Yards","Available","",Teachers Colony,Machilipatnam`;
+  
+  parseCSVData(csvData);
+  saveToLocalStorage();
+  setTimeout(() => {
+    refreshPlotDisplay();
+  }, 100);
+  console.log(`Loaded ${plotDatabase.length} plot records from embedded data.`);
+  console.log('CSV content length:', csvData.length);
+  console.log('First 200 chars:', csvData.substring(0, 200));
+}
+
+// Parse CSV data
+function parseCSVData(csvContent) {
+  console.log('Parsing CSV data...');
+  console.log('CSV content length:', csvContent.length);
+  console.log('First 200 chars:', csvContent.substring(0, 200));
+  
+  const lines = csvContent.split('\n');
+  const headers = lines[0].split(',').map(h => h.trim());
+  console.log('CSV headers:', headers);
+  console.log('Total lines:', lines.length);
+  
+  plotDatabase = [];
+  let loadedCount = 0;
+  
+  for (let i = 1; i < lines.length; i++) {
+    if (!lines[i].trim()) continue;
+    
+    const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
+    const record = {};
+    headers.forEach((header, index) => {
+      record[header] = values[index] || '';
+    });
+    plotDatabase.push(record);
+    
+    // Update the O object with owned plot data
+    if (record['Plot Number'] && record['Owner Name'] && record['Primary Mobile'] && record['Status'] === 'owned') {
+      const plotNum = parseInt(record['Plot Number']);
+      const owners = [];
+      owners.push({n: record['Owner Name'], p: record['Primary Mobile']});
+      if (record['Alternative Mobile']) {
+        owners.push({n: record['Owner Name'], p: record['Alternative Mobile']});
+      }
+      O[plotNum] = owners;
+      loadedCount++;
+      console.log(`Loaded plot ${plotNum}: ${record['Owner Name']}`);
+    }
+  }
+  
+  console.log(`Loaded ${loadedCount} owned plots from CSV`);
+  console.log('O object after loading:', O);
+  console.log('Plot database length:', plotDatabase.length);
+  
+  // Test: Check if specific plots are in O object
+  console.log('Plot 16 in O:', !!O[16]);
+  console.log('Plot 17 in O:', !!O[17]);
+  console.log('Plot 25 in O:', !!O[25]);
+}
+
+// Fallback hardcoded data
+function loadHardcodedData() {
+  const defaultData = [
+    { 'Plot Number': '16', 'Owner Name': 'L. Subramanyam', 'Primary Mobile': '+918499899833', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '17', 'Owner Name': 'Jogi Kanakadurga', 'Primary Mobile': '+919963729133', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '25', 'Owner Name': 'K. Nagambicamani', 'Primary Mobile': '+919949726566', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '27', 'Owner Name': 'M. Sekhar', 'Primary Mobile': '+919866172123', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '29', 'Owner Name': 'MD. Basheer', 'Primary Mobile': '+919491584669', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '30', 'Owner Name': 'Kalilullah', 'Primary Mobile': '+919000548786', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '31', 'Owner Name': 'Gose', 'Primary Mobile': '+919154078692', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '32', 'Owner Name': 'MD. Basheer/Kalilullah/Gose', 'Primary Mobile': '+919491584669', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '33', 'Owner Name': 'MD. Basheer/Kalilullah/Gose', 'Primary Mobile': '+919491584669', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '34', 'Owner Name': 'MD. Basheer/Kalilullah/Gose', 'Primary Mobile': '+919491584669', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '35', 'Owner Name': 'MD. Basheer/Kalilullah/Gose', 'Primary Mobile': '+919491584669', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '36', 'Owner Name': 'MD. Basheer/Kalilullah/Gose', 'Primary Mobile': '+919491584669', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '37', 'Owner Name': 'V. Sivaji', 'Primary Mobile': '+919949413409', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '40', 'Owner Name': 'B. Radhakumari', 'Primary Mobile': '+919491380096', 'Alternative Mobile': '+919908636250', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '52', 'Owner Name': 'P. Anjaneya Das', 'Primary Mobile': '+919848794767', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '65', 'Owner Name': 'B. Padmavathi Devi', 'Primary Mobile': '+918074937593', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '73', 'Owner Name': 'P. Rakesh', 'Primary Mobile': '+918919112471', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '75', 'Owner Name': 'Gangaraju', 'Primary Mobile': '+919393049750', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '78', 'Owner Name': 'Sambasivarao', 'Primary Mobile': '+919492482163', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '95', 'Owner Name': 'Abdul Wajid', 'Primary Mobile': '+917893774846', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '102', 'Owner Name': 'MD. Kareemullah', 'Primary Mobile': '+919291752412', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '106', 'Owner Name': 'G. Kondababu', 'Primary Mobile': '+919989120209', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '109', 'Owner Name': 'Pulagani Ramadevi', 'Primary Mobile': '+919393652827', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '110', 'Owner Name': 'M. Nalani Kumari', 'Primary Mobile': '+919393911464', 'Alternative Mobile': '+919393652827', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '111', 'Owner Name': 'M. Nalani Kumari', 'Primary Mobile': '+919393911464', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '113', 'Owner Name': 'Collector Office Madam', 'Primary Mobile': '+919154769111', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '114', 'Owner Name': 'VV. Nagabushan', 'Primary Mobile': '+918897972298', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '116', 'Owner Name': 'V. Anitha', 'Primary Mobile': '+918374924161', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '121', 'Owner Name': 'Sudhakar', 'Primary Mobile': '+919247402890', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '123', 'Owner Name': 'MD. Abdullah', 'Primary Mobile': '+917569958038', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '124', 'Owner Name': 'S. Nagaraju', 'Primary Mobile': '+919866341198', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '125', 'Owner Name': 'L.V.N. Sastry', 'Primary Mobile': '+919989347789', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '127', 'Owner Name': 'V. Vasu', 'Primary Mobile': '+919550529929', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '130', 'Owner Name': 'CH. Rambabu', 'Primary Mobile': '+916302122508', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '132', 'Owner Name': 'CH. Nageswara Rao', 'Primary Mobile': '+919849309522', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '133', 'Owner Name': 'VV. Nagabushan', 'Primary Mobile': '+918897972298', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '137', 'Owner Name': 'M. Ramana', 'Primary Mobile': '+919866172123', 'Alternative Mobile': '+919866172123', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '151', 'Owner Name': 'P. Kalpana Devi', 'Primary Mobile': '+917036515490', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '152', 'Owner Name': 'Tata Mounika', 'Primary Mobile': '+917904349625', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '216', 'Owner Name': 'Marakani Vasu', 'Primary Mobile': '+919347222233', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '224', 'Owner Name': 'V. Vijay Kumar', 'Primary Mobile': '+919247330326', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' },
+    { 'Plot Number': '225', 'Owner Name': 'L. Ramakrishna', 'Primary Mobile': '+919440540395', 'Alternative Mobile': '', 'Plot Size': '167 Sq. Yards', 'Status': 'owned', 'Registration Date': '2026-01-01' }
+  ];
+  
+  // Set plotDatabase to default data
+  plotDatabase = defaultData;
+  
+  // Update O object with default data
+  defaultData.forEach(record => {
+    const plotNum = parseInt(record['Plot Number']);
+    const owners = [];
+    owners.push({n: record['Owner Name'], p: record['Primary Mobile']});
+    if (record['Alternative Mobile']) {
+      owners.push({n: record['Owner Name'], p: record['Alternative Mobile']});
+    }
+    O[plotNum] = owners;
+  });
+  
+  // Save to localStorage
+  saveToLocalStorage();
+  
+  // Refresh display
+  setTimeout(() => {
+    refreshPlotDisplay();
+  }, 100);
+  
+  console.log(`Loaded ${defaultData.length} default plot records.`);
+}
+
+// Save database to localStorage and upload to shared storage
+function saveToLocalStorage() {
+  console.log('Saving to localStorage...');
+  console.log('Plot database length:', plotDatabase.length);
+  try {
+    localStorage.setItem('plotDatabaseExcel', JSON.stringify(plotDatabase));
+    console.log('Successfully saved to localStorage');
+    console.log('localStorage size:', localStorage.getItem('plotDatabaseExcel').length);
+    
+    // Also upload to shared storage for multi-user access
+    uploadToSharedStorage();
+    
+    // Download CSV as backup
+    downloadDatabaseCSV();
+  } catch (error) {
+    console.error('Error saving to localStorage:', error);
+  }
+}
+
+// Upload data to shared Google Sheet (for multi-user access)
+function uploadToSharedStorage() {
+  if (plotDatabase.length === 0) {
+    console.log('No data to upload to shared storage');
+    return;
+  }
+  
+  // Option 1: Google Sheets API (requires setup)
+  // Option 2: GitHub Gist (simpler)
+  // Option 3: JSONBin.io (free service)
+  
+  // Using GitHub Gist for simplicity (free, public, multi-user)
+  const gistData = {
+    description: `Teachers Colony Plot Database - Updated ${new Date().toLocaleString()}`,
+    public: true,
+    files: {
+      'teachers_colony_database.json': {
+        content: JSON.stringify(plotDatabase, null, 2)
+      }
+    }
+  };
+  
+  // You need to set your GitHub token in the config
+  const githubToken = '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'; // Replace with actual token
+  const gistId = '5397a86680129b2d3534059577f8865c'; // Create a gist and get its ID
+  
+  fetch(`https://api.github.com/gists/${gistId}`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `token ${githubToken}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(gistData)
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Successfully uploaded to shared storage:', data.html_url);
+    showNotification('Data saved to shared storage! All users can see updates.');
+  })
+  .catch(error => {
+    console.error('Error uploading to shared storage:', error);
+    // Fallback to local storage only
+    showNotification('Using local storage only. Shared storage unavailable.');
+  });
+}
+
+// Load data from shared storage
+function loadFromSharedStorage() {
+  const gistId = '5397a86680129b2d3534059577f8865c'; // Same gist ID as above
+  const githubToken = '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'; // Same token as above
+  
+  fetch(`https://api.github.com/gists/${gistId}`, {
+    headers: {
+      'Authorization': `token ${githubToken}`
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    const sharedData = JSON.parse(data.files['teachers_colony_database.json'].content);
+    
+    // Merge shared data with local data
+    const mergedData = mergePlotData(plotDatabase, sharedData);
+    plotDatabase = mergedData;
+    
+    // Update localStorage with merged data
+    localStorage.setItem('plotDatabaseExcel', JSON.stringify(plotDatabase));
+    
+    // Refresh display
+    refreshPlotDisplay();
+    
+    console.log('Loaded data from shared storage');
+    showNotification('Data loaded from shared storage!');
+  })
+  .catch(error => {
+    console.error('Error loading from shared storage:', error);
+    showNotification('Using local data only. Shared storage unavailable.');
+  });
+}
+
+// Merge plot data from multiple users
+function mergePlotData(localData, sharedData) {
+  const merged = {};
+  const allData = [...localData, ...sharedData];
+  
+  // Group by plot number and keep latest entry
+  allData.forEach(record => {
+    const plotNum = record['Plot Number'];
+    if (!merged[plotNum] || new Date(record['Registration Date']) > new Date(merged[plotNum]['Registration Date'])) {
+      merged[plotNum] = record;
+    }
+  });
+  
+  return Object.values(merged);
+}
+
+// Show notification to user
+function showNotification(message) {
+  const notification = document.createElement('div');
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 4px;
+    z-index: 10000;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  `;
+  notification.textContent = message;
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    document.body.removeChild(notification);
+  }, 3000);
+}
+
+// Download database as CSV file
+function downloadDatabaseCSV() {
+  if (plotDatabase.length === 0) {
+    console.log('No data to download');
+    return;
+  }
+  
+  // Create CSV content matching the master database format
+  let csvContent = 'Plot Number,Owner Name,Primary Mobile,Alternative Mobile,Plot Size,Status,Registration Date,Owner Type,Colony,Location,Last Updated\n';
+  
+  plotDatabase.forEach(record => {
+    const csvRow = [
+      record['Plot Number'] || '',
+      `"${record['Owner Name'] || ''}"`,
+      record['Primary Mobile'] || '',
+      record['Alternative Mobile'] || '',
+      `"${record['Plot Size'] || ''}"`,
+      record['Status'] || 'Available',
+      record['Registration Date'] || '',
+      record['Owner Type'] || 'Primary',
+      record['Colony'] || 'Teachers Colony',
+      record['Location'] || 'Machilipatnam',
+      new Date().toISOString()
+    ];
+    csvContent += csvRow.join(',') + '\n';
+  });
+  
+  // Create blob and download
+  const blob = new Blob([csvContent], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `teachers_colony_master_database_${new Date().toISOString().split('T')[0]}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  window.URL.revokeObjectURL(url);
+  
+  console.log('CSV file downloaded for permanent storage');
+}
+
+// Load database from Excel file
+function loadDatabase() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.csv,.xlsx,.xls';
+  input.onchange = function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const content = e.target.result;
+      parseExcelData(content);
+      alert(`Database loaded successfully! Found ${plotDatabase.length} plot records.`);
+      saveToLocalStorage(); // Save to localStorage after loading
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
+
+// Parse Excel/CSV data
+function parseExcelData(content) {
+  const lines = content.split('\n');
+  const headers = lines[0].split(',').map(h => h.trim());
+  
+  plotDatabase = [];
+  for (let i = 1; i < lines.length; i++) {
+    if (!lines[i].trim()) continue;
+    
+    const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
+    const record = {};
+    headers.forEach((header, index) => {
+      record[header] = values[index] || '';
+    });
+    plotDatabase.push(record);
+  }
+  
+  // Update the O object with loaded data
+  plotDatabase.forEach(record => {
+    if (record['Plot Number'] && record.Name && record.Mobile) {
+      const plotNum = parseInt(record['Plot Number']);
+      const owners = [];
+      owners.push({n: record.Name, p: record.Mobile});
+      if (record['Alternative Mobile']) {
+        owners.push({n: record.Name, p: record['Alternative Mobile']});
+      }
+      O[plotNum] = owners;
+    }
+  });
+  
+  // Refresh the display
+  refreshPlotDisplay();
+}
+
+// Save database to Excel file
+function saveDatabase() {
+  if (plotDatabase.length === 0) {
+    // Build database from current O object
+    Object.keys(O).forEach(plotNum => {
+      const owners = O[plotNum];
+      if (owners && owners.length > 0) {
+        plotDatabase.push({
+          'Plot Number': plotNum,
+          'Name': owners[0].n,
+          'Mobile': owners[0].p,
+          'Alternative Mobile': owners[1] ? owners[1].p : '',
+          'Plot Size': getPlotSize(parseInt(plotNum)),
+          'Registration Date': new Date().toLocaleDateString()
+        });
+      }
+    });
+  }
+  
+  if (plotDatabase.length === 0) {
+    alert('No data to save! Please register some plots first.');
+    return;
+  }
+  
+  // Create CSV content
+  let csvContent = 'Plot Number,Name,Mobile,Alternative Mobile,Plot Size,Registration Date\n';
+  plotDatabase.forEach(record => {
+    csvContent += `${record['Plot Number'] || ''},"${record.Name || ''}",${record.Mobile || ''},${record['Alternative Mobile'] || ''},"${record['Plot Size'] || ''}",${record['Registration Date'] || ''}\n`;
+  });
+  
+  // Create blob and download
+  const blob = new Blob([csvContent], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `plot_database_${new Date().toISOString().split('T')[0]}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  
+  alert(`Database saved successfully! ${plotDatabase.length} records exported.`);
+}
+
+// Handle form submission with Excel database
+document.getElementById('plot-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  console.log('Form submission started...');
+  console.log('Current plot:', window.currentPlot);
+  
+  const name = document.getElementById('reg-name').value;
+  const mobile = document.getElementById('reg-mobile').value;
+  const altMobile = document.getElementById('reg-alt-mobile').value;
+  const plotSize = document.getElementById('reg-size').value;
+  
+  console.log('Form data:', {name, mobile, altMobile, plotSize});
+  
+  if (!name || !mobile || !plotSize) {
+    alert('Please fill in all required fields.');
+    return;
+  }
+  
+  // Format mobile number with +91 if not already formatted
+  const formattedMobile = mobile.startsWith('+91') ? mobile : `+91${mobile}`;
+  const formattedAltMobile = altMobile ? (altMobile.startsWith('+91') ? altMobile : `+91${altMobile}`) : '';
+  
+  console.log('Formatted mobile:', {formattedMobile, formattedAltMobile});
+  
+  // Create registration record
+  const registration = {
+    'Plot Number': window.currentPlot,
+    'Owner Name': name,
+    'Primary Mobile': formattedMobile,
+    'Alternative Mobile': formattedAltMobile,
+    'Status': 'owned',
+    'Registration Date': new Date().toLocaleDateString(),
+    'Colony': 'Teachers Colony',
+    'Location': 'Machilipatnam'
+  };
+  
+  console.log('Registration record:', registration);
+  
+  // Add to database
+  plotDatabase.push(registration);
+  console.log('Plot database after push:', plotDatabase.length);
+  
+  // Save to localStorage for persistence
+  saveToLocalStorage();
+  
+  // Add to the O object to show as owned
+  O[window.currentPlot] = [{n: name, p: formattedMobile}];
+  if (formattedAltMobile) {
+    O[window.currentPlot].push({n: name, p: formattedAltMobile});
+  }
+  
+  console.log('O object after registration:', O);
+  
+  // Show success message
+  alert(`Registration successful for Plot ${window.currentPlot}!\n\nName: ${name}\nMobile: ${formattedMobile}\nPlot Size: ${plotSize}\n\nData saved in Excel database format.`);
+  closeModal();
+  
+  // Immediately update the specific plot that was registered
+  setTimeout(() => {
+    console.log('Updating plot display...');
+    refreshPlotDisplay();
+  }, 100);
+});
+
+// Refresh plot display after loading data
+function refreshPlotDisplay() {
+  console.log('Refreshing plot display...');
+  console.log('Current O object:', O);
+  
+  // Clear all existing plots from DOM
+  const allPlotIds = ['r161', 'r160', 'r167', 'r154', 'r130', 'r129', 'r137', 'r122', 
+                      'r98', 'r97', 'r105', 'r90', 'r65', 'r64', 'r73', 'r56', 
+                      'r33', 'r32', 'r40', 'r25', 'r9', 'r10', 'r1'];
+  
+  allPlotIds.forEach(id => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.innerHTML = '';
+    }
+  });
+  
+  // Re-fill plots with updated data
+  fill('r161',[161,162,163,164,165,166]);
+  fill('r160',[160,159,158,157,156,155]);
+  fill('r167',[167,168,169,170,171,172,173,174,175]);
+  fill('r154',[154,153,152,151,150,149,148,147,146]);
+  fill('r130',[130,131,132,133,134,135,136]);
+  fill('r129',[129,128,127,126,125,124,123]);
+  fill('r137',[137,138,139,140,141,142,143,144,145]);
+  fill('r122',[122,121,120,119,118,117,116,115,114]);
+  fill('r98', [98,99,100,101,102,103,104]);
+  fill('r97', [97,96,95,94,93,92,91]);
+  fill('r105',[105,106,107,108,109,110,111,112,113]);
+  fill('r90', [90,89,88,87,86,85,84,83,82]);
+  fill('r65', [65,66,67,68,69,70,71,72]);
+  fill('r64', [64,63,62,61,60,59,58,57]);
+  fill('r73', [73,74,75,76,77,78,79,80,81]);
+  fill('r56', [56,55,54,53,52,51,50,49,48]);
+  fill('r33', [33,34,35,36,37,38,39]);
+  fill('r32', [32,31,30,29,28,27,26]);
+  fill('r40', [40,41,42,43,44,45,46,47]);
+  fill('r25', [25,24,23,22,21,20,19,18]);
+  fill('r9',  [9,8,7,6,5]);
+  fill('r10', [10,11,12,13,14,15,16,17]);
+  fill('r1',  [4,3,2,1]);
+  
+  // Update header statistics
+  updateHeaderStats();
+  
+  console.log('Plot display refreshed');
+}
+
+// Document Upload Functions
+function handleFileUpload(event) {
+  const files = event.target.files;
+  if (files.length === 0) return;
+  
+  const uploadProgress = document.getElementById('upload-progress');
+  const progressBar = document.getElementById('progress-bar');
+  const progressText = document.getElementById('progress-text');
+  
+  uploadProgress.style.display = 'block';
+  
+  // Simulate upload progress
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += Math.random() * 15;
+    if (progress >= 100) {
+      progress = 100;
+      clearInterval(interval);
+      
+      setTimeout(() => {
+        uploadProgress.style.display = 'none';
+        progressBar.style.width = '0%';
+        saveDocumentsToStorage(files);
+        addUploadedDocuments(files);
+        alert(`Documents uploaded successfully!\n\n\u{1F4C1} Storage: Browser localStorage\n\u{1F4CD} Location: Your device only\n\u{1F510} Accessible: This website only\n\nNote: Documents are saved in your browser's local storage and will be available when you visit this website again.`);
+      }, 500);
+    }
+    
+    progressBar.style.width = progress + '%';
+    progressText.textContent = `Uploading... ${Math.round(progress)}%`;
+  }, 200);
+}
+
+function saveDocumentsToStorage(files) {
+  // GitHub repository configuration
+  const githubConfig = {
+    owner: 'your-username', // Replace with your GitHub username
+    repo: 'teachers-colony-documents', // Repository name
+    token: 'your-github-token', // Replace with your GitHub personal access token
+    branch: 'main'
+  };
+  
+  Array.from(files).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const docData = {
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        data: e.target.result, // Base64 encoded file data
+        uploadDate: new Date().toISOString()
+      };
+      
+      // Upload to GitHub
+      uploadToGitHub(docData, githubConfig);
+    };
+    reader.readAsDataURL(file); // Convert to base64
+  });
+}
+
+function uploadToGitHub(docData, config) {
+  const fileName = `documents/${docData.name}`;
+  const content = docData.data.split(',')[1]; // Remove base64 prefix
+  const message = `Upload document: ${docData.name}`;
+  
+  const githubAPI = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${fileName}`;
+  
+  const requestBody = {
+    message: message,
+    content: content,
+    branch: config.branch
+  };
+  
+  fetch(githubAPI, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `token ${config.token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(requestBody)
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Document uploaded to GitHub:', data);
+    // Add to local cache for quick access
+    addToLocalCache(docData);
+  })
+  .catch(error => {
+    console.error('Error uploading to GitHub:', error);
+    // Fallback to localStorage if GitHub fails
+    saveToLocalStorage(docData);
+  });
+}
+
+function addToLocalCache(docData) {
+  const cachedDocs = JSON.parse(localStorage.getItem('githubDocumentsCache') || '[]');
+  cachedDocs.push(docData);
+  localStorage.setItem('githubDocumentsCache', JSON.stringify(cachedDocs));
+  
+  // Refresh the documents list
+  addUploadedDocuments([docData]);
+}
+
+function loadSavedDocuments() {
+  // Load from GitHub cache first, then fetch from GitHub
+  const cachedDocs = JSON.parse(localStorage.getItem('githubDocumentsCache') || '[]');
+  const documentsList = document.getElementById('documents-list');
+  
+  // Display cached documents immediately
+  cachedDocs.forEach(doc => {
+    const documentItem = createSavedDocumentItem(doc);
+    documentsList.appendChild(documentItem);
+  });
+  
+  // Fetch latest documents from GitHub
+  fetchDocumentsFromGitHub();
+}
+
+function fetchDocumentsFromGitHub() {
+  const githubConfig = {
+    owner: 'your-username', // Replace with your GitHub username
+    repo: 'teachers-colony-documents', // Repository name
+    token: 'your-github-token', // Replace with your GitHub personal access token
+    branch: 'main'
+  };
+  
+  const githubAPI = `https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/documents`;
+  
+  fetch(githubAPI, {
+    headers: {
+      'Authorization': `token ${githubConfig.token}`
+    }
+  })
+  .then(response => response.json())
+  .then(files => {
+    console.log('Documents from GitHub:', files);
+    // Update local cache with GitHub files
+    updateLocalCacheFromGitHub(files);
+  })
+  .catch(error => {
+    console.error('Error fetching from GitHub:', error);
+  });
+}
+
+function updateLocalCacheFromGitHub(files) {
+  const githubDocs = files.map(file => ({
+    name: file.name,
+    size: file.size,
+    type: getFileTypeFromName(file.name),
+    download_url: file.download_url,
+    uploadDate: new Date().toISOString()
+  }));
+  
+  localStorage.setItem('githubDocumentsCache', JSON.stringify(githubDocs));
+  
+  // Refresh documents list
+  const documentsList = document.getElementById('documents-list');
+  documentsList.innerHTML = ''; // Clear current list
+  loadDefaultDocuments();
+  githubDocs.forEach(doc => {
+    const documentItem = createGitHubDocumentItem(doc);
+    documentsList.appendChild(documentItem);
+  });
+}
+
+function createGitHubDocumentItem(doc) {
+  const div = document.createElement('div');
+  div.style.cssText = 'padding: 12px; border: 1px solid #e9ecef; border-radius: 6px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; background: #e8f5e8;';
+  
+  const icon = getFileIcon(doc.type);
+  const fileSize = formatFileSize(doc.size);
+  const fileType = getFileType(doc.type);
+  const uploadDate = new Date(doc.uploadDate).toLocaleDateString();
+  
+  div.innerHTML = `
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span style="font-size: 1.2rem;">${icon}</span>
+      <div>
+        <div style="font-weight: 600; color: #333;">${doc.name}</div>
+        <div style="font-size: 0.8rem; color: #666;">${fileType} • ${fileSize} • GitHub Storage • ${uploadDate}</div>
+      </div>
+    </div>
+    <div style="display: flex; gap: 5px;">
+      <button onclick="downloadFromGitHub('${doc.download_url}', '${doc.name}')" style="background: #28a745; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Download</button>
+      <button onclick="deleteFromGitHub('${doc.name}')" style="background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Delete</button>
+    </div>
+  `;
+  
+  return div;
+}
+
+function downloadFromGitHub(downloadUrl, fileName) {
+  fetch(downloadUrl)
+    .then(response => response.blob())
+    .then(blob => {
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = fileName;
+      link.click();
+      alert(`Downloading ${fileName} from GitHub...`);
+    })
+    .catch(error => {
+      console.error('Error downloading from GitHub:', error);
+      alert('Error downloading document from GitHub');
+    });
+}
+
+function deleteFromGitHub(fileName) {
+  if (confirm(`Are you sure you want to delete "${fileName}" from GitHub?`)) {
+    const githubConfig = {
+      owner: 'your-username', // Replace with your GitHub username
+      repo: 'teachers-colony-documents', // Repository name
+      token: 'your-github-token', // Replace with your GitHub personal access token
+      branch: 'main'
+    };
+    
+    const githubAPI = `https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/documents/${fileName}`;
+    
+    // First get the file to get its SHA
+    fetch(githubAPI, {
+      headers: {
+        'Authorization': `token ${githubConfig.token}`
+      }
+    })
+    .then(response => response.json())
+    .then(fileData => {
+      // Delete the file
+      return fetch(githubAPI, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `token ${githubConfig.token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: `Delete document: ${fileName}`,
+          sha: fileData.sha,
+          branch: githubConfig.branch
+        })
+      });
+    })
+    .then(response => response.json())
+    .then(() => {
+      alert(`Document "${fileName}" deleted from GitHub successfully!`);
+      // Refresh documents list
+      fetchDocumentsFromGitHub();
+    })
+    .catch(error => {
+      console.error('Error deleting from GitHub:', error);
+      alert('Error deleting document from GitHub');
+    });
+  }
+}
+
+function getFileTypeFromName(fileName) {
+  const extension = fileName.split('.').pop().toLowerCase();
+  if (extension === 'pdf') return 'application/pdf';
+  if (extension === 'doc' || extension === 'docx') return 'application/msword';
+  if (extension === 'jpg' || extension === 'jpeg') return 'image/jpeg';
+  if (extension === 'png') return 'image/png';
+  return 'application/octet-stream';
+}
+
+// Auto-load database when page starts
+autoLoadDatabase();
+
+// Load saved documents when page starts
+loadSavedDocuments();
+</script>
+</body>
+</html>

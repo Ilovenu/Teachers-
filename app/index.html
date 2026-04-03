@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teachers Colony - Modern Plot Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="styles/main.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-600 to-blue-800 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-map-marked-alt text-3xl"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold">Teachers Colony</h1>
+                        <p class="text-sm opacity-90">Machilipatnam - Plot Management System</p>
+                    </div>
+                </div>
+                <div class="flex space-x-3">
+                    <button onclick="plotManager.exportToExcel()" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg transition">
+                        <i class="fas fa-file-excel mr-2"></i>Export Excel
+                    </button>
+                    <button onclick="plotManager.importDatabase()" class="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg transition">
+                        <i class="fas fa-upload mr-2"></i>Import
+                    </button>
+                    <button onclick="plotManager.syncToGitHub()" class="bg-gray-700 hover:bg-gray-800 px-4 py-2 rounded-lg transition">
+                        <i class="fab fa-github mr-2"></i>GitHub Sync
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Statistics Dashboard -->
+        <section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Total Plots</p>
+                        <p class="text-2xl font-bold text-gray-800" id="total-plots">175</p>
+                    </div>
+                    <i class="fas fa-th text-blue-500 text-2xl"></i>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Owned Plots</p>
+                        <p class="text-2xl font-bold text-green-600" id="owned-plots">0</p>
+                    </div>
+                    <i class="fas fa-home text-green-500 text-2xl"></i>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Available Plots</p>
+                        <p class="text-2xl font-bold text-orange-600" id="available-plots">175</p>
+                    </div>
+                    <i class="fas fa-key text-orange-500 text-2xl"></i>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Ownership Rate</p>
+                        <p class="text-2xl font-bold text-blue-600" id="ownership-rate">0%</p>
+                    </div>
+                    <i class="fas fa-chart-pie text-blue-500 text-2xl"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search and Filter -->
+        <section class="bg-white rounded-lg shadow p-6 mb-8">
+            <div class="flex flex-wrap gap-4 items-center">
+                <div class="flex-1 min-w-64">
+                    <div class="relative">
+                        <input type="text" id="search-input" placeholder="Search by plot number, owner name, or mobile..." 
+                               class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                </div>
+                <select id="filter-status" class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="all">All Plots</option>
+                    <option value="owned">Owned Only</option>
+                    <option value="available">Available Only</option>
+                </select>
+                <button onclick="plotManager.resetFilters()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition">
+                    <i class="fas fa-redo mr-2"></i>Reset
+                </button>
+            </div>
+        </section>
+
+        <!-- Plot Map -->
+        <section class="bg-white rounded-lg shadow p-6">
+            <div class="mb-6 flex justify-between items-center">
+                <h2 class="text-xl font-bold text-gray-800">Plot Map</h2>
+                <div class="flex space-x-4 text-sm">
+                    <span class="flex items-center"><span class="w-4 h-4 bg-green-200 border border-green-400 mr-2"></span>Owned</span>
+                    <span class="flex items-center"><span class="w-4 h-4 bg-gray-100 border border-gray-300 mr-2"></span>Available</span>
+                </div>
+            </div>
+            <div id="plot-map-container" class="overflow-auto">
+                <!-- Plot map will be rendered here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Plot Details Modal -->
+    <div id="plot-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 max-h-96 overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-gray-800" id="modal-title">Plot Details</h3>
+                    <button onclick="plotManager.closeModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div id="modal-content">
+                    <!-- Modal content will be rendered here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg p-8 flex flex-col items-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
+            <p class="text-gray-600">Loading...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/plot-manager.js"></script>
+    <script src="js/database-manager.js"></script>
+    <script src="js/ui-manager.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
