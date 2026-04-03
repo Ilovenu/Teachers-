@@ -335,8 +335,22 @@ class TeachersColonyAPI {
     // Update statistics
     updateStatistics() {
         const totalPlots = APP_CONFIG.totalPlots;
-        const ownedPlots = this.plotDatabase.filter(p => (p['Status'] || '').toLowerCase() === 'owned').length;
-        const contactedPlots = this.plotDatabase.filter(p => (p['Status'] || '').toLowerCase() === 'contacted').length;
+        
+        // Count plots with status='owned' and have a mobile number
+        const ownedPlots = this.plotDatabase.filter(p => {
+            const status = (p['Status'] || p['status'] || '').toLowerCase();
+            const mobile = p['Primary Mobile'] || p['primary_mobile'] || '';
+            return status === 'owned' && mobile.length > 0;
+        }).length;
+        
+        // Count plots that have contact numbers (contacted leads)
+        const contactedPlots = this.plotDatabase.filter(p => {
+            const status = (p['Status'] || p['status'] || '').toLowerCase();
+            const mobile = p['Primary Mobile'] || p['primary_mobile'] || '';
+            // Has mobile but not already counted as owned
+            return mobile.length > 0 && status !== 'owned';
+        }).length;
+        
         const availablePlots = totalPlots - ownedPlots - contactedPlots;
         
         document.getElementById('total-plots').textContent = totalPlots;
