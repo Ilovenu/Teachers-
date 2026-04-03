@@ -75,7 +75,7 @@ The application uses a GitHub Personal Access Token for data synchronization:
    - Copy the token (starts with `ghp_`)
 
 2. **Update Token**:
-   - Replace `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` in `index.html`
+   - Replace `[YOUR_GITHUB_TOKEN]` in `index.html`
    - Search for all occurrences of the token
 
 ### Gist Configuration
@@ -309,7 +309,7 @@ The application uses a GitHub Personal Access Token for data synchronization:
    - Copy the token (starts with `ghp_`)
 
 2. **Update Token**:
-   - Replace `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` in `index.html`
+   - Replace `[YOUR_GITHUB_TOKEN]` in `index.html`
    - Search for all occurrences of the token
 
 ### Gist Configuration

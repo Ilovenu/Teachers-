@@ -368,7 +368,7 @@ class TeachersColonyAPI {
     // Open modal for plot registration
     openModal(plotNumber) {
         this.currentPlotNumber = plotNumber;
-        document.getElementById('modal-plot').textContent = 'Plot #' + plotNumber;
+        document.getElementById('modal-plot-num').textContent = plotNumber;
         document.getElementById('modal').classList.add('show');
         
         // Clear form
@@ -376,19 +376,48 @@ class TeachersColonyAPI {
         
         // Check if plot is already registered
         const existingData = this.plotDatabase.find(p => parseInt(p['Plot Number']) === plotNumber);
-        if (existingData) {
-            document.getElementById('reg-name').value = existingData['Owner Name'] || '';
-            document.getElementById('reg-mobile').value = existingData['Primary Mobile'] || '';
-            document.getElementById('reg-alt-mobile').value = existingData['Alternative Mobile'] || '';
-            document.getElementById('reg-size').value = existingData['Plot Size'] || '';
+        const contactActions = document.getElementById('contact-actions');
+        const plotForm = document.getElementById('plot-form');
+        const ownerNameDiv = document.getElementById('modal-owner-name');
+        
+        if (existingData && existingData['Primary Mobile']) {
+            // Show owner name
+            ownerNameDiv.textContent = existingData['Owner Name'] || 'Contact';
+            
+            // Show mobile and plot size
+            document.getElementById('display-mobile').textContent = existingData['Primary Mobile'];
+            const plotSize = existingData['Plot Size'] || 'Not specified';
+            document.getElementById('display-size').textContent = 'Plot Size: ' + plotSize;
+            
+            // Show action buttons
+            contactActions.style.display = 'block';
+            plotForm.style.display = 'none';
+            
+            // Format mobile number (remove +91 for links)
+            const mobile = existingData['Primary Mobile'].replace('+91', '').replace(/\D/g, '');
+            
+            // Set up action links
+            document.getElementById('call-btn').href = 'tel:+91' + mobile;
+            document.getElementById('whatsapp-btn').href = 'https://wa.me/91' + mobile;
+            document.getElementById('sms-btn').href = 'sms:+91' + mobile;
+        } else {
+            // Show form for new entry
+            ownerNameDiv.textContent = 'Enter Details';
+            contactActions.style.display = 'none';
+            plotForm.style.display = 'block';
+            
+            if (existingData) {
+                document.getElementById('reg-name').value = existingData['Owner Name'] || '';
+                document.getElementById('reg-mobile').value = existingData['Primary Mobile'] || '';
+            }
         }
     }
 
     // Close modal
     closeModal() {
         const modalOverlay = document.getElementById('modal');
-        if (modalOverlay && modalOverlay.parentElement) {
-            modalOverlay.parentElement.classList.remove('show');
+        if (modalOverlay) {
+            modalOverlay.classList.remove('show');
         }
         this.currentPlotNumber = null;
     }
