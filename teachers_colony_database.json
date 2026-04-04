@@ -40,6 +40,17 @@
       "colony": "teachers_colony",
       "location": "machilipatnam"
     },
+      {
+      "plot_number": 26,
+      "owner_name": "Brahma Garu",
+      "primary_mobile": "+917416104104",
+      "alternative_mobile": "",
+      "plot_size": "",
+      "status": "owned",
+      "registration_date": "2026-01-01",
+      "colony": "teachers_colony",
+      "location": "machilipatnam"
+    },
     {
       "plot_number": 27,
       "owner_name": "M. Sekhar",
