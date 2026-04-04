@@ -13,10 +13,66 @@ class TeachersColonyAPI {
     // Initialize the application
     init() {
         console.log('Teachers Colony API Initialized');
-        console.log('APP_CONFIG:', APP_CONFIG);
         
-        // Load from local JSON file directly
-        this.loadFromSharedStorage();
+        // Load hardcoded plot data directly
+        this.plotDatabase = [
+            {'Plot Number': '16', 'Owner Name': 'L. Subramanyam', 'Primary Mobile': '+918499899833', 'Status': 'owned'},
+            {'Plot Number': '17', 'Owner Name': 'Jogi Kanakadurga', 'Primary Mobile': '+919963729133', 'Status': 'owned'},
+            {'Plot Number': '25', 'Owner Name': 'K. Nagambicamani', 'Primary Mobile': '+919949726566', 'Status': 'owned'},
+            {'Plot Number': '27', 'Owner Name': 'M. Sekhar', 'Primary Mobile': '+919866172123', 'Status': 'owned'},
+            {'Plot Number': '29', 'Owner Name': 'MD. Basheer', 'Primary Mobile': '+919491584669', 'Status': 'owned'},
+            {'Plot Number': '30', 'Owner Name': 'Kalilullah', 'Primary Mobile': '+919000548786', 'Status': 'owned'},
+            {'Plot Number': '31', 'Owner Name': 'Gose', 'Primary Mobile': '+919154078692', 'Status': 'owned'},
+            {'Plot Number': '32', 'Owner Name': 'MD. Basheer/Kalilullah/Gose', 'Primary Mobile': '+919491584669', 'Status': 'owned'},
+            {'Plot Number': '33', 'Owner Name': 'MD. Basheer/Kalilullah/Gose', 'Primary Mobile': '+919491584669', 'Status': 'owned'},
+            {'Plot Number': '34', 'Owner Name': 'MD. Basheer/Kalilullah/Gose', 'Primary Mobile': '+919491584669', 'Status': 'owned'},
+            {'Plot Number': '35', 'Owner Name': 'MD. Basheer/Kalilullah/Gose', 'Primary Mobile': '+919491584669', 'Status': 'owned'},
+            {'Plot Number': '36', 'Owner Name': 'MD. Basheer/Kalilullah/Gose', 'Primary Mobile': '+919491584669', 'Status': 'owned'},
+            {'Plot Number': '37', 'Owner Name': 'V. Sivaji', 'Primary Mobile': '+919949413409', 'Status': 'owned'},
+            {'Plot Number': '40', 'Owner Name': 'B. Radhakumari', 'Primary Mobile': '+919491380096', 'Status': 'owned'},
+            {'Plot Number': '52', 'Owner Name': 'P. Anjaneya Das', 'Primary Mobile': '+919848794767', 'Status': 'owned'},
+            {'Plot Number': '65', 'Owner Name': 'B. Padmavathi Devi', 'Primary Mobile': '+918074937593', 'Status': 'owned'},
+            {'Plot Number': '73', 'Owner Name': 'P. Rakesh', 'Primary Mobile': '+918919112471', 'Status': 'owned'},
+            {'Plot Number': '75', 'Owner Name': 'Gangaraju', 'Primary Mobile': '+919393049750', 'Status': 'owned'},
+            {'Plot Number': '78', 'Owner Name': 'Sambasivarao', 'Primary Mobile': '+919492482163', 'Status': 'owned'},
+            {'Plot Number': '84', 'Owner Name': 'M Naga Malleswara Rao', 'Primary Mobile': '+919440667623', 'Status': 'owned'},
+            {'Plot Number': '85', 'Owner Name': 'M Venkat Rao', 'Primary Mobile': '+918179238680', 'Status': 'owned'},
+            {'Plot Number': '95', 'Owner Name': 'Abdul Wajid', 'Primary Mobile': '+917893774846', 'Status': 'owned'},
+            {'Plot Number': '102', 'Owner Name': 'MD. Kareemullah', 'Primary Mobile': '+919291752412', 'Status': 'owned'},
+            {'Plot Number': '106', 'Owner Name': 'G. Kondababu', 'Primary Mobile': '+919989120209', 'Status': 'owned'},
+            {'Plot Number': '109', 'Owner Name': 'Pulagani Ramadevi', 'Primary Mobile': '+919393652827', 'Status': 'owned'},
+            {'Plot Number': '110', 'Owner Name': 'M. Nalani Kumari', 'Primary Mobile': '+919393911464', 'Status': 'owned'},
+            {'Plot Number': '111', 'Owner Name': 'M. Nalani Kumari', 'Primary Mobile': '+919393911464', 'Status': 'owned'},
+            {'Plot Number': '113', 'Owner Name': 'Collector Office Madam', 'Primary Mobile': '+919154769111', 'Status': 'owned'},
+            {'Plot Number': '114', 'Owner Name': 'VV. Nagabushan', 'Primary Mobile': '+918897972298', 'Status': 'owned'},
+            {'Plot Number': '116', 'Owner Name': 'V. Anitha', 'Primary Mobile': '+918374924161', 'Status': 'owned'},
+            {'Plot Number': '121', 'Owner Name': 'Sudhakar', 'Primary Mobile': '+919247402890', 'Status': 'owned'},
+            {'Plot Number': '123', 'Owner Name': 'MD. Abdullah', 'Primary Mobile': '+917569958038', 'Status': 'owned'},
+            {'Plot Number': '124', 'Owner Name': 'S. Nagaraju', 'Primary Mobile': '+919866341198', 'Status': 'owned'},
+            {'Plot Number': '125', 'Owner Name': 'L.V.N. Sastry', 'Primary Mobile': '+919989347789', 'Status': 'owned'},
+            {'Plot Number': '127', 'Owner Name': 'V. Vasu', 'Primary Mobile': '+919550529929', 'Status': 'owned'},
+            {'Plot Number': '130', 'Owner Name': 'CH. Rambabu', 'Primary Mobile': '+916302122508', 'Status': 'owned'},
+            {'Plot Number': '132', 'Owner Name': 'CH. Nageswara Rao', 'Primary Mobile': '+919849309522', 'Status': 'owned'},
+            {'Plot Number': '133', 'Owner Name': 'VV. Nagabushan', 'Primary Mobile': '+918897972298', 'Status': 'owned'},
+            {'Plot Number': '137', 'Owner Name': 'M. Ramana', 'Primary Mobile': '+919866172123', 'Status': 'owned'},
+            {'Plot Number': '141', 'Owner Name': 'M Venkat Rao', 'Primary Mobile': '+918179238680', 'Status': 'owned'},
+            {'Plot Number': '146', 'Owner Name': 'A Madhavi Latha', 'Primary Mobile': '+918106674778', 'Status': 'owned'},
+            {'Plot Number': '147', 'Owner Name': 'A Madhavi Latha', 'Primary Mobile': '+918106674778', 'Status': 'owned'},
+            {'Plot Number': '148', 'Owner Name': 'A Madhavi Latha', 'Primary Mobile': '+918106674778', 'Status': 'owned'},
+            {'Plot Number': '149', 'Owner Name': 'A Madhavi Latha', 'Primary Mobile': '+918106674778', 'Status': 'owned'},
+            {'Plot Number': '150', 'Owner Name': 'A Madhavi Latha', 'Primary Mobile': '+918106674778', 'Status': 'owned'},
+            {'Plot Number': '151', 'Owner Name': 'P. Kalpana Devi', 'Primary Mobile': '+917036515490', 'Status': 'owned'},
+            {'Plot Number': '152', 'Owner Name': 'Tata Mounika', 'Primary Mobile': '+917904349625', 'Status': 'owned'},
+            {'Plot Number': '216', 'Owner Name': 'Marakani Vasu', 'Primary Mobile': '+919347222233', 'Status': 'owned'},
+            {'Plot Number': '224', 'Owner Name': 'V. Vijay Kumar', 'Primary Mobile': '+919247330326', 'Status': 'owned'},
+            {'Plot Number': '225', 'Owner Name': 'L. Ramakrishna', 'Primary Mobile': '+919440540395', 'Status': 'owned'}
+        ];
+        
+        // Update UI immediately
+        this.updateStatistics();
+        this.initializePlots();
+        
+        this.showNotification(`Loaded ${this.plotDatabase.length} plots successfully!`, 'success');
     }
 
     // ==========================================
