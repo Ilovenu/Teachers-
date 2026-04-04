@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teachers Colony - Plot Management</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f7fa; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1rem; text-align: center; }
+        .stats-bar { display: flex; justify-content: space-around; background: white; padding: 1rem; margin: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .stat-item { text-align: center; }
+        .stat-number { font-size: 2rem; font-weight: bold; color: #667eea; }
+        .stat-label { color: #666; font-size: 0.9rem; }
+        .layout { display: flex; justify-content: center; gap: 2rem; padding: 1rem; flex-wrap: wrap; }
+        .road { background: #333; color: white; padding: 0.5rem; text-align: center; margin-bottom: 0.5rem; border-radius: 4px; }
+        table { border-collapse: collapse; margin: 0.5rem; }
+        td { width: 80px; height: 60px; border: 2px solid #ddd; text-align: center; cursor: pointer; position: relative; font-size: 0.85rem; }
+        td.available { background: #e8f5e9; }
+        td.owned { background: #fff3e0; }
+        td.contacted { background: #e3f2fd; }
+        .pn { font-weight: bold; font-size: 1rem; display: block; }
+        .po { font-size: 0.7rem; color: #555; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; }
+        .modal-overlay.show { display: flex; align-items: center; justify-content: center; }
+        .modal { background: white; padding: 2rem; border-radius: 12px; width: 90%; max-width: 400px; }
+        .modal-title { font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; }
+        .form-group { margin-bottom: 1rem; }
+        .form-label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+        .form-input { width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 6px; font-size: 1rem; }
+        .btn { width: 100%; padding: 0.75rem; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; margin-bottom: 0.5rem; }
+        .btn-primary { background: #667eea; color: white; }
+        .btn-secondary { background: #e0e0e0; color: #333; }
+        .btn-contact { background: #4caf50; color: white; }
+        .contact-actions { display: none; }
+        .contact-actions.show { display: block; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏘️ Teachers Colony - Machilipatnam</h1>
+        <p>Plot Management System</p>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-number" id="total-plots">0</div>
+            <div class="stat-label">Total Plots</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" id="owned-plots">0</div>
+            <div class="stat-label">Registered</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" id="available-plots">0</div>
+            <div class="stat-label">Available</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" id="ownership-rate">0%</div>
+            <div class="stat-label">Registered Rate</div>
+        </div>
+    </div>
+
+    <div class="layout">
+        <div>
+            <div class="road">↕ 30ft Road</div>
+            <table><tbody id="left-rows"></tbody></table>
+        </div>
+        <div style="width: 60px; display: flex; align-items: center; justify-content: center;">
+            <div style="transform: rotate(-90deg); white-space: nowrap; font-weight: bold; color: #666;">
+                ← 40ft Main Road →
+            </div>
+        </div>
+        <div>
+            <div class="road">↕ 30ft Road</div>
+            <table><tbody id="right-rows"></tbody></table>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <div class="modal-title">Plot <span id="modal-plot-num"></span></div>
+            <div id="modal-owner-name" style="font-size: 1.2rem; color: #667eea; margin-bottom: 1rem;"></div>
+            
+            <div id="contact-actions" class="contact-actions">
+                <div class="form-group">
+                    <label class="form-label">Mobile</label>
+                    <div id="display-mobile" style="padding: 0.75rem; background: #f5f5f5; border-radius: 6px;"></div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Plot Size</label>
+                    <div id="display-size" style="padding: 0.75rem; background: #f5f5f5; border-radius: 6px;"></div>
+                </div>
+                <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+                    <a id="call-btn" class="btn btn-contact" style="text-decoration: none; text-align: center;">📞 Call</a>
+                    <a id="whatsapp-btn" class="btn btn-contact" style="text-decoration: none; text-align: center; background: #25d366;">💬 WhatsApp</a>
+                </div>
+                <a id="sms-btn" class="btn btn-secondary" style="text-decoration: none; display: block; text-align: center;">✉️ Message</a>
+            </div>
+
+            <form id="plot-form">
+                <div class="form-group">
+                    <label class="form-label" for="reg-name">Owner Name *</label>
+                    <input type="text" id="reg-name" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="reg-mobile">Mobile Number *</label>
+                    <input type="tel" id="reg-mobile" class="form-input" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Register Plot</button>
+            </form>
+
+            <button class="btn btn-secondary" onclick="closeModal()" style="margin-top: 1rem;">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Plot layout configuration
+        const PLOT_LAYOUT = {
+            left: [
+                {rowId: 'r16', plots: [16, 15, 14, 13, 12, 11, 10, 9]},
+                {rowId: 'r17', plots: [17, 18, 19, 20, 21, 22, 23, 24]},
+                {rowId: 'r25', plots: [25, 26, 27, 28, 29, 30, 31, 32]},
+                {rowId: 'r33', plots: [33, 34, 35, 36, 37, 38, 39, 40]},
+                {rowId: 'r41', plots: [41, 42, 43, 44, 45, 46, 47, 48]},
+                {rowId: 'r49', plots: [49, 50, 51, 52, 53, 54, 55, 56]},
+                {rowId: 'r57', plots: [57, 58, 59, 60, 61, 62, 63, 64]},
+                {rowId: 'r65', plots: [65, 66, 67, 68, 69, 70, 71, 72]},
+                {rowId: 'r73', plots: [73, 74, 75, 76, 77, 78, 79, 80]},
+                {rowId: 'r81', plots: [81, 82, 83, 84, 85, 86, 87, 88]},
+                {rowId: 'r89', plots: [89, 90, 91, 92, 93, 94, 95, 96]},
+                {rowId: 'r97', plots: [97, 98, 99, 100, 101, 102, 103, 104]},
+                {rowId: 'r105', plots: [105, 106, 107, 108, 109, 110, 111, 112]},
+                {rowId: 'r113', plots: [113, 114, 115, 116, 117, 118, 119, 120]},
+                {rowId: 'r121', plots: [121, 122, 123, 124, 125, 126, 127, 128]},
+                {rowId: 'r129', plots: [129, 130, 131, 132, 133, 134, 135, 136]},
+                {rowId: 'r137', plots: [137, 138, 139, 140, 141, 142, 143, 144]},
+                {rowId: 'r145', plots: [145, 146, 147, 148, 149, 150, 151, 152]},
+                {rowId: 'r153', plots: [153, 154, 155, 156, 157, 158, 159, 160]},
+                {rowId: 'r161', plots: [161, 162, 163, 164, 165, 166, 167, 168]},
+                {rowId: 'r169', plots: [169, 170, 171, 172, 173, 174, 175, 176]},
+                {rowId: 'r177', plots: [177, 178, 179, 180, 181, 182, 183, 184]},
+                {rowId: 'r185', plots: [185, 186, 187, 188, 189, 190, 191, 192]},
+                {rowId: 'r193', plots: [193, 194, 195, 196, 197, 198, 199, 200]}
+            ],
+            right: [
+                {rowId: 'r224', plots: [224, 223, 222, 221, 220, 219, 218, 217]},
+                {rowId: 'r225', plots: [225, 226, 227, 228, 229, 230, 231, 232]},
+                {rowId: 'r233', plots: [233, 234, 235, 236, 237, 238, 239, 240]},
+                {rowId: 'r241', plots: [241, 242, 243, 244, 245, 246, 247, 248]},
+                {rowId: 'r249', plots: [249, 250, 251, 252, 253, 254, 255, 256]},
+                {rowId: 'r257', plots: [257, 258, 259, 260, 261, 262, 263, 264]},
+                {rowId: 'r265', plots: [265, 266, 267, 268, 269, 270, 271, 272]},
+                {rowId: 'r273', plots: [273, 274, 275, 276, 277, 278, 279, 280]},
+                {rowId: 'r281', plots: [281, 282, 283, 284, 285, 286, 287, 288]},
+                {rowId: 'r289', plots: [289, 290, 291, 292, 293, 294, 295, 296]},
+                {rowId: 'r297', plots: [297, 298, 299, 300, 301, 302, 303, 304]},
+                {rowId: 'r305', plots: [305, 306, 307, 308, 309, 310, 311, 312]},
+                {rowId: 'r313', plots: [313, 314, 315, 316, 317, 318, 319, 320]},
+                {rowId: 'r321', plots: [321, 322, 323, 324, 325, 326, 327, 328]},
+                {rowId: 'r329', plots: [329, 330, 331, 332, 333, 334, 335, 336]},
+                {rowId: 'r337', plots: [337, 338, 339, 340, 341, 342, 343, 344]},
+                {rowId: 'r345', plots: [345, 346, 347, 348, 349, 350, 351, 352]},
+                {rowId: 'r353', plots: [353, 354, 355, 356, 357, 358, 359, 360]},
+                {rowId: 'r361', plots: [361, 362, 363, 364, 365, 366, 367, 368]},
+                {rowId: 'r369', plots: [369, 370, 371, 372, 373, 374, 375, 376]},
+                {rowId: 'r377', plots: [377, 378, 379, 380, 381, 382, 383, 384]},
+                {rowId: 'r385', plots: [385, 386, 387, 388, 389, 390, 391, 392]}
+            ]
+        };
+
+        const TOTAL_PLOTS = 175;
+
+        // Hardcoded plot data from your JSON
+        const PLOT_DATA = [
+            {plot_number: 16, owner_name: "L. Subramanyam", primary_mobile: "+918499899833", status: "owned"},
+            {plot_number: 17, owner_name: "Jogi Kanakadurga", primary_mobile: "+919963729133", status: "owned"},
+            {plot_number: 25, owner_name: "K. Nagambicamani", primary_mobile: "+919949726566", status: "owned"},
+            {plot_number: 27, owner_name: "M. Sekhar", primary_mobile: "+919866172123", status: "owned"},
+            {plot_number: 29, owner_name: "MD. Basheer", primary_mobile: "+919491584669", status: "owned"},
+            {plot_number: 30, owner_name: "Kalilullah", primary_mobile: "+919000548786", status: "owned"},
+            {plot_number: 31, owner_name: "Gose", primary_mobile: "+919154078692", status: "owned"},
+            {plot_number: 32, owner_name: "MD. Basheer/Kalilullah/Gose", primary_mobile: "+919491584669", status: "owned"},
+            {plot_number: 33, owner_name: "MD. Basheer/Kalilullah/Gose", primary_mobile: "+919491584669", status: "owned"},
+            {plot_number: 34, owner_name: "MD. Basheer/Kalilullah/Gose", primary_mobile: "+919491584669", status: "owned"},
+            {plot_number: 35, owner_name: "MD. Basheer/Kalilullah/Gose", primary_mobile: "+919491584669", status: "owned"},
+            {plot_number: 36, owner_name: "MD. Basheer/Kalilullah/Gose", primary_mobile: "+919491584669", status: "owned"},
+            {plot_number: 37, owner_name: "V. Sivaji", primary_mobile: "+919949413409", status: "owned"},
+            {plot_number: 40, owner_name: "B. Radhakumari", primary_mobile: "+919491380096", status: "owned"},
+            {plot_number: 52, owner_name: "P. Anjaneya Das", primary_mobile: "+919848794767", status: "owned"},
+            {plot_number: 65, owner_name: "B. Padmavathi Devi", primary_mobile: "+918074937593", status: "owned"},
+            {plot_number: 73, owner_name: "P. Rakesh", primary_mobile: "+918919112471", status: "owned"},
+            {plot_number: 75, owner_name: "Gangaraju", primary_mobile: "+919393049750", status: "owned"},
+            {plot_number: 78, owner_name: "Sambasivarao", primary_mobile: "+919492482163", status: "owned"},
+            {plot_number: 84, owner_name: "M Naga Malleswara Rao", primary_mobile: "+919440667623", status: "owned"},
+            {plot_number: 85, owner_name: "M Venkat Rao", primary_mobile: "+918179238680", status: "owned"},
+            {plot_number: 95, owner_name: "Abdul Wajid", primary_mobile: "+917893774846", status: "owned"},
+            {plot_number: 102, owner_name: "MD. Kareemullah", primary_mobile: "+919291752412", status: "owned"},
+            {plot_number: 106, owner_name: "G. Kondababu", primary_mobile: "+919989120209", status: "owned"},
+            {plot_number: 109, owner_name: "Pulagani Ramadevi", primary_mobile: "+919393652827", status: "owned"},
+            {plot_number: 110, owner_name: "M. Nalani Kumari", primary_mobile: "+919393911464", status: "owned"},
+            {plot_number: 111, owner_name: "M. Nalani Kumari", primary_mobile: "+919393911464", status: "owned"},
+            {plot_number: 113, owner_name: "Collector Office Madam", primary_mobile: "+919154769111", status: "owned"},
+            {plot_number: 114, owner_name: "VV. Nagabushan", primary_mobile: "+918897972298", status: "owned"},
+            {plot_number: 116, owner_name: "V. Anitha", primary_mobile: "+918374924161", status: "owned"},
+            {plot_number: 121, owner_name: "Sudhakar", primary_mobile: "+919247402890", status: "owned"},
+            {plot_number: 123, owner_name: "MD. Abdullah", primary_mobile: "+917569958038", status: "owned"},
+            {plot_number: 124, owner_name: "S. Nagaraju", primary_mobile: "+919866341198", status: "owned"},
+            {plot_number: 125, owner_name: "L.V.N. Sastry", primary_mobile: "+919989347789", status: "owned"},
+            {plot_number: 127, owner_name: "V. Vasu", primary_mobile: "+919550529929", status: "owned"},
+            {plot_number: 130, owner_name: "CH. Rambabu", primary_mobile: "+916302122508", status: "owned"},
+            {plot_number: 132, owner_name: "CH. Nageswara Rao", primary_mobile: "+919849309522", status: "owned"},
+            {plot_number: 133, owner_name: "VV. Nagabushan", primary_mobile: "+918897972298", status: "owned"},
+            {plot_number: 137, owner_name: "M. Ramana", primary_mobile: "+919866172123", status: "owned"},
+            {plot_number: 141, owner_name: "M Venkat Rao", primary_mobile: "+918179238680", status: "owned"},
+            {plot_number: 146, owner_name: "A Madhavi Latha", primary_mobile: "+918106674778", status: "owned"},
+            {plot_number: 147, owner_name: "A Madhavi Latha", primary_mobile: "+918106674778", status: "owned"},
+            {plot_number: 148, owner_name: "A Madhavi Latha", primary_mobile: "+918106674778", status: "owned"},
+            {plot_number: 149, owner_name: "A Madhavi Latha", primary_mobile: "+918106674778", status: "owned"},
+            {plot_number: 150, owner_name: "A Madhavi Latha", primary_mobile: "+918106674778", status: "owned"},
+            {plot_number: 151, owner_name: "P. Kalpana Devi", primary_mobile: "+917036515490", status: "owned"},
+            {plot_number: 152, owner_name: "Tata Mounika", primary_mobile: "+917904349625", status: "owned"},
+            {plot_number: 216, owner_name: "Marakani Vasu", primary_mobile: "+919347222233", status: "owned"},
+            {plot_number: 224, owner_name: "V. Vijay Kumar", primary_mobile: "+919247330326", status: "owned"},
+            {plot_number: 225, owner_name: "L. Ramakrishna", primary_mobile: "+919440540395", status: "owned"}
+        ];
+
+        let currentPlotNumber = null;
+
+        function init() {
+            console.log('Initializing...');
+            renderPlots();
+            updateStats();
+            
+            // Event listeners
+            document.getElementById('plot-form').addEventListener('submit', handleSubmit);
+            document.getElementById('modal').addEventListener('click', function(e) {
+                if (e.target === this) closeModal();
+            });
+            
+            console.log('Initialized with', PLOT_DATA.length, 'plots');
+        }
+
+        function renderPlots() {
+            // Render left side
+            const leftTbody = document.getElementById('left-rows');
+            PLOT_LAYOUT.left.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.id = row.rowId;
+                row.plots.forEach(plotNum => {
+                    const plot = PLOT_DATA.find(p => p.plot_number === plotNum);
+                    const td = document.createElement('td');
+                    td.className = plot ? plot.status : 'available';
+                    td.onclick = () => openModal(plotNum);
+                    td.innerHTML = `<span class="pn">${plotNum}</span>` + 
+                        (plot ? `<span class="po">${plot.owner_name}</span>` : '');
+                    tr.appendChild(td);
+                });
+                leftTbody.appendChild(tr);
+            });
+
+            // Render right side
+            const rightTbody = document.getElementById('right-rows');
+            PLOT_LAYOUT.right.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.id = row.rowId;
+                row.plots.forEach(plotNum => {
+                    const plot = PLOT_DATA.find(p => p.plot_number === plotNum);
+                    const td = document.createElement('td');
+                    td.className = plot ? plot.status : 'available';
+                    td.onclick = () => openModal(plotNum);
+                    td.innerHTML = `<span class="pn">${plotNum}</span>` + 
+                        (plot ? `<span class="po">${plot.owner_name}</span>` : '');
+                    tr.appendChild(td);
+                });
+                rightTbody.appendChild(tr);
+            });
+        }
+
+        function updateStats() {
+            const owned = PLOT_DATA.filter(p => p.status === 'owned').length;
+            const available = TOTAL_PLOTS - owned;
+            const rate = Math.round((owned / TOTAL_PLOTS) * 100);
+            
+            document.getElementById('total-plots').textContent = TOTAL_PLOTS;
+            document.getElementById('owned-plots').textContent = owned;
+            document.getElementById('available-plots').textContent = available;
+            document.getElementById('ownership-rate').textContent = rate + '%';
+        }
+
+        function openModal(plotNum) {
+            currentPlotNumber = plotNum;
+            const plot = PLOT_DATA.find(p => p.plot_number === plotNum);
+            
+            document.getElementById('modal-plot-num').textContent = plotNum;
+            document.getElementById('modal').classList.add('show');
+            
+            const contactActions = document.getElementById('contact-actions');
+            const plotForm = document.getElementById('plot-form');
+            const ownerNameDiv = document.getElementById('modal-owner-name');
+            
+            if (plot && plot.primary_mobile) {
+                // Show contact details
+                ownerNameDiv.textContent = plot.owner_name || 'Contact';
+                document.getElementById('display-mobile').textContent = plot.primary_mobile;
+                document.getElementById('display-size').textContent = 'Not specified';
+                
+                contactActions.classList.add('show');
+                plotForm.classList.add('hidden');
+                
+                const mobile = plot.primary_mobile.replace('+91', '').replace(/\D/g, '');
+                document.getElementById('call-btn').href = 'tel:+91' + mobile;
+                document.getElementById('whatsapp-btn').href = 'https://wa.me/91' + mobile;
+                document.getElementById('sms-btn').href = 'sms:+91' + mobile;
+            } else {
+                // Show registration form
+                ownerNameDiv.textContent = 'Enter Details';
+                contactActions.classList.remove('show');
+                plotForm.classList.remove('hidden');
+                plotForm.reset();
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('show');
+            currentPlotNumber = null;
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value;
+            const mobile = document.getElementById('reg-mobile').value;
+            
+            if (!name || !mobile) {
+                alert('Please fill all fields');
+                return;
+            }
+            
+            const formattedMobile = mobile.startsWith('+91') ? mobile : '+91' + mobile;
+            
+            // Add to data
+            const existing = PLOT_DATA.findIndex(p => p.plot_number === currentPlotNumber);
+            const newData = {
+                plot_number: currentPlotNumber,
+                owner_name: name,
+                primary_mobile: formattedMobile,
+                status: 'owned'
+            };
+            
+            if (existing >= 0) {
+                PLOT_DATA[existing] = newData;
+            } else {
+                PLOT_DATA.push(newData);
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('plotData', JSON.stringify(PLOT_DATA));
+            
+            alert('Plot ' + currentPlotNumber + ' registered!');
+            closeModal();
+            
+            // Reload page to show updated plot
+            location.reload();
+        }
+
+        // Load saved data on startup
+        const saved = localStorage.getItem('plotData');
+        if (saved) {
+            try {
+                const savedData = JSON.parse(saved);
+                savedData.forEach(item => {
+                    const existing = PLOT_DATA.findIndex(p => p.plot_number === item.plot_number);
+                    if (existing >= 0) {
+                        PLOT_DATA[existing] = item;
+                    } else {
+                        PLOT_DATA.push(item);
+                    }
+                });
+            } catch (e) {
+                console.error('Error loading saved data', e);
+            }
+        }
+
+        // Start
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
