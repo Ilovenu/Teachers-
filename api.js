@@ -13,161 +13,96 @@ class TeachersColonyAPI {
     // Initialize the application
     init() {
         console.log('Teachers Colony API Initialized');
-        console.log('GITHUB_CONFIG:', GITHUB_CONFIG);
-        console.log('APP_CONFIG:', APP_CONFIG);
-        console.log('PLOT_LAYOUT:', PLOT_LAYOUT);
         
-        // Show GitHub status immediately
-        this.checkGitHubAccess();
-    }
-
-    // Check GitHub access and show status
-    async checkGitHubAccess() {
-        try {
-            const response = await fetch(`${GITHUB_CONFIG.apiEndpoint}/${GITHUB_CONFIG.gistId}`, {
-                headers: {
-                    'Authorization': `token ${GITHUB_CONFIG.token}`
-                }
-            });
-
-            if (response.status === 403) {
-                this.showGitHubTokenRequired();
-            } else if (response.ok) {
-                this.loadFromSharedStorage();
-            } else {
-                throw new Error(`GitHub API Error: ${response.status}`);
-            }
-        } catch (error) {
-            console.error('GitHub access check failed:', error);
-            this.showGitHubTokenRequired();
-        }
-    }
-
-    // Show GitHub token required modal
-    showGitHubTokenRequired() {
-        this.showNotification('GitHub Gist access required. Please update your token with "gist" scope.', 'error');
+        // Load hardcoded plot data directly
+        this.plotDatabase = [
+            {'Plot Number': '16', 'Owner Name': 'L. Subramanyam', 'Primary Mobile': '+918499899833', 'Status': 'owned'},
+            {'Plot Number': '17', 'Owner Name': 'Jogi Kanakadurga', 'Primary Mobile': '+919963729133', 'Status': 'owned'},
+            {'Plot Number': '25', 'Owner Name': 'K. Nagambicamani', 'Primary Mobile': '+919949726566', 'Status': 'owned'},
+            {'Plot Number': '27', 'Owner Name': 'M. Sekhar', 'Primary Mobile': '+919866172123', 'Status': 'owned'},
+            {'Plot Number': '29', 'Owner Name': 'MD. Basheer', 'Primary Mobile': '+919491584669', 'Status': 'owned'},
+            {'Plot Number': '30', 'Owner Name': 'Kalilullah', 'Primary Mobile': '+919000548786', 'Status': 'owned'},
+            {'Plot Number': '31', 'Owner Name': 'Gose', 'Primary Mobile': '+919154078692', 'Status': 'owned'},
+            {'Plot Number': '32', 'Owner Name': 'MD. Basheer/Kalilullah/Gose', 'Primary Mobile': '+919491584669', 'Status': 'owned'},
+            {'Plot Number': '33', 'Owner Name': 'MD. Basheer/Kalilullah/Gose', 'Primary Mobile': '+919491584669', 'Status': 'owned'},
+            {'Plot Number': '34', 'Owner Name': 'MD. Basheer/Kalilullah/Gose', 'Primary Mobile': '+919491584669', 'Status': 'owned'},
+            {'Plot Number': '35', 'Owner Name': 'MD. Basheer/Kalilullah/Gose', 'Primary Mobile': '+919491584669', 'Status': 'owned'},
+            {'Plot Number': '36', 'Owner Name': 'MD. Basheer/Kalilullah/Gose', 'Primary Mobile': '+919491584669', 'Status': 'owned'},
+            {'Plot Number': '37', 'Owner Name': 'V. Sivaji', 'Primary Mobile': '+919949413409', 'Status': 'owned'},
+            {'Plot Number': '40', 'Owner Name': 'B. Radhakumari', 'Primary Mobile': '+919491380096', 'Status': 'owned'},
+            {'Plot Number': '52', 'Owner Name': 'P. Anjaneya Das', 'Primary Mobile': '+919848794767', 'Status': 'owned'},
+            {'Plot Number': '65', 'Owner Name': 'B. Padmavathi Devi', 'Primary Mobile': '+918074937593', 'Status': 'owned'},
+            {'Plot Number': '73', 'Owner Name': 'P. Rakesh', 'Primary Mobile': '+918919112471', 'Status': 'owned'},
+            {'Plot Number': '75', 'Owner Name': 'Gangaraju', 'Primary Mobile': '+919393049750', 'Status': 'owned'},
+            {'Plot Number': '78', 'Owner Name': 'Sambasivarao', 'Primary Mobile': '+919492482163', 'Status': 'owned'},
+            {'Plot Number': '84', 'Owner Name': 'M Naga Malleswara Rao', 'Primary Mobile': '+919440667623', 'Status': 'owned'},
+            {'Plot Number': '85', 'Owner Name': 'M Venkat Rao', 'Primary Mobile': '+918179238680', 'Status': 'owned'},
+            {'Plot Number': '95', 'Owner Name': 'Abdul Wajid', 'Primary Mobile': '+917893774846', 'Status': 'owned'},
+            {'Plot Number': '102', 'Owner Name': 'MD. Kareemullah', 'Primary Mobile': '+919291752412', 'Status': 'owned'},
+            {'Plot Number': '106', 'Owner Name': 'G. Kondababu', 'Primary Mobile': '+919989120209', 'Status': 'owned'},
+            {'Plot Number': '109', 'Owner Name': 'Pulagani Ramadevi', 'Primary Mobile': '+919393652827', 'Status': 'owned'},
+            {'Plot Number': '110', 'Owner Name': 'M. Nalani Kumari', 'Primary Mobile': '+919393911464', 'Status': 'owned'},
+            {'Plot Number': '111', 'Owner Name': 'M. Nalani Kumari', 'Primary Mobile': '+919393911464', 'Status': 'owned'},
+            {'Plot Number': '113', 'Owner Name': 'Collector Office Madam', 'Primary Mobile': '+919154769111', 'Status': 'owned'},
+            {'Plot Number': '114', 'Owner Name': 'VV. Nagabushan', 'Primary Mobile': '+918897972298', 'Status': 'owned'},
+            {'Plot Number': '116', 'Owner Name': 'V. Anitha', 'Primary Mobile': '+918374924161', 'Status': 'owned'},
+            {'Plot Number': '121', 'Owner Name': 'Sudhakar', 'Primary Mobile': '+919247402890', 'Status': 'owned'},
+            {'Plot Number': '123', 'Owner Name': 'MD. Abdullah', 'Primary Mobile': '+917569958038', 'Status': 'owned'},
+            {'Plot Number': '124', 'Owner Name': 'S. Nagaraju', 'Primary Mobile': '+919866341198', 'Status': 'owned'},
+            {'Plot Number': '125', 'Owner Name': 'L.V.N. Sastry', 'Primary Mobile': '+919989347789', 'Status': 'owned'},
+            {'Plot Number': '127', 'Owner Name': 'V. Vasu', 'Primary Mobile': '+919550529929', 'Status': 'owned'},
+            {'Plot Number': '130', 'Owner Name': 'CH. Rambabu', 'Primary Mobile': '+916302122508', 'Status': 'owned'},
+            {'Plot Number': '132', 'Owner Name': 'CH. Nageswara Rao', 'Primary Mobile': '+919849309522', 'Status': 'owned'},
+            {'Plot Number': '133', 'Owner Name': 'VV. Nagabushan', 'Primary Mobile': '+918897972298', 'Status': 'owned'},
+            {'Plot Number': '137', 'Owner Name': 'M. Ramana', 'Primary Mobile': '+919866172123', 'Status': 'owned'},
+            {'Plot Number': '141', 'Owner Name': 'M Venkat Rao', 'Primary Mobile': '+918179238680', 'Status': 'owned'},
+            {'Plot Number': '146', 'Owner Name': 'A Madhavi Latha', 'Primary Mobile': '+918106674778', 'Status': 'owned'},
+            {'Plot Number': '147', 'Owner Name': 'A Madhavi Latha', 'Primary Mobile': '+918106674778', 'Status': 'owned'},
+            {'Plot Number': '148', 'Owner Name': 'A Madhavi Latha', 'Primary Mobile': '+918106674778', 'Status': 'owned'},
+            {'Plot Number': '149', 'Owner Name': 'A Madhavi Latha', 'Primary Mobile': '+918106674778', 'Status': 'owned'},
+            {'Plot Number': '150', 'Owner Name': 'A Madhavi Latha', 'Primary Mobile': '+918106674778', 'Status': 'owned'},
+            {'Plot Number': '151', 'Owner Name': 'P. Kalpana Devi', 'Primary Mobile': '+917036515490', 'Status': 'owned'},
+            {'Plot Number': '152', 'Owner Name': 'Tata Mounika', 'Primary Mobile': '+917904349625', 'Status': 'owned'},
+            {'Plot Number': '216', 'Owner Name': 'Marakani Vasu', 'Primary Mobile': '+919347222233', 'Status': 'owned'},
+            {'Plot Number': '224', 'Owner Name': 'V. Vijay Kumar', 'Primary Mobile': '+919247330326', 'Status': 'owned'},
+            {'Plot Number': '225', 'Owner Name': 'L. Ramakrishna', 'Primary Mobile': '+919440540395', 'Status': 'owned'}
+        ];
         
-        // Auto-open token modal after delay
-        setTimeout(() => {
-            // Try to open the token modal
-            const tokenModal = document.getElementById('token-modal');
-            if (tokenModal) {
-                tokenModal.classList.add('show');
-                
-                // Pre-fill current values
-                const currentToken = GITHUB_CONFIG.token;
-                const currentGistId = GITHUB_CONFIG.gistId;
-                
-                const tokenInput = document.getElementById('github-token');
-                const gistInput = document.getElementById('gist-id');
-                
-                if (tokenInput) tokenInput.value = currentToken;
-                if (gistInput) gistInput.value = currentGistId;
-            }
-        }, 2000);
+        // Update UI immediately
+        this.updateStatistics();
+        this.initializePlots();
+        
+        this.showNotification(`Loaded ${this.plotDatabase.length} plots successfully!`, 'success');
     }
 
     // ==========================================
     // DATA LOADING FUNCTIONS
     // ==========================================
 
-    // Load data from GitHub Gist ONLY (central storage)
+    // Load data from shared storage (try local JSON first, then localStorage)
     async loadFromSharedStorage() {
         try {
-            console.log('Loading data from GitHub Gist ONLY...');
-            console.log('Using token:', GITHUB_CONFIG.token ? GITHUB_CONFIG.token.substring(0, 10) + '...' : 'undefined');
-            console.log('Using gist ID:', GITHUB_CONFIG.gistId);
-            console.log('API endpoint:', GITHUB_CONFIG.apiEndpoint);
+            // Try loading from local JSON file first (simplest method)
+            console.log('Loading from local JSON file...');
+            const response = await fetch('teachers_colony_database.json');
             
-            // Show loading state
-            this.showNotification('Loading data from GitHub...', 'info');
-            
-            const url = `${GITHUB_CONFIG.apiEndpoint}/${GITHUB_CONFIG.gistId}`;
-            console.log('Fetching from URL:', url);
-            
-            const response = await fetch(url, {
-                headers: {
-                    'Authorization': `token ${GITHUB_CONFIG.token}`
-                }
-            });
-
-            console.log('Response status:', response.status);
-            console.log('Response headers:', response.headers);
-
-            if (!response.ok) {
-                if (response.status === 403) {
-                    // Try read-only access with public gist
-                    console.log('403 error, trying public gist access...');
-                    const publicResponse = await fetch(url);
-                    if (publicResponse.ok) {
-                        const data = await publicResponse.json();
-                        console.log('Successfully loaded data from public GitHub Gist:', data.html_url);
-                        console.log('Gist files:', Object.keys(data.files || {}));
-                        
-                        if (!data.files || !data.files['teachers_colony_database.json']) {
-                            throw new Error('Database file not found in GitHub Gist');
-                        }
-                        
-                        const sharedData = JSON.parse(data.files['teachers_colony_database.json'].content);
-                        this.plotDatabase = sharedData;
-                        console.log('Loaded', this.plotDatabase.length, 'records from public GitHub Gist');
-                        
-                        // Refresh display
-                        this.updateStatistics();
-                        this.initializePlots();
-                        
-                        this.showNotification(`Data loaded from public GitHub! ${this.plotDatabase.length} records found. (Read-only mode)`, 'success');
-                        return true;
-                    }
-                }
-                throw new Error(`GitHub API Error: ${response.status} - ${response.statusText}`);
-            }
-
-            const data = await response.json();
-            console.log('Successfully loaded data from GitHub Gist:', data.html_url);
-            console.log('Gist files:', Object.keys(data.files || {}));
-            
-            // Check if the file exists
-            if (!data.files || !data.files['teachers_colony_database.json']) {
-                throw new Error('Database file not found in GitHub Gist');
+            if (response.ok) {
+                const data = await response.json();
+                // Handle new structure with plots array
+                this.plotDatabase = data.plots || data || [];
+                console.log('Loaded', this.plotDatabase.length, 'records from local JSON file');
+                
+                this.updateStatistics();
+                this.initializePlots();
+                
+                this.showNotification(`Loaded ${this.plotDatabase.length} records from local file.`, 'success');
+                return true;
             }
             
-            const sharedData = JSON.parse(data.files['teachers_colony_database.json'].content);
-            this.plotDatabase = sharedData;
-            console.log('Loaded', this.plotDatabase.length, 'records from GitHub Gist ONLY');
-            
-            // Refresh display
-            this.updateStatistics();
-            this.initializePlots();
-            
-            this.showNotification(`Data loaded from GitHub! ${this.plotDatabase.length} records found.`, 'success');
-            return true;
+            throw new Error('Local file not found');
         } catch (error) {
-            console.error('Error loading from GitHub Gist:', error);
-            console.error('Error details:', {
-                message: error.message,
-                stack: error.stack,
-                name: error.name
-            });
-            
-            // Check if it's a network error
-            if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
-                this.showNotification('Network error. Loading from local storage...', 'error');
-            } else if (error.message.includes('401')) {
-                this.showNotification('GitHub token error. Loading from local storage...', 'error');
-            } else if (error.message.includes('403')) {
-                this.showNotification('GitHub access restricted. Loading from local storage...', 'error');
-            } else if (error.message.includes('404')) {
-                this.showNotification('GitHub Gist not found. Loading from local storage...', 'error');
-            } else {
-                this.showNotification(`GitHub Error: ${error.message}. Loading from local storage...`, 'error');
-            }
-            
-            console.log('Falling back to localStorage...');
-            // Load from localStorage as final fallback
-            await this.loadFromLocalStorage();
-            
-            return false;
+            console.log('Local file load failed, using localStorage fallback...', error);
+            return await this.loadFromLocalStorage();
         }
     }
 
@@ -200,25 +135,20 @@ class TeachersColonyAPI {
         }
     }
 
-    // Save data to GitHub Gist ONLY
+    // Save data to localStorage (simplest method)
     async saveToGitHub() {
         try {
-            console.log('Saving to GitHub Gist...');
-            this.showNotification('Saving to GitHub Gist...', 'info');
+            console.log('Saving to localStorage...');
+            this.showNotification('Saving data locally...', 'info');
             
-            // Upload directly to GitHub Gist (central storage only)
-            const success = await this.uploadToSharedStorage();
+            // Save to localStorage
+            localStorage.setItem('plotDatabase', JSON.stringify(this.plotDatabase));
             
-            if (success) {
-                this.showNotification('Data saved to GitHub Gist successfully!', 'success');
-            } else {
-                this.showNotification('Failed to save to GitHub Gist. Please check your token permissions.', 'error');
-            }
-            
-            return success;
+            this.showNotification('Data saved locally!', 'success');
+            return true;
         } catch (error) {
-            console.error('Error saving to GitHub:', error);
-            this.showNotification('Error saving to GitHub Gist. Please update your token with "gist" scope.', 'error');
+            console.error('Error saving to localStorage:', error);
+            this.showNotification('Error saving data.', 'error');
             return false;
         }
     }
@@ -298,17 +228,21 @@ class TeachersColonyAPI {
         
         let html = '';
         plotNumbers.forEach(plotNum => {
-            const plotData = this.plotDatabase.find(p => p['Plot Number'] == plotNum);
+            // Support both old Title Case and new snake_case formats
+            const plotData = this.plotDatabase.find(p => {
+                const pn = p['Plot Number'] || p['plot_number'] || p.plot_number;
+                return parseInt(pn) === plotNum;
+            });
             let status = 'available';
             let ownerName = '';
             
             if (plotData) {
-                // Handle both "Available" and "available" status from GitHub
-                const plotStatus = plotData['Status'] || 'available';
+                // Handle both Title Case and snake_case status
+                const plotStatus = plotData['Status'] || plotData['status'] || plotData.status || 'available';
                 status = plotStatus.toLowerCase() === 'available' ? 'available' : 
                         plotStatus.toLowerCase() === 'owned' ? 'owned' : 
                         plotStatus.toLowerCase() === 'contacted' ? 'contacted' : 'available';
-                ownerName = plotData['Owner Name'];
+                ownerName = plotData['Owner Name'] || plotData['owner_name'] || plotData.owner_name;
             }
             
             html += `<td class="${status}" onclick="api.openModal(${plotNum})">
@@ -332,33 +266,32 @@ class TeachersColonyAPI {
     // STATISTICS FUNCTIONS
     // ==========================================
 
-    // Update statistics
+    // Update statistics - support both Title Case and snake_case
     updateStatistics() {
         const totalPlots = APP_CONFIG.totalPlots;
         
         // Count plots with status='owned' and have a mobile number
         const ownedPlots = this.plotDatabase.filter(p => {
-            const status = (p['Status'] || p['status'] || '').toLowerCase();
-            const mobile = p['Primary Mobile'] || p['primary_mobile'] || '';
+            const status = (p['Status'] || p['status'] || p.status || '').toLowerCase();
+            const mobile = p['Primary Mobile'] || p['primary_mobile'] || p.primary_mobile || '';
             return status === 'owned' && mobile.length > 0;
         }).length;
         
-        // Count plots that have contact numbers (contacted leads)
+        // Count plots with status='contacted' 
         const contactedPlots = this.plotDatabase.filter(p => {
-            const status = (p['Status'] || p['status'] || '').toLowerCase();
-            const mobile = p['Primary Mobile'] || p['primary_mobile'] || '';
-            // Has mobile but not already counted as owned
-            return mobile.length > 0 && status !== 'owned';
+            const status = (p['Status'] || p['status'] || p.status || '').toLowerCase();
+            return status === 'contacted';
         }).length;
         
         const availablePlots = totalPlots - ownedPlots - contactedPlots;
+        const ownershipRate = Math.round((ownedPlots / totalPlots) * 100);
         
         document.getElementById('total-plots').textContent = totalPlots;
         document.getElementById('owned-plots').textContent = ownedPlots;
-        document.getElementById('contacted-plots').textContent = contactedPlots;
         document.getElementById('available-plots').textContent = availablePlots;
+        document.getElementById('ownership-rate').textContent = ownershipRate + '%';
         
-        console.log(`Stats updated: ${ownedPlots} owned, ${contactedPlots} contacted, ${availablePlots} available`);
+        console.log(`Stats updated: ${ownedPlots} owned, ${contactedPlots} contacted, ${availablePlots} available, ${ownershipRate}% rate`);
     }
 
     // ==========================================
@@ -402,7 +335,7 @@ class TeachersColonyAPI {
             document.getElementById('sms-btn').href = 'sms:+91' + mobile;
         } else {
             // Show form for new entry
-            ownerNameDiv.textContent = 'Enter Details';
+            ownerNameDiv.textContent = 'Mobile number not available';
             contactActions.style.display = 'none';
             plotForm.style.display = 'block';
             

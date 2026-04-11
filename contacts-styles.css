@@ -1,0 +1,100 @@
+/* Contacts Directory Page Styles */
+.contacts-page {
+    display: none;
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    margin: 20px 0;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.contacts-page.show {
+    display: block;
+}
+
+.contacts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.contacts-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1e3c72;
+}
+
+.contacts-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.contacts-table th {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.contacts-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.contacts-table tr:hover {
+    background: #f5f7fa;
+}
+
+.contact-plot-num {
+    font-weight: 700;
+    color: #1e3c72;
+}
+
+.contact-name {
+    font-weight: 600;
+}
+
+.contact-mobile {
+    color: #1565c0;
+}
+
+.btn-small {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.btn-call { background: #4caf50; color: white; }
+.btn-whatsapp { background: #25d366; color: white; }
+
+.back-btn {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.no-contacts {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+body.dark-mode .contacts-page {
+    background: #16213e;
+    color: #eee;
+}
+
+body.dark-mode .contacts-table tr:hover {
+    background: #0f3460;
+}

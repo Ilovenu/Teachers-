@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teachers Colony Plot Management System</title>
+    
+    <!-- Open Graph Meta Tags for Link Preview -->
+    <meta property="og:title" content="Teachers Colony - Plot Management">
+    <meta property="og:description" content="Manage 175 residential plots in Machilipatnam. View plot map, owner details, LRS status, and more.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://img.icons8.com/color/480/map.png">
+    <meta property="og:url" content="https://script.google.com/macros/s/AKfycbxZB1YVNbRhViCSvgcj2A8KAHj5kkO7YQMlwaYaJXsBJAEQ4DcGA_7Fc5vIHEDfBKYFtg/exec">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Teachers Colony - Plot Management">
+    <meta name="twitter:description" content="Manage 175 residential plots in Machilipatnam. View plot map, owner details, LRS status, and more.">
+    <meta name="twitter:image" content="https://img.icons8.com/color/480/map.png">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
@@ -15,19 +29,117 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'DM Sans', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+        body { 
+            margin: 0; 
+            font-family: 'Poppins', 'Segoe UI', sans-serif; 
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
             color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Rich UI Enhancements */
+        .main-container {
+            background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+            min-height: 100vh;
+        }
+        
+        /* Enhanced Buttons */
+        .btn-primary, .btn-secondary {
+            border-radius: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover, .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        /* Enhanced Cards */
+        .feature-card, .stat-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover, .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(31, 38, 135, 0.25);
+        }
+        
+        /* Enhanced Modal */
+        .modal-overlay {
+            backdrop-filter: blur(8px);
+            background: rgba(0,0,0,0.6);
+        }
+        .modal-content {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        /* Enhanced Form Inputs */
+        .form-input {
+            background: #ffffff;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+        
+        /* Enhanced Header */
+        .main-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* Plot Table Enhancements */
+        .ptable td {
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+        }
+        .ptable td:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        }
+        
+        /* Smooth Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .page.show {
+            animation: fadeIn 0.4s ease;
+        }
+        
+        /* Loading Animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .loading {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        /* Header Styles - Updated to match screenshot */
+        .main-header {
+            background: #1e3a5f;
+            color: white;
+            padding: 15px 0 0 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        /* Header Styles */
-        .main-header {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            padding: 20px 0;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        .main-header::before {
+            display: none;
         }
 
         .header-container {
@@ -40,128 +152,163 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            padding-bottom: 15px;
         }
 
         .logo-section {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
         .logo-icon {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, #ffd700, #ffed4e);
-            border-radius: 12px;
+            background: #f5a623;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
-            color: #1e3c72;
-            box-shadow: 0 4px 15px rgba(255,215,0,0.3);
+            color: #1e3a5f;
+            flex-shrink: 0;
         }
 
         .logo-text h1 {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
-            margin-bottom: 5px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin: 0;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
         }
 
         .logo-text .tagline {
-            font-size: 14px;
+            font-size: 13px;
             opacity: 0.9;
-            font-style: italic;
+            font-weight: 400;
+            margin-top: 2px;
+            letter-spacing: 0.5px;
         }
 
         .header-contact {
             display: flex;
-            gap: 20px;
+            gap: 12px;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(255,255,255,0.1);
-            padding: 8px 15px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
+            gap: 6px;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 25px;
             transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+            font-size: 13px;
         }
 
         .contact-item:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
+            background: rgba(255,255,255,0.25);
         }
 
         .contact-icon {
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .contact-text, .contact-link {
             color: white;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
+        }
+
+        .header-nav {
+            background: rgba(0,0,0,0.2);
+            padding: 10px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 8px;
             list-style: none;
+            flex-wrap: wrap;
         }
 
         .nav-links a {
             color: white;
             text-decoration: none;
             font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 20px;
+            padding: 10px 20px;
+            border-radius: 25px;
             transition: all 0.3s ease;
-            background: rgba(255,255,255,0.1);
+            background: transparent;
+            border: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .nav-links a:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .nav-links a.active {
+            background: #f5a623;
+            color: #1e3a5f;
+            font-weight: 600;
         }
 
         .stats-bar {
-            background: rgba(255,255,255,0.1);
-            padding: 15px 0;
-            backdrop-filter: blur(10px);
+            background: white;
+            padding: 20px 0;
+            border-top: 1px solid #e0e0e0;
         }
 
         .stats-container {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             flex-wrap: wrap;
             gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         .stat-item {
             text-align: center;
-            background: rgba(255,255,255,0.1);
-            padding: 15px 25px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
+            background: #f0f4f8;
+            padding: 20px 30px;
+            border-radius: 12px;
+            min-width: 140px;
         }
 
         .stat-number {
-            font-size: 24px;
+            font-size: 32px;
             font-weight: 700;
             margin-bottom: 5px;
+            color: #1e3a5f;
+        }
+
+        .stat-item:last-child .stat-number {
+            color: #f5a623;
         }
 
         .stat-label {
             font-size: 12px;
-            opacity: 0.9;
+            color: #666;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            font-weight: 500;
         }
 
         /* Main Container */
@@ -352,16 +499,6 @@
             background: #c8e6c9;
         }
 
-        .ptable td.contacted {
-            background: #2e7d32;
-            border-color: #1b5e20;
-            color: white;
-        }
-
-        .ptable td.contacted:hover {
-            background: #1b5e20;
-        }
-
         .ptable td.available {
             background: #ffffff;
         }
@@ -429,64 +566,93 @@
         }
 
         .modal {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
+            background: linear-gradient(145deg, #ffffff 0%, #f5f7fa 100%);
+            border-radius: 16px;
+            padding: 20px;
             width: 90%;
-            max-width: 400px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            max-width: 320px;
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.2);
             position: relative;
+            border: 1px solid rgba(255,255,255,0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: scale(0.9) translateY(-20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .modal-close {
             position: absolute;
             top: 15px;
             right: 15px;
-            background: none;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             cursor: pointer;
-            color: #888;
-            width: 30px;
-            height: 30px;
+            color: white;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 4px 12px rgba(238,90,90,0.4);
+            transition: all 0.2s ease;
         }
 
         .modal-close:hover {
-            background: #f0f0f0;
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 6px 16px rgba(238,90,90,0.5);
         }
 
         .modal-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            color: #c0392b;
+            font-size: 1.6rem;
+            background: linear-gradient(135deg, #1e3c72, #c0392b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             font-weight: 700;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 4px;
         }
 
         .modal-subtitle {
-            font-size: 0.9rem;
-            color: #aaa;
+            font-size: 0.75rem;
+            color: #888;
             text-transform: uppercase;
-            letter-spacing: 0.07em;
+            letter-spacing: 0.1em;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 8px;
+            font-weight: 500;
         }
 
         .modal-plot {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #1565c0;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1e3c72;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .modal-owner {
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 12px;
+            padding: 8px 12px;
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            border-radius: 8px;
+            border-left: 3px solid #4caf50;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
         }
 
         .form-label {
@@ -521,55 +687,10 @@
             cursor: pointer;
         }
 
-        .btn-primary {
-            width: 100%;
-            padding: 15px;
-            background: #c0392b;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 10px;
-        }
-
-        .btn-primary:hover {
-            background: #a03020;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            width: 100%;
-            padding: 12px;
-            background: #e8f5e9;
-            color: #2e7d32;
-            border: 2px solid #81c784;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-contact {
-            width: 100%;
-            padding: 12px;
-            background: #fff3cd;
-            color: #856404;
-            border: 2px solid #ffc107;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 10px;
-        }
-
-        .btn-contact:hover {
-            background: #ffe69c;
-        }
+        .btn-primary { width: 100%; padding: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-bottom: 8px; display: block; text-align: center; text-decoration: none; box-shadow: 0 3px 10px rgba(102,126,234,0.3); transition: all 0.3s ease; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102,126,234,0.4); }
+        .btn-secondary { width: 100%; padding: 10px; background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%); color: #2c3e50; border: 2px solid #d1d8e0; border-radius: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+        .btn-secondary:hover { background: linear-gradient(135deg, #e4e8ec 0%, #d1d8e0 100%); transform: translateY(-1px); }
 
         /* Notification */
         .notification {
@@ -596,44 +717,1234 @@
             background: #f44336;
         }
 
-        /* Responsive */
+        /* Enhanced Mobile Responsive */
         @media (max-width: 768px) {
             .header-top {
                 flex-direction: column;
-                gap: 15px;
+                gap: 10px;
+                padding: 10px;
+            }
+
+            .logo-text h1 {
+                font-size: 1.2rem;
+            }
+
+            .tagline {
+                font-size: 0.75rem;
             }
 
             .header-contact {
+                flex-wrap: wrap;
                 justify-content: center;
+                gap: 8px;
+            }
+
+            .contact-text, .contact-link {
+                font-size: 11px;
             }
 
             .nav-links {
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 15px;
+                gap: 8px;
+                padding: 8px;
+            }
+
+            .nav-links a {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+            }
+
+            .stats-bar {
+                padding: 10px 5px;
             }
 
             .stats-container {
                 flex-wrap: wrap;
-                gap: 15px;
+                gap: 10px;
+                justify-content: center;
+            }
+
+            .stat-item {
+                padding: 10px 15px;
+                min-width: 70px;
+            }
+
+            .stat-number {
+                font-size: 18px;
+            }
+
+            .stat-label {
+                font-size: 10px;
             }
 
             .main-container {
-                margin: 20px auto;
-                padding: 0 15px;
+                margin: 10px auto;
+                padding: 0 10px;
             }
 
             .page {
-                padding: 20px;
+                padding: 15px;
+                border-radius: 15px;
+            }
+
+            .search-container {
+                flex-direction: column;
+                padding: 15px;
+                gap: 10px;
+            }
+
+            .search-input {
+                font-size: 16px; /* Prevent zoom on iOS */
+                padding: 10px 15px;
+            }
+
+            .search-btn {
+                width: 100%;
+                padding: 10px;
             }
 
             .modal {
                 width: 95%;
-                padding: 20px;
+                padding: 15px;
+                max-width: none;
+            }
+
+            .modal-title {
+                font-size: 1.4rem;
+            }
+
+            .modal-plot {
+                font-size: 1.8rem;
             }
 
             .map-container {
+                padding: 5px;
+            }
+
+            .outer {
+                min-width: 600px;
+            }
+
+            .ptable td {
+                height: 30px;
+                font-size: 0.55rem;
+                padding: 3px 1px;
+            }
+
+            .pn {
+                font-size: 0.55rem;
+            }
+
+            .po {
+                font-size: 0.35rem;
+            }
+
+            .rl-left, .rl-right {
+                font-size: 0.5rem;
+                padding: 1px 3px;
+            }
+
+            .road {
+                font-size: 0.6rem;
+                padding: 3px 0;
+            }
+
+            .road-col span {
+                font-size: 0.6rem;
+            }
+
+            .dark-mode-toggle {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+                top: 10px;
+                right: 10px;
+            }
+
+            .form-input {
+                font-size: 16px; /* Prevent zoom on iOS */
+            }
+
+            .btn-primary, .btn-secondary {
+                font-size: 0.9rem;
+                padding: 12px;
+            }
+        }
+
+        /* Search Bar */
+        .search-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 0 0 25px 0;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .search-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102,126,234,0.4);
+        }
+
+        .search-results {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .search-results.show {
+            display: block;
+        }
+
+        .result-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .result-item:hover {
+            background: #f5f5f5;
+            transform: translateX(5px);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Announcements */
+        .announcements {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .announcements h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .announcement-item {
+            background: rgba(255,255,255,0.1);
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .announcement-date {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background: #1a1a2e;
+            color: #eee;
+        }
+
+        body.dark-mode .page {
+            background: #16213e;
+            color: #eee;
+        }
+
+        body.dark-mode .ptable td.available {
+            background: #0f3460;
+        }
+
+        body.dark-mode .map-container {
+            background: #1a1a2e;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Map Page */
+        #map-page {
+            display: none;
+        }
+
+        #map-page.show {
+            display: block;
+        }
+
+        /* Plot table cells - Improved Design */
+        .ptable td {
+            border: 2px solid #555;
+            padding: 6px 4px;
+            text-align: center;
+            min-width: 70px;
+            min-height: 60px;
+            cursor: pointer;
+            vertical-align: top;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .ptable td:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .ptable td.owned {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+        }
+
+        .ptable td.available {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            color: #333;
+        }
+
+        .ptable td.reserved {
+            background: linear-gradient(135deg, #ffeb3b 0%, #ffc107 100%);
+            color: #333;
+        }
+
+        .ptable td.lrs-paid {
+            background: linear-gradient(135deg, #ff0000 0%, #ff7f00 25%, #ffff00 50%, #00ff00 75%, #0000ff 100%);
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .ptable td .pn {
+            font-weight: bold;
+            font-size: 16px;
+            display: block;
+            margin-bottom: 4px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .ptable td .po {
+            font-size: 11px;
+            display: block;
+            margin-top: 2px;
+            line-height: 1.2;
+            max-width: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .ptable td .pm {
+            font-size: 10px;
+            display: block;
+            margin-top: 3px;
+            padding: 2px 4px;
+            background: rgba(255,152,0,0.2);
+            border-radius: 3px;
+            color: #e65100;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .ptable td.owned .pm {
+            background: rgba(255,255,255,0.3);
+            color: #fff9c4;
+        }
+
+        /* Owner name styling for better visibility */
+        .ptable td.owned .po {
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 12px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.3);
+            padding: 2px 4px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        .ptable td.reserved .po {
+            color: #5d4037;
+            font-weight: bold;
+        }
+
+        .ptable td.lrs-paid .po {
+            color: #ffffff;
+            font-weight: bold;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+        }
+
+        /* Contacts Directory Page */
+        .contacts-page {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 1000px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .contacts-page.show {
+            display: block;
+        }
+
+        .contacts-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .contacts-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e3c72;
+        }
+
+        .contacts-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .contacts-table th {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        .contacts-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .contacts-table tr:hover {
+            background: #f5f7fa;
+        }
+
+        .contact-plot-num {
+            font-weight: 700;
+            color: #1e3c72;
+            font-size: 1.1rem;
+        }
+
+        .contact-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .contact-mobile {
+            color: #1565c0;
+            font-weight: 500;
+        }
+
+        .contact-actions-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-call { background: #4caf50; color: white; }
+        .btn-whatsapp { background: #25d366; color: white; }
+        .btn-edit { background: #ff9800; color: white; border: none; cursor: pointer; }
+        .btn-add { background: #2196f3; color: white; border: none; cursor: pointer; }
+
+        .btn-small:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102,126,234,0.4);
+        }
+
+        .no-contacts {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        body.dark-mode .contacts-page {
+            background: #16213e;
+            color: #eee;
+        }
+
+        body.dark-mode .contacts-table th {
+            background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
+        }
+
+        body.dark-mode .contacts-table td {
+            border-bottom-color: #333;
+        }
+
+        body.dark-mode .contacts-table tr:hover {
+            background: #0f3460;
+        }
+
+        /* Documents Page */
+        .documents-page {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 1000px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .documents-page.show {
+            display: block;
+        }
+
+        .documents-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .documents-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e3c72;
+        }
+
+        .documents-container {
+            width: 100%;
+            min-height: 600px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .documents-container iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .password-prompt {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            border-radius: 15px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        body.dark-mode .password-prompt {
+            background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
+        }
+
+        .documents-iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 10px;
+        }
+
+        /* Gallery Page */
+        .gallery-page {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 1000px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .gallery-page.show {
+            display: block;
+        }
+
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .gallery-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e3c72;
+        }
+
+        .gallery-container {
+            width: 100%;
+            min-height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .gallery-coming-soon {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            border-radius: 15px;
+        }
+
+        body.dark-mode .gallery-page {
+            background: #16213e;
+            color: #eee;
+        }
+
+        body.dark-mode .gallery-coming-soon {
+            background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
+        }
+
+        /* Meeting Notes Page */
+        .meeting-notes-page {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 1000px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .meeting-notes-page.show {
+            display: block;
+        }
+
+        .meeting-notes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .meeting-notes-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e3c72;
+        }
+
+        .meeting-notes-container {
+            width: 100%;
+        }
+
+        .meeting-notes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .meeting-note-item {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 4px solid #1e3c72;
+        }
+
+        .meeting-date {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .meeting-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e3c72;
+            margin-bottom: 15px;
+        }
+
+        .meeting-content {
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .meeting-content ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .meeting-content li {
+            margin-bottom: 5px;
+        }
+
+        body.dark-mode .meeting-notes-page {
+            background: #16213e;
+            color: #eee;
+        }
+
+        body.dark-mode .meeting-note-item {
+            background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
+            border-left-color: #667eea;
+        }
+
+        body.dark-mode .meeting-title {
+            color: #667eea;
+        }
+
+        body.dark-mode .meeting-content {
+            color: #ddd;
+        }
+
+        /* Plot Issues Page */
+        .plot-issues-page {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 1000px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .plot-issues-page.show {
+            display: block;
+        }
+
+        .plot-issues-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .plot-issues-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e3c72;
+        }
+
+        .plot-issues-intro {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 4px solid #ff9800;
+        }
+
+        .plot-issues-intro p {
+            color: #e65100;
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .issue-form-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .issue-form-section h3 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .issues-list-section h3 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .issues-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .issue-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .issue-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+        }
+
+        .issue-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .issue-plot-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .issue-type {
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: capitalize;
+        }
+
+        .issue-priority {
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .priority-low { background: #e8f5e9; color: #2e7d32; }
+        .priority-medium { background: #fff3e0; color: #ef6c00; }
+        .priority-high { background: #ffebee; color: #c62828; }
+        .priority-urgent { background: #f3e5f5; color: #7b1fa2; }
+
+        .issue-description {
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .issue-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .issue-reporter {
+            font-weight: 500;
+        }
+
+        .issue-date {
+            color: #999;
+        }
+
+        .social-share-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-facebook {
+            background: #1877f2;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-facebook:hover {
+            background: #166fe5;
+            transform: translateY(-2px);
+        }
+
+        .btn-twitter {
+            background: #1da1f2;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-twitter:hover {
+            background: #1a91da;
+            transform: translateY(-2px);
+        }
+
+        .no-issues {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-style: italic;
+        }
+
+        body.dark-mode .plot-issues-page {
+            background: #16213e;
+            color: #eee;
+        }
+
+        body.dark-mode .issue-card {
+            background: #1a1a2e;
+            border-color: #0f3460;
+        }
+
+        body.dark-mode .issue-description {
+            color: #ddd;
+        }
+
+        @media (max-width: 768px) {
+            .plot-issues-page {
+                padding: 15px;
+                margin: 10px;
+            }
+
+            .plot-issues-title {
+                font-size: 1.3rem;
+            }
+
+            .issue-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .social-share-btns {
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-page {
+                padding: 15px;
+                margin: 10px;
+            }
+            
+            .gallery-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .documents-page {
+                padding: 15px;
+                margin: 10px;
+            }
+            
+            .documents-title {
+                font-size: 1.3rem;
+            }
+            
+            .documents-container iframe {
+                height: 400px;
+            }
+        }
+
+        /* Contacts Responsive */
+        @media (max-width: 768px) {
+            .contacts-page {
+                padding: 15px;
+                margin: 10px;
+            }
+            
+            .contacts-title {
+                font-size: 1.3rem;
+            }
+            
+            .contacts-table {
+                font-size: 0.85rem;
+            }
+            
+            .contacts-table th,
+            .contacts-table td {
+                padding: 10px 8px;
+            }
+            
+            .contact-actions-btns {
+                flex-direction: column;
+                gap: 4px;
+            }
+            
+            .btn-small {
+                padding: 4px 8px;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Enhanced Mobile Responsive */
+        @media (max-width: 768px) {
+            .header-top {
+                flex-direction: column;
+                gap: 10px;
                 padding: 10px;
+            }
+
+            .logo-text h1 {
+                font-size: 1.2rem;
+            }
+
+            .tagline {
+                font-size: 0.75rem;
+            }
+
+            .header-contact {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .contact-text, .contact-link {
+                font-size: 11px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+                padding: 8px;
+            }
+
+            .nav-links a {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+            }
+
+            .stats-bar {
+                padding: 10px 5px;
+            }
+
+            .stats-container {
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+            }
+
+            .stat-item {
+                padding: 10px 15px;
+                min-width: 70px;
+            }
+
+            .stat-number {
+                font-size: 18px;
+            }
+
+            .stat-label {
+                font-size: 10px;
+            }
+
+            .main-container {
+                margin: 10px auto;
+                padding: 0 10px;
+            }
+
+            .page {
+                padding: 15px;
+                border-radius: 15px;
+            }
+
+            .search-container {
+                flex-direction: column;
+                padding: 10px;
+                gap: 8px;
+            }
+
+            .search-input {
+                font-size: 16px; /* Prevent zoom on iOS */
+                padding: 10px 15px;
+            }
+
+            .search-btn {
+                width: 100%;
+                padding: 10px;
+            }
+
+            .modal {
+                width: 95%;
+                padding: 15px;
+                max-width: none;
+            }
+
+            .modal-title {
+                font-size: 1.4rem;
+            }
+
+            .modal-plot {
+                font-size: 1.8rem;
+            }
+
+            .map-container {
+                padding: 5px;
+                overflow-x: auto;
+            }
+
+            .outer {
+                min-width: 600px;
+            }
+
+            .ptable td {
+                height: 30px;
+                font-size: 0.55rem;
+                padding: 3px 1px;
+            }
+
+            .pn {
+                font-size: 0.55rem;
+            }
+
+            .po {
+                font-size: 0.35rem;
+            }
+
+            .rl-left, .rl-right {
+                font-size: 0.5rem;
+                padding: 1px 3px;
+            }
+
+            .road {
+                font-size: 0.6rem;
+                padding: 3px 0;
+            }
+
+            .road-col span {
+                font-size: 0.6rem;
+            }
+
+            .dark-mode-toggle {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+                top: 10px;
+                right: 10px;
+            }
+
+            .form-input {
+                font-size: 16px; /* Prevent zoom on iOS */
+            }
+
+            .btn-primary, .btn-secondary {
+                font-size: 0.9rem;
+                padding: 12px;
+            }
+        }
+
+        /* Small mobile screens */
+        @media (max-width: 480px) {
+            .logo-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 14px;
+            }
+
+            .nav-links a {
+                padding: 5px 10px;
+                font-size: 0.8rem;
+            }
+
+            .stat-number {
+                font-size: 16px;
+            }
+
+            .contacts-title {
+                font-size: 1.1rem;
+            }
+
+            .back-btn {
+                padding: 8px 12px;
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -647,7 +1958,7 @@
                 <div class="logo-icon">TC</div>
                 <div class="logo-text">
                     <h1>Teachers Colony</h1>
-                    <div class="tagline">Premium Residential Plots in Machilipatnam</div>
+                    <div class="tagline">Machilipatnam</div>
                 </div>
             </div>
             
@@ -657,12 +1968,8 @@
                     <span class="contact-text">mahadevusomaraju@gmail.com</span>
                 </div>
                 <div class="contact-item">
-                    <span class="contact-icon">💬</span>
+                    <span class="contact-icon">📞</span>
                     <a href="https://wa.me/16693062113" target="_blank" class="contact-link">+16693062113</a>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-icon">📍</span>
-                    <a href="https://maps.app.goo.gl/bNzYVPCLyYjtiE9e9" target="_blank" class="contact-link">Machilipatnam</a>
                 </div>
             </div>
         </div>
@@ -670,24 +1977,18 @@
         <nav class="header-nav">
             <div class="nav-container">
                 <ul class="nav-links">
-                    <li><a href="#plots">📊 Plots</a></li>
-                    <li><a href="#" onclick="api.refreshFromGitHub(); return false;">🔄 Refresh</a></li>
+                    <li><a href="#home" class="active" onclick="showHomePage(); return false;">🏠 Home</a></li>
+                    <li><a href="#" onclick="showMapPage(); return false;">🗺️ Map</a></li>
+                    <li><a href="#" onclick="showContactsPage(); return false;">📞 Contacts</a></li>
+                    <li><a href="#" onclick="showDocumentsPage(); return false;">📄 Documents</a></li>
+                    <li><a href="#" onclick="showPlotIssuesPage(); return false;">⚠️ Plot Issues</a></li>
+                    <li><a href="#" onclick="showMeetingNotesPage(); return false;">📝 Meeting Notes</a></li>
+                    <li><a href="#" onclick="showGalleryPage(); return false;">🖼️ Gallery</a></li>
                 </ul>
             </div>
         </nav>
         
         <div class="stats-bar">
-            <div style="background: rgba(255,215,0,0.2); padding: 8px 0; overflow: hidden; white-space: nowrap;">
-                <div style="display: inline-block; animation: scroll 15s linear infinite; padding-left: 100%;">
-                    <span style="color: #ffd700; font-weight: 600; font-size: 0.95rem;">🏠 Developed by Land Owner of Plot #25 & #40 | Teachers Colony Management System 🏠</span>
-                </div>
-            </div>
-            <style>
-                @keyframes scroll {
-                    0% { transform: translateX(0); }
-                    100% { transform: translateX(-100%); }
-                }
-            </style>
             <div class="stats-container">
                 <div class="stat-item">
                     <div class="stat-number" id="total-plots">175</div>
@@ -698,39 +1999,76 @@
                     <div class="stat-label">Registered</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number" id="contacted-plots">0</div>
-                    <div class="stat-label">Contacted</div>
-                </div>
-                <div class="stat-item">
                     <div class="stat-number" id="available-plots">175</div>
-                    <div class="stat-label">Available</div>
+                    <div class="stat-label">Contact number required</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number" id="ownership-rate">0%</div>
-                    <div class="stat-label">Registration Rate</div>
+                    <div class="stat-number" id="mobile-count">0</div>
+                    <div class="stat-label">Mobile numbers</div>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
+<button class="dark-mode-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode">🌙</button>
+
+<!-- Home Landing Page -->
+<div class="home-page" id="home-page">
+    <!-- Meeting Alert Banner -->
+    <div class="meeting-alert" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%); border: 2px solid #c92a2a; padding: 20px; border-radius: 12px; margin-bottom: 20px; text-align: center; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+        <div style="font-size: 1.4rem; font-weight: 700; margin-bottom: 10px;">🙏 గ్రూపు సభ్యులందరికీ నమస్కారాలు!</div>
+        <div style="font-size: 1.1rem; margin-bottom: 15px; line-height: 1.6;">
+            మన Teachers Colony Site సభ్యులందరూ తప్పకుండా హాజరు కావలసిన అత్యంత ముఖ్యమైన మీటింగ్ ఏర్పాటు చేయడమైనది.
+        </div>
+        <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin: 15px 0;">
+            <div style="background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 8px;">
+                <strong>📅 తేదీ:</strong> 12 - 04 - 2026
+            </div>
+            <div style="background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 8px;">
+                <strong>⏰ సమయం:</strong> మధ్యాహ్నం 3:00 గంటలు
+            </div>
+        </div>
+        <div style="background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 8px; margin: 10px 0; display: inline-block;">
+            <strong>📍 స్థలం:</strong> <a href="https://goo.gl/maps/3wJDAJXE6HxTBjVS9" target="_blank" style="color: #fff9c4; text-decoration: underline;">Teachers Colony Site (Google Maps)</a>
+        </div>
+        <div style="margin-top: 15px; text-align: left; max-width: 400px; margin-left: auto; margin-right: auto;">
+            <div style="font-weight: 700; margin-bottom: 8px; text-align: center;">🎯 అజెండా:</div>
+            <ul style="list-style: none; padding: 0; margin: 0; line-height: 1.8;">
+                <li>✅ Plot owners Association ఏర్పాటు</li>
+                <li>✅ Committee Members ఎన్నిక</li>
+                <li>✅ భూమి సమస్యకు శాశ్వత పరిష్కారం</li>
+                <li>✅ తదుపరి చర్యలపై నిర్ణయం</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Map Page -->
+<div class="map-page" id="map-page">
+    <div class="map-page-header" style="text-align: center; padding: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; margin-bottom: 15px; border-radius: 10px;">
+        <div>
+            <button onclick="showHomePage()" class="btn-secondary" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white; margin-right: 10px;">
+                ← Back
+            </button>
+        </div>
+    </div>
+
 <div class="main-container">
     <div class="page">
 
-        <!-- HEADER -->
-        <div class="hdr">
-            <div class="compass">🧭</div>
-            <div class="badge">Teacher'S Colony</div>
-            <div class="sub1">Near Bye-pass Road · Pedana Road Cross</div>
-            <div class="sub2">Proposed House sites in</div>
-            <div class="sub3">Rs. No. 311 / 1, 2, 3</div>
+        <!-- Search Section -->
+        <div class="search-container">
+            <input type="text" class="search-input" id="search-input" placeholder="🔍 Search by plot number or owner name...">
+            <button class="search-btn" onclick="searchPlots()">Search</button>
         </div>
+        <div class="search-results" id="search-results"></div>
 
         <!-- MAP -->
         <div class="map-container">
             <div class="outer">
                 <div class="outer-row">
-                    <div class="road-col left"><span>100 FEET PORT ROAD</span></div>
+                    <div class="road-col left"><span>PORT ROAD</span></div>
                     <div class="map-col">
                         <div style="display: table; width: 100%;">
                             <div style="display: table-row;">
@@ -745,7 +2083,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="road">— 30 FEET ROAD —</div>
+                                    <div class="road">— ROAD —</div>
 
                                     <!-- 130-136 -->
                                     <div class="row2">
@@ -756,7 +2094,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="road">— 40 FEET ROAD —</div>
+                                    <div class="road">— ROAD —</div>
 
                                     <!-- 98-104 -->
                                     <div class="row2">
@@ -767,7 +2105,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="road">— 40 FEET ROAD —</div>
+                                    <div class="road">— ROAD —</div>
 
                                     <!-- 65-72 -->
                                     <div class="row2">
@@ -778,7 +2116,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="road">— 40 FEET ROAD —</div>
+                                    <div class="road">— ROAD —</div>
 
                                     <!-- 33-39 -->
                                     <div class="row2">
@@ -789,7 +2127,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="road">— 30 FEET ROAD —</div>
+                                    <div class="road">— ROAD —</div>
 
                                     <!-- 5-9 -->
                                     <div class="row2">
@@ -798,11 +2136,10 @@
                                             <table class="ptable"><tbody><tr id="r9"></tr></tbody></table>
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <!-- CONTINUOUS CENTER ROAD -->
-                                <div class="road-col center"><span>40 FEET CENTER ROAD</span></div>
+                                <div class="road-col center"><span>CENTER ROAD</span></div>
 
                                 <div style="display: table-cell; width: 47%; vertical-align: top;">
                                     <!-- RIGHT PLOTS -->
@@ -815,7 +2152,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="road">— 30 FEET ROAD —</div>
+                                    <div class="road">— ROAD —</div>
 
                                     <!-- 137-145 -->
                                     <div class="row2">
@@ -826,7 +2163,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="road">— 40 FEET ROAD —</div>
+                                    <div class="road">— ROAD —</div>
 
                                     <!-- 105-113 -->
                                     <div class="row2">
@@ -837,7 +2174,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="road">— 40 FEET ROAD —</div>
+                                    <div class="road">— ROAD —</div>
 
                                     <!-- 73-81 -->
                                     <div class="row2">
@@ -848,7 +2185,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="road">— 40 FEET ROAD —</div>
+                                    <div class="road">— ROAD —</div>
 
                                     <!-- 40-47 -->
                                     <div class="row2">
@@ -859,21 +2196,20 @@
                                         </div>
                                     </div>
 
-                                    <div class="road">— 30 FEET ROAD —</div>
+                                    <div class="road">— ROAD —</div>
 
                                     <!-- 10-17 -->
                                     <div class="row2">
                                         <div class="col2">
                                             <div class="rl"><span class="rl-left">10—17</span></div>
-                                            <table class="ptable"><tbody><tr id="r10"></tr><tr id="r17"></tr></tbody></table>
-                                            <div style="text-align:right;margin-top:1px"><span class="rl-right" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">17—23</span></div>
+                                            <table class="ptable"><tbody><tr id="r10"></tr></tbody></table>
                                         </div>
                                     </div>
 
-                                    <!-- 1-4 moved to right side (last row) -->
+                                    <!-- 1-4 in one row with 4 columns -->
                                     <div class="row2">
                                         <div class="col2">
-                                            <div style="text-align:left;margin-bottom:1px"><span class="rl-left" style="border:1px solid #555;padding:0 3px;font-size:0.55rem;font-weight:700">1—4</span></div>
+                                            <div class="rl"><span class="rl-left">4—1</span></div>
                                             <table class="ptable"><tbody><tr id="r1"></tr></tbody></table>
                                         </div>
                                     </div>
@@ -881,35 +2217,124 @@
                             </div>
                         </div>
                     </div>
-                    <div class="road-col right"><span>100 FEET PORT ROAD</span></div>
+                    <div class="road-col right"><span>PORT ROAD</span></div>
                 </div>
             </div>
 
             <div class="bot-road">
-                100 FEET PORT ROAD
+                PORT ROAD
             </div>
         </div>
 
     </div>
 </div>
+</div>
 
-<!-- Rich Footer -->
-<footer style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 30px 0; margin-top: 40px; text-align: center;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-        <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-bottom: 15px;">
-            <span style="font-size: 1.5rem;">🏠</span>
-            <span style="font-size: 1.2rem; font-weight: 600;">Teachers Colony</span>
-            <span style="opacity: 0.7;">|</span>
-            <span style="font-size: 0.95rem;">Plot #25 & #40</span>
-        </div>
-        <div style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 10px;">
-            Developed with ❤️ by Plot Owners
-        </div>
-        <div style="font-size: 0.8rem; opacity: 0.7;">
-            © 2026 Teachers Colony Machilipatnam. All Rights Reserved.
+<!-- Documents Page -->
+<div class="documents-page" id="documents-page">
+    <div class="documents-header">
+        <div class="documents-title">📄 Documents</div>
+        <button class="back-btn" onclick="showHomePage()">← Back to Map</button>
+    </div>
+    <div class="documents-container" id="documents-content" style="display: none;">
+        <div class="password-prompt">
+            <div style="font-size: 3rem; margin-bottom: 15px;">🔒</div>
+            <h3 style="color: #1e3c72; margin-bottom: 15px;">Password Required</h3>
+            <p style="color: #666; margin-bottom: 20px;">Enter password to view documents</p>
+            <input type="password" id="doc-password" class="form-input" placeholder="Enter password" style="max-width: 250px; text-align: center; margin-bottom: 15px;">
+            <button class="btn-primary" onclick="checkDocumentsPassword()" style="display: block; margin: 0 auto;">🔓 Unlock</button>
+            <div id="password-error" style="color: #f44336; margin-top: 10px; display: none;">Incorrect password</div>
         </div>
     </div>
-</footer>
+</div>
+
+<!-- Plot Issues Page -->
+<div class="plot-issues-page" id="plot-issues-page">
+    <div class="plot-issues-header">
+        <div class="plot-issues-title">⚠️ Plot Issues</div>
+        <button class="back-btn" onclick="showHomePage()">← Back to Map</button>
+    </div>
+    <div class="plot-issues-container" id="plot-issues-content">
+        <div class="plot-issues-intro">
+            <p>Report plot issues directly to social media to alert all residents instantly.</p>
+        </div>
+        
+        <!-- Quick Post Buttons -->
+        <div class="quick-post-section" style="text-align: center; padding: 30px; background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%); border-radius: 15px; margin-bottom: 25px;">
+            <h3 style="color: #1e3c72; margin-bottom: 20px;">📢 Post Issue to Social Media</h3>
+            
+            <!-- Message Preview -->
+            <div style="background: white; border-radius: 12px; padding: 20px; margin-bottom: 25px; border-left: 4px solid #ff4444; text-align: left; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <p style="color: #333; line-height: 1.6; margin: 0; white-space: pre-wrap; font-size: 0.95rem;">🚨 URGENT: My plot in Machilipatnam has been illegally encroached! Someone scooped my land and started fencing WITHOUT any legal right.
+
+Requesting immediate action from:
+@APPOLICE100 @AndhraPradeshCM @Revenue_AP @CollectorKrishna
+
+📍 Machilipatnam, Krishna District, AP
+
+#LandEncroachment #Machilipatnam #AndhraPradesh #LandGrabbing #StopEncroachment</p>
+            </div>
+            
+            <p style="color: #666; margin-bottom: 20px;">Click below to post this message directly to Facebook or Twitter</p>
+            
+            <button class="btn-facebook" onclick="postToFacebook()" style="font-size: 1.1rem; padding: 15px 30px; margin: 10px;">
+                <span style="font-size: 1.3rem;">📘</span> Post on Facebook
+            </button>
+            
+            <button class="btn-twitter" onclick="postToTwitter()" style="font-size: 1.1rem; padding: 15px 30px; margin: 10px;">
+                <span style="font-size: 1.3rem;">🐦</span> Post on Twitter
+            </button>
+            
+            <button class="btn-whatsapp" onclick="postToWhatsApp()" style="font-size: 1.1rem; padding: 15px 30px; margin: 10px; background: #25d366; color: white; border: none; border-radius: 20px; cursor: pointer; transition: all 0.3s ease;">
+                <span style="font-size: 1.3rem;">💬</span> Send on WhatsApp
+            </button>
+        </div>
+        
+        <!-- Issues List -->
+        <div class="issues-list-section">
+            <h3>📋 Recent Issues</h3>
+            <div id="issues-list" class="issues-list">
+                <div class="no-issues">No issues reported yet.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Meeting Notes Page -->
+<div class="meeting-notes-page" id="meeting-notes-page">
+    <div class="meeting-notes-header">
+        <div class="meeting-notes-title">📝 Meeting Notes</div>
+        <button class="back-btn" onclick="showHomePage()">← Back to Map</button>
+    </div>
+    <div class="meeting-notes-container" id="meeting-notes-content" style="display: none;">
+        <div class="password-prompt">
+            <div style="font-size: 3rem; margin-bottom: 15px;">🔒</div>
+            <h3 style="color: #1e3c72; margin-bottom: 15px;">Password Required</h3>
+            <p style="color: #666; margin-bottom: 20px;">Enter password to view meeting notes</p>
+            <input type="password" id="meeting-password" class="form-input" placeholder="Enter password" style="max-width: 250px; text-align: center; margin-bottom: 15px;">
+            <button class="btn-primary" onclick="checkMeetingNotesPassword()" style="display: block; margin: 0 auto;">🔓 Unlock</button>
+            <div id="meeting-password-error" style="color: #f44336; margin-top: 10px; display: none;">Incorrect password</div>
+        </div>
+    </div>
+</div>
+<div class="gallery-page" id="gallery-page">
+    <div class="gallery-header">
+        <div class="gallery-title">🖼️ Gallery</div>
+        <button class="back-btn" onclick="showHomePage()">← Back to Map</button>
+    </div>
+    <div class="gallery-container">
+        <iframe src="https://drive.google.com/embeddedfolderview?id=1Z6TBw-LjV9uZWtaQxqkR_5peqq7Ho0yk#grid" width="100%" height="600px" frameborder="0"></iframe>
+    </div>
+</div>
+<div class="contacts-page" id="contacts-page">
+    <div class="contacts-header">
+        <div class="contacts-title">📞 Contacts Directory</div>
+        <button class="back-btn" onclick="showHomePage()">← Back to Map</button>
+    </div>
+    <div id="contacts-list">
+        <div class="no-contacts">Loading contacts...</div>
+    </div>
+</div>
 
 <!-- Token Update Modal -->
 <div class="modal-overlay" id="token-modal">
@@ -944,46 +2369,124 @@
             </div>
             
             <button type="submit" class="btn-primary">🔑 Update Token</button>
-            <button type="button" class="btn-secondary" onclick="closeTokenModal()">Cancel</button>
+            <button type="button" class="btn-secondary" onclick="event.stopPropagation(); closeTokenModal()">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal-overlay" id="edit-modal" style="display: none;">
+    <div class="modal" style="max-width: 500px;">
+        <button class="modal-close" onclick="closeEditModal()">&times;</button>
+        <div class="modal-title">Edit Plot Details</div>
+        <div style="font-size: 1.2rem; color: #1e3c72; margin-bottom: 20px;">
+            Plot #<span id="edit-plot-num"></span>
+        </div>
+        <form id="edit-plot-form" onsubmit="handleEditPlotSubmit(event)">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                <div class="form-group" style="margin-bottom:5px;">
+                    <label class="form-label" style="font-size:11px;margin-bottom:2px;">Owner</label>
+                    <input type="text" id="edit-owner" class="form-input" style="padding:6px;font-size:12px;" placeholder="Owner name">
+                </div>
+                <div class="form-group" style="margin-bottom:5px;">
+                    <label class="form-label" style="font-size:11px;margin-bottom:2px;">Owner1</label>
+                    <input type="text" id="edit-owner1" class="form-input" style="padding:6px;font-size:12px;" placeholder="Alt owner">
+                </div>
+                <div class="form-group" style="margin-bottom:5px;">
+                    <label class="form-label" style="font-size:11px;margin-bottom:2px;">Mobile</label>
+                    <div style="display: flex; gap: 5px;">
+                        <input type="text" id="edit-mobile" class="form-input" style="padding:6px;font-size:12px; flex: 1;" placeholder="Mobile">
+                        <a id="edit-mobile-call" href="tel:" style="background: #4CAF50; color: white; padding: 6px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; display: flex; align-items: center; gap: 3px;">📞 Call</a>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom:5px;">
+                    <label class="form-label" style="font-size:11px;margin-bottom:2px;">AltMob1</label>
+                    <input type="text" id="edit-altmobile" class="form-input" style="padding:6px;font-size:12px;" placeholder="Alt mobile 1">
+                </div>
+                <div class="form-group" style="margin-bottom:5px;">
+                    <label class="form-label" style="font-size:11px;margin-bottom:2px;">AltMob2</label>
+                    <input type="text" id="edit-altmobile1" class="form-input" style="padding:6px;font-size:12px;" placeholder="Alt mobile 2">
+                </div>
+                <div class="form-group" style="margin-bottom:5px;">
+                    <label class="form-label" style="font-size:11px;margin-bottom:2px;">AltMob3</label>
+                    <input type="text" id="edit-altmobile2" class="form-input" style="padding:6px;font-size:12px;" placeholder="Alt mobile 3">
+                </div>
+                <div class="form-group" style="margin-bottom:5px;">
+                    <label class="form-label" style="font-size:11px;margin-bottom:2px;">LRS</label>
+                    <select id="edit-lrs" class="form-input" style="padding:6px;font-size:12px;">
+                        <option value="">Select</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom:5px;">
+                    <label class="form-label" style="font-size:11px;margin-bottom:2px;">Size</label>
+                    <input type="text" id="edit-size" class="form-input" style="padding:6px;font-size:12px;" placeholder="Plot size">
+                </div>
+                <div class="form-group" style="margin-bottom:5px;grid-column:1 / -1;">
+                    <label class="form-label" style="font-size:11px;margin-bottom:2px;">Tax</label>
+                    <select id="edit-tax" class="form-input" style="padding:6px;font-size:12px;">
+                        <option value="">Select</option>
+                        <option value="Paid">Paid</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                </div>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button type="submit" class="btn-primary" style="flex: 1;">Save Changes</button>
+                <button type="button" class="btn-secondary" onclick="closeEditModal()" style="flex: 1;">Cancel</button>
+            </div>
         </form>
     </div>
 </div>
 
 <!-- Modal -->
 <div class="modal-overlay" id="modal">
-    <div class="modal" style="max-width: 350px; padding: 25px;">
-        <button class="modal-close" onclick="closePlotModal()" style="top: 10px; right: 10px; font-size: 1.2rem;">&times;</button>
-        <div class="modal-title" style="font-size: 1.5rem; margin-bottom: 5px;">Plot #<span id="modal-plot-num"></span></div>
-        <div class="modal-subtitle" id="modal-owner-name" style="margin-bottom: 20px; font-weight: 600; color: #333; font-size: 1.1rem;"></div>
+    <div class="modal">
+        <button class="modal-close" onclick="event.stopPropagation(); api.closeModal()">&times;</button>
+        <div class="modal-title">Plot Details</div>
+        <div class="modal-subtitle">Teachers Colony</div>
+        <div class="modal-plot" id="modal-plot-num">--</div>
+        <div class="modal-owner" id="modal-owner-name"></div>
         
-        <!-- Action buttons for existing contact -->
-        <div id="contact-actions" style="display: none; margin-bottom: 20px;">
-            <div id="contact-info" style="margin-bottom: 15px; padding: 10px; background: #f5f5f5; border-radius: 8px; text-align: center;">
-                <div id="display-mobile" style="font-size: 1.1rem; font-weight: 600; color: #1565c0; margin-bottom: 5px;"></div>
-                <div id="display-size" style="font-size: 0.85rem; color: #666;"></div>
+        <div id="contact-actions" style="display: none;">
+            <div class="form-group">
+                <label class="form-label">Mobile Number</label>
+                <div id="display-mobile" style="font-size: 1.1rem; color: #1565c0; font-weight: 500;"></div>
             </div>
-            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                <a id="call-btn" href="#" class="btn-primary" style="flex: 1; padding: 12px; font-size: 0.9rem; text-align: center; text-decoration: none;">📞 Call</a>
-                <a id="whatsapp-btn" href="#" target="_blank" class="btn-contact" style="flex: 1; padding: 12px; font-size: 0.9rem; text-align: center; text-decoration: none; background: #25D366; color: white; border-color: #25D366;">💬 WhatsApp</a>
+            <div class="form-group">
+                <label class="form-label">Plot Size</label>
+                <div id="display-size" style="font-size: 1rem; color: #666;">Not specified</div>
             </div>
-            <a id="sms-btn" href="#" class="btn-secondary" style="width: 100%; padding: 10px; display: block; text-align: center; text-decoration: none;">✉️ Message</a>
+            <a id="call-btn" href="#" class="btn-primary" style="display: block; text-decoration: none; text-align: center; margin-bottom: 10px;">📞 Call</a>
+            <a id="whatsapp-btn" href="#" target="_blank" class="btn-primary" style="display: block; text-decoration: none; text-align: center; background: #25d366; margin-bottom: 10px;">💬 WhatsApp</a>
+            <a id="sms-btn" href="#" class="btn-secondary" style="display: block; text-decoration: none; text-align: center; margin-bottom: 10px;">✉️ SMS</a>
+            <button type="button" class="btn-secondary" onclick="event.stopPropagation(); api.closeModal()">Close</button>
         </div>
         
-        <!-- Edit form -->
         <form id="plot-form">
-            <div class="form-group" style="margin-bottom: 15px;">
-                <input type="text" id="reg-name" class="form-input" placeholder="Owner Name" required style="padding: 10px;">
+            <div class="form-group">
+                <label class="form-label" for="reg-name">Owner Name *</label>
+                <input type="text" id="reg-name" class="form-input" placeholder="Enter owner name" required>
             </div>
             
-            <div class="form-group" style="margin-bottom: 20px;">
-                <input type="tel" id="reg-mobile" class="form-input" placeholder="Mobile Number" required style="padding: 10px;">
+            <div class="form-group">
+                <label class="form-label" for="reg-mobile">Primary Mobile *</label>
+                <input type="tel" id="reg-mobile" class="form-input" placeholder="Enter mobile number" required>
             </div>
             
-            <div style="display: flex; gap: 10px;">
-                <button type="submit" class="btn-primary" style="flex: 1; padding: 12px; font-size: 0.95rem;">Save</button>
-                <button type="button" class="btn-contact" onclick="handleMarkAsContacted()" style="flex: 1; padding: 12px; font-size: 0.95rem;">Contacted</button>
+            <div class="form-group">
+                <label class="form-label" for="reg-alt-mobile">Alternative Mobile</label>
+                <input type="tel" id="reg-alt-mobile" class="form-input" placeholder="Enter alternative mobile">
             </div>
-            <button type="button" class="btn-secondary" onclick="closePlotModal()" style="width: 100%; margin-top: 10px; padding: 10px;">Cancel</button>
+            
+            <div class="form-group">
+                <label class="form-label" for="reg-size">Plot Size (Optional)</label>
+                <input type="text" id="reg-size" class="form-input" placeholder="e.g., 167 Sq. Yards">
+            </div>
+            
+            <button type="submit" class="btn-primary" onclick="console.log('Button clicked'); return true;">📝 Save Registration</button>
+            <button type="button" class="btn-secondary" onclick="event.stopPropagation(); api.closeModal()">Cancel</button>
         </form>
     </div>
 </div>
@@ -991,142 +2494,1193 @@
 <!-- Notification -->
 <div class="notification" id="notification"></div>
 
-<!-- Load Configuration and API -->
-<script src="config.js"></script>
-<script src="api.js"></script>
+<!-- No external scripts - all code embedded below -->
 
 <script>
+// Standalone API - no external dependencies
+class TeachersColonyAPI {
+    constructor() {
+        this.plotDatabase = [];
+        this.currentPlotNumber = null;
+    }
+    
+    updateStatistics() {
+        // Count plots that have owner_name (more reliable than status field)
+        const ownedPlots = this.plotDatabase.filter(p => 
+            p.owner_name || p['Owner Name'] || p.status === 'owned' || p.Status === 'owned'
+        );
+        const owned = ownedPlots.length;
+        const available = 175 - owned;
+        const rate = Math.round((owned / 175) * 100);
+        
+        // Count plots with mobile numbers
+        const plotsWithMobile = this.plotDatabase.filter(p => {
+            const mobile = p.primary_mobile || p['Mobile'] || p.mobile || '';
+            return mobile && mobile.trim() !== '';
+        });
+        const mobileCount = plotsWithMobile.length;
+        const mobileRate = Math.round((mobileCount / 175) * 100);
+        
+        console.log('Owned plots count:', owned);
+        console.log('Plots with mobile:', mobileCount);
+        console.log('Owned plot numbers:', ownedPlots.map(p => p.plot_number || p['Plot Number']));
+        
+        document.getElementById('owned-plots').textContent = owned;
+        document.getElementById('available-plots').textContent = available;
+        document.getElementById('ownership-rate').textContent = rate + '%';
+        
+        // Update mobile count display if it exists
+        const mobileStat = document.getElementById('mobile-count');
+        if (mobileStat) mobileStat.textContent = mobileCount;
+        
+        // Update home page stats too
+        const homeOwned = document.getElementById('home-owned-plots');
+        const homeAvailable = document.getElementById('home-available-plots');
+        if (homeOwned) homeOwned.textContent = owned;
+        if (homeAvailable) homeAvailable.textContent = available;
+    }
+    
+    setMeetingNotes(notes) {
+        this.meetingNotes = notes || [];
+    }
+    
+    initializePlots() {
+        console.log('initializePlots called, plotDatabase:', this.plotDatabase?.length);
+        
+        // Define which plots go in each row
+        const rowConfig = [
+            {id: 'r161', plots: [161,162,163,164,165,166]},
+            {id: 'r160', plots: [155,156,157,158,159,160]},
+            {id: 'r130', plots: [130,131,132,133,134,135,136,137]},
+            {id: 'r129', plots: [122,123,124,125,126,127,128,129]},
+            {id: 'r98', plots: [98,99,100,101,102,103,104,105]},
+            {id: 'r97', plots: [90,91,92,93,94,95,96,97]},
+            {id: 'r65', plots: [65,66,67,68,69,70,71,72]},
+            {id: 'r64', plots: [57,58,59,60,61,62,63,64]},
+            {id: 'r33', plots: [33,34,35,36,37,38,39,40]},
+            {id: 'r32', plots: [25,26,27,28,29,30,31,32]},
+            {id: 'r9', plots: [2,3,4,5,6,7,8,9]},
+            {id: 'r1', plots: [1]},
+            {id: 'r167', plots: [167,168,169,170,171,172,173,174,175]},
+            {id: 'r154', plots: [146,147,148,149,150,151,152,153,154]},
+            {id: 'r137', plots: [137,138,139,140,141,142,143,144,145]},
+            {id: 'r122', plots: [114,115,116,117,118,119,120,121]},
+            {id: 'r105', plots: [106,107,108,109,110,111,112,113]},
+            {id: 'r90', plots: [82,83,84,85,86,87,88,89]},
+            {id: 'r73', plots: [73,74,75,76,77,78,79,80,81]},
+            {id: 'r56', plots: [48,49,50,51,52,53,54,55,56]},
+            {id: 'r40', plots: [41,42,43,44,45,46,47]},
+            {id: 'r25', plots: [18,19,20,21,22,23,24]},
+            {id: 'r10', plots: [10,11,12,13,14,15,16,17,18]}
+        ];
+        
+        rowConfig.forEach(config => {
+            const row = document.getElementById(config.id);
+            console.log('Processing row:', config.id, 'found:', !!row, 'plots:', config.plots);
+            if (row && config.plots.length > 0) {
+                let html = '';
+                config.plots.forEach(num => {
+                    const plot = this.plotDatabase.find(p => parseInt(p.plot_number || p['Plot Number']) === num);
+                    console.log('  Plot', num, 'found:', !!plot);
+                    const status = plot ? 'owned' : 'available';
+                    const owner = plot ? (plot.owner_name || plot['Owner Name']) : '';
+                    html += `<td class="${status}" onclick="api.openModal(${num})"><span class="pn">${num}</span>${owner ? `<span class="po">${owner.substring(0, 12)}</span>` : ''}</td>`;
+                });
+                row.innerHTML = html;
+                console.log('  Row HTML updated');
+            }
+        });
+    }
+    
+    openModal(plotNumber) {
+        this.currentPlotNumber = plotNumber;
+        document.getElementById('modal-plot-num').textContent = plotNumber;
+        document.getElementById('modal').classList.add('show');
+        document.getElementById('plot-form').reset();
+        
+        const existingData = this.plotDatabase.find(p => parseInt(p.plot_number || p['Plot Number']) === plotNumber);
+        const contactActions = document.getElementById('contact-actions');
+        const plotForm = document.getElementById('plot-form');
+        const ownerNameDiv = document.getElementById('modal-owner-name');
+        
+        if (existingData && (existingData.primary_mobile || existingData['Primary Mobile'])) {
+            ownerNameDiv.textContent = (existingData.owner_name || existingData['Owner Name']) || 'N/A';
+            document.getElementById('display-mobile').textContent = (existingData.primary_mobile || existingData['Primary Mobile']) || 'N/A';
+            document.getElementById('display-size').textContent = (existingData.plot_size || existingData['Plot Size']) || 'Not specified';
+            contactActions.style.display = 'block';
+            plotForm.style.display = 'none';
+            
+            const mobile = (existingData.primary_mobile || existingData['Primary Mobile']).replace('+91', '').replace(/\D/g, '');
+            document.getElementById('call-btn').href = 'tel:+91' + mobile;
+            document.getElementById('whatsapp-btn').href = 'https://wa.me/91' + mobile;
+            document.getElementById('sms-btn').href = 'sms:+91' + mobile;
+        } else {
+            ownerNameDiv.textContent = 'Mobile number not available';
+            contactActions.style.display = 'none';
+            plotForm.style.display = 'block';
+        }
+    }
+    
+    closeModal() {
+        document.getElementById('modal').classList.remove('show');
+        this.currentPlotNumber = null;
+    }
+    
+    async handleRegistrationSubmit(formData) {
+        // Check if plot already exists
+        const existingIndex = this.plotDatabase.findIndex(p => (p.plot_number || p['Plot Number']) == String(this.currentPlotNumber));
+        
+        if (existingIndex >= 0) {
+            this.showNotification('Plot ' + this.currentPlotNumber + ' already registered! Updating existing entry.', 'info');
+        }
+        
+        const plotData = {
+            plot_number: parseInt(this.currentPlotNumber),
+            owner_name: formData.ownerName,
+            primary_mobile: formData.primaryMobile,
+            alternative_mobile: formData.alternativeMobile || '',
+            plot_size: formData.plotSize || '',
+            status: 'owned',
+            registration_date: new Date().toISOString().split('T')[0],
+            colony: 'teachers_colony',
+            location: 'machilipatnam'
+        };
+        
+        if (existingIndex >= 0) {
+            this.plotDatabase[existingIndex] = plotData;
+        } else {
+            this.plotDatabase.push(plotData);
+        }
+        
+        // Save to localStorage for persistence
+        localStorage.setItem('teachersColonyPlots', JSON.stringify(this.plotDatabase));
+        
+        this.updateStatistics();
+        this.initializePlots();
+        this.showNotification('Plot ' + this.currentPlotNumber + ' registered successfully! (Saved locally)', 'success');
+        this.closeModal();
+    }
+    
+    async saveToGitHub() {
+        const token = prompt('Enter GitHub Personal Access Token to sync to cloud:');
+        if (!token) {
+            this.showNotification('GitHub sync cancelled.', 'info');
+            return;
+        }
+        
+        try {
+            this.showNotification('Saving to GitHub...', 'info');
+            
+            // First get the current file to get the SHA
+            const getResponse = await fetch('https://api.github.com/repos/Ilovenu/Teachers-/contents/teachers_colony_database.json', {
+                headers: {
+                    'Authorization': 'token ' + token,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+            
+            if (!getResponse.ok) {
+                throw new Error('Failed to get file: ' + getResponse.status);
+            }
+            
+            const fileData = await getResponse.json();
+            const sha = fileData.sha;
+            
+            // Prepare the new content
+            const content = JSON.stringify({
+                metadata: {
+                    colony_name: 'Teachers Colony',
+                    location: 'Machilipatnam',
+                    total_plots: 175,
+                    last_updated: new Date().toISOString(),
+                    version: '2.0'
+                },
+                plots: this.plotDatabase
+            }, null, 2);
+            
+            // Update the file
+            const putResponse = await fetch('https://api.github.com/repos/Ilovenu/Teachers-/contents/teachers_colony_database.json', {
+                method: 'PUT',
+                headers: {
+                    'Authorization': 'token ' + token,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: 'Update plot data - added/updated plot ' + this.currentPlotNumber,
+                    content: btoa(unescape(encodeURIComponent(content))),
+                    sha: sha
+                })
+            });
+            
+            if (putResponse.ok) {
+                this.showNotification('Saved to GitHub successfully! All users will see this update.', 'success');
+            } else {
+                const error = await putResponse.json();
+                throw new Error(error.message || 'Failed to save');
+            }
+        } catch (error) {
+            console.error('GitHub save error:', error);
+            this.showNotification('GitHub save failed: ' + error.message, 'error');
+        }
+    }
+    
+    showNotification(message, type = 'info') {
+        const notification = document.getElementById('notification');
+        notification.textContent = message;
+        notification.className = 'notification show';
+        if (type === 'error') notification.style.background = '#f44336';
+        else if (type === 'success') notification.style.background = '#4caf50';
+        else notification.style.background = '#2196f3';
+        
+        setTimeout(() => notification.classList.remove('show'), 3000);
+    }
+    
+    exportData() {
+        let csv = 'Plot Number,Owner Name,Primary Mobile,Alternative Mobile,Plot Size,Status\n';
+        this.plotDatabase.forEach(p => {
+            csv += `${p.plot_number || p['Plot Number']},${(p.owner_name || p['Owner Name']) || ''},${(p.primary_mobile || p['Primary Mobile']) || ''},${(p.alternative_mobile || p['Alternative Mobile']) || ''},${(p.plot_size || p['Plot Size']) || ''},${(p.status || p['Status']) || ''}\n`;
+        });
+        const blob = new Blob([csv], {type: 'text/csv'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'teachers_colony_' + new Date().toISOString().split('T')[0] + '.csv';
+        a.click();
+    }
+}
+
+// Plot rows configuration - defined in initializePlots() rowConfig
+
 // Initialize application
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Teachers Colony Application - Best Model Version');
+    console.log('Teachers Colony Application - Google Sheets Data Source');
     
-    // Initialize API first to load GitHub data
+    // Create API instance
     window.api = new TeachersColonyAPI();
     console.log('API initialized:', window.api);
     
-    // Add export button to navigation
-    const headerNav = document.querySelector('.nav-links');
-    if (headerNav) {
-        const exportLi = document.createElement('li');
-        exportLi.innerHTML = '<a href="#" onclick="api.exportData(); return false;">📊 Export</a>';
-        headerNav.appendChild(exportLi);
+    // Google Sheets configuration - Sheet 2 (gid=1991758122)
+    const SHEET_ID = '1VTTnNkhHVrxcHfQ0BDOUYjkFEjFvVhKrt34AO6a-7NA';
+    const SHEET_GID = '1991758122';
+    
+    // Google Sheets CSV URL (gviz format - works with regular sheet ID)
+    const SHEET_URL_GVIZ = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${SHEET_GID}`;
+    
+    // Alternative: Use published CSV (requires sheet to be published to web)
+    // To publish: File → Share → Publish to web → Sheet 2 → CSV
+    const SHEET_URL_PUB = `https://docs.google.com/spreadsheets/d/e/2PACX-1vQR5z4gW0_xxxxxxxx/pub?gid=${SHEET_GID}&single=true&output=csv`;
+    
+    console.log('Attempting to load from Google Sheets...');
+    console.log('Sheet ID:', SHEET_ID);
+    console.log('Sheet GID:', SHEET_GID);
+    
+    // Load data from Google Sheets (Sheet 2) - try gviz first
+    fetch(SHEET_URL_GVIZ)
+        .then(response => {
+            console.log('Response status:', response.status);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(csvText => {
+            console.log('Raw CSV response (first 300 chars):', csvText.substring(0, 300));
+            console.log('CSV line count:', csvText.split('\n').length);
+            
+            if (!csvText || csvText.trim().length === 0) {
+                throw new Error('Empty response from Google Sheets');
+            }
+            
+            const plots = parseGoogleSheetCSV(csvText);
+            console.log('Parsed plots count:', plots.length);
+            
+            if (plots && plots.length > 0) {
+                window.api.plotDatabase = plots;
+                window.api.updateStatistics();
+                window.api.initializePlots();
+                window.api.showNotification(`Loaded ${plots.length} plots from Google Sheets!`, 'success');
+                populatePlotDropdown(plots);
+            } else {
+                console.warn('No plots parsed from CSV, checking headers...');
+                window.api.showNotification('No plot data found in Google Sheet - check column headers', 'warning');
+                throw new Error('No plots found');
+            }
+        })
+        .catch(error => {
+            console.error('Google Sheets gviz error:', error);
+            window.api.showNotification('Google Sheets error (gviz), trying publish URL...', 'warning');
+            
+            // Try publish URL as fallback
+            return fetch(SHEET_URL_PUB)
+                .then(response => {
+                    if (!response.ok) throw new Error(`Publish URL failed: ${response.status}`);
+                    return response.text();
+                })
+                .then(csvText => {
+                    console.log('Loaded from publish URL:', csvText.substring(0, 200));
+                    const plots = parseGoogleSheetCSV(csvText);
+                    if (plots && plots.length > 0) {
+                        window.api.plotDatabase = plots;
+                        window.api.updateStatistics();
+                        window.api.initializePlots();
+                        window.api.showNotification(`Loaded ${plots.length} plots from Google Sheets (pub)!`, 'success');
+                        populatePlotDropdown(plots);
+                    } else {
+                        throw new Error('No plots from publish URL');
+                    }
+                })
+                .catch(pubError => {
+                    console.error('Publish URL also failed:', pubError);
+                    window.api.showNotification('Error: Could not load data from Google Sheets. Please check sheet sharing settings.', 'error');
+                    console.error('Data loading failed. Ensure Google Sheet is shared publicly.');
+                });
+        });
+    
+    // Parse CSV from Google Sheets to plot objects
+    function parseGoogleSheetCSV(csvText) {
+        const lines = csvText.trim().split('\n');
+        if (lines.length < 2) return [];
+        
+        // Parse headers (remove quotes)
+        const headers = lines[0].split(',').map(h => h.replace(/^"|"$/g, '').trim().toLowerCase());
+        console.log('CSV Headers:', headers);
+        
+        const plots = [];
+        const seenPlots = new Set(); // Track duplicate plot numbers
+        
+        for (let i = 1; i < lines.length; i++) {
+            // Handle quoted values with commas
+            const values = parseCSVLine(lines[i]);
+            const plot = {};
+            
+            headers.forEach((header, index) => {
+                const value = values[index] ? values[index].replace(/^"|"$/g, '').trim() : '';
+                
+                // Map Google Sheet column names to standard format
+                // Headers: S.No, Owner, Plot No, Mobile, LRS, Size, Tax
+                if (header === 'plot no' || header === 'plot' || header === 'plotno' || header === 'plot_number') {
+                    plot.plot_number = value;
+                } else if (header === 'owner' || header === 'owner name' || header === 'ownername') {
+        const plotSelect = document.getElementById('attendance-plot');
+        if (!plotSelect) return;
+        
+        plotSelect.innerHTML = '<option value="">Select your plot number</option>';
+        plots.sort((a, b) => parseInt(a.plot_number) - parseInt(b.plot_number));
+        plots.forEach(plot => {
+            const option = document.createElement('option');
+            option.value = plot.plot_number;
+            option.textContent = `Plot ${plot.plot_number}${plot.owner_name ? ' - ' + plot.owner_name : ''}`;
+            plotSelect.appendChild(option);
+        });
     }
+    
+    // Header buttons removed as requested
     
     // Handle form submission
     const plotForm = document.getElementById('plot-form');
     if (plotForm) {
         plotForm.addEventListener('submit', async function(e) {
             e.preventDefault();
-            console.log('Form submission triggered');
-            
-            if (!window.api) {
-                console.error('API not initialized');
-                return;
-            }
-            
             const formData = {
                 ownerName: document.getElementById('reg-name').value,
-                primaryMobile: document.getElementById('reg-mobile').value
+                primaryMobile: document.getElementById('reg-mobile').value,
+                alternativeMobile: document.getElementById('reg-alt-mobile').value,
+                plotSize: document.getElementById('reg-size').value
             };
-            
-            console.log('Form data:', formData);
             await window.api.handleRegistrationSubmit(formData);
         });
-        console.log('Form submission handler attached');
-    } else {
-        console.error('Plot form not found');
+    }
+});
+
+// Modal functions
+function closeModalBtn() {
+    document.getElementById('modal').classList.remove('show');
+    window.api.currentPlotNumber = null;
+}
+
+let currentEditPlotNumber = null;
+
+function openEditModal(plotNumber) {
+    currentEditPlotNumber = plotNumber;
+    const plot = window.api.plotDatabase.find(p => 
+        String(p.plot_number || p['Plot No']) === String(plotNumber)
+    );
+    
+    if (!plot) {
+        alert('Plot not found!');
+        return;
     }
     
-    // Handle mark as contacted
-    window.handleMarkAsContacted = async function() {
-        const formData = {
-            ownerName: document.getElementById('reg-name').value,
-            primaryMobile: document.getElementById('reg-mobile').value
-        };
+    document.getElementById('edit-plot-num').textContent = plotNumber;
+    document.getElementById('edit-owner').value = plot.owner_name || plot['Owner'] || '';
+    document.getElementById('edit-mobile').value = plot.primary_mobile || plot['Mobile'] || '';
+    document.getElementById('edit-lrs').value = plot.lrs_status || plot['LRS'] || '';
+    document.getElementById('edit-tax').value = plot.tax_status || plot['Tax'] || '';
+    
+    document.getElementById('edit-modal').classList.add('show');
+}
+
+function closeEditModal() {
+    document.getElementById('edit-modal').classList.remove('show');
+    currentEditPlotNumber = null;
+}
+
+function openAddModal(plotNumber) {
+    // For adding new plots, open the edit modal with empty fields
+    currentEditPlotNumber = plotNumber;
+    
+    document.getElementById('edit-plot-num').textContent = plotNumber;
+    document.getElementById('edit-owner').value = '';
+    document.getElementById('edit-mobile').value = '';
+    document.getElementById('edit-lrs').value = '';
+    document.getElementById('edit-tax').value = '';
+    
+    document.getElementById('edit-modal').classList.add('show');
+}
+
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    const btn = document.querySelector('.dark-mode-toggle');
+    btn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+}
+
+function showGalleryPage() {
+    document.querySelector('.main-container').style.display = 'none';
+    document.getElementById('gallery-page').classList.add('show');
+    document.getElementById('documents-page').classList.remove('show');
+    document.getElementById('contacts-page').classList.remove('show');
+    document.getElementById('meeting-notes-page').classList.remove('show');
+    document.getElementById('plot-issues-page').classList.remove('show');
+}
+
+function showPlotIssuesPage() {
+    // Hide main container but keep header visible
+    document.querySelector('.main-container').style.display = 'none';
+    document.getElementById('plot-issues-page').classList.add('show');
+    document.getElementById('gallery-page').classList.remove('show');
+    document.getElementById('documents-page').classList.remove('show');
+    document.getElementById('contacts-page').classList.remove('show');
+    document.getElementById('meeting-notes-page').classList.remove('show');
+    loadPlotIssues();
+}
+
+// Plot Issues Functions - Simplified Direct Posting
+function postToFacebook() {
+    const defaultMessage = '🚨 URGENT: My plot in Machilipatnam has been illegally encroached! Someone scooped my land and started fencing WITHOUT any legal right.\n\n' +
+        'Requesting immediate action from:\n' +
+        '@APPOLICE100 @AndhraPradeshCM @Revenue_AP @CollectorKrishna\n\n' +
+        '📍 Machilipatnam, Krishna District, AP\n\n' +
+        '#LandEncroachment #Machilipatnam #AndhraPradesh #LandGrabbing #StopEncroachment';
+    
+    // Use Facebook Feed Dialog with app ID
+    const shareUrl = 'https://www.facebook.com/dialog/feed?' +
+        'app_id=1567661720766908' +
+        '&link=' + encodeURIComponent(window.location.href) +
+        '&name=' + encodeURIComponent('Plot Issue Alert - Teachers Colony') +
+        '&caption=' + encodeURIComponent('Urgent: Colony Issue Reported') +
+        '&description=' + encodeURIComponent(defaultMessage) +
+        '&redirect_uri=' + encodeURIComponent(window.location.href);
+    
+    window.open(shareUrl, '_blank', 'width=600,height=500,scrollbars=yes,resizable=yes');
+}
+
+function postToTwitter() {
+    const defaultMessage = '🚨 URGENT: My plot in Machilipatnam has been illegally encroached! Someone scooped my land and started fencing WITHOUT any legal right.\n\n' +
+        'Requesting immediate action from:\n' +
+        '@APPOLICE100 @AndhraPradeshCM @Revenue_AP @CollectorKrishna\n\n' +
+        '📍 Machilipatnam, Krishna District, AP\n\n' +
+        '#LandEncroachment #Machilipatnam #AndhraPradesh #LandGrabbing #StopEncroachment';
+    
+    const url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(defaultMessage);
+    window.open(url, '_blank', 'width=600,height=400,scrollbars=yes,resizable=yes');
+}
+
+// Keep compatibility with old function names
+function shareIssueToFacebook(index) {
+    postToFacebook();
+}
+
+function shareIssueToTwitter(index) {
+    postToTwitter();
+}
+
+let plotIssues = [];
+
+function loadPlotIssues() {
+    const issuesList = document.getElementById('issues-list');
+    if (!issuesList) return;
+    
+    if (!plotIssues || plotIssues.length === 0) {
+        issuesList.innerHTML = '<div class="no-issues">Click the buttons above to post issues to social media.</div>';
+        return;
+    }
+    
+    let html = '';
+    plotIssues.forEach((issue, index) => {
+        html += '<div class="issue-card">' +
+            '<div class="issue-description">' + issue.description + '</div>' +
+            '<div class="issue-meta">' +
+                '<span class="issue-date">' + issue.date + '</span>' +
+            '</div>' +
+        '</div>';
+    });
+    issuesList.innerHTML = html;
+}
+
+function postToWhatsApp() {
+    const defaultMessage = '🚨 URGENT: My plot in Machilipatnam has been illegally encroached! Someone scooped my land and started fencing WITHOUT any legal right.\n\n' +
+        'Requesting immediate action from:\n' +
+        '@APPOLICE100 @AndhraPradeshCM @Revenue_AP @CollectorKrishna\n\n' +
+        '📍 Machilipatnam, Krishna District, AP\n\n' +
+        '#LandEncroachment #Machilipatnam #AndhraPradesh #LandGrabbing #StopEncroachment';
+    
+    const whatsappUrl = 'https://api.whatsapp.com/send/?phone=919999299999&text=' + encodeURIComponent(defaultMessage) + '&type=phone_number&app_absent=0';
+    window.open(whatsappUrl, '_blank', 'width=600,height=600,scrollbars=yes,resizable=yes');
+}
+
+function showMeetingNotesPage() {
+    document.querySelector('.main-container').style.display = 'none';
+    document.getElementById('meeting-notes-page').classList.add('show');
+    document.getElementById('documents-page').classList.remove('show');
+    document.getElementById('contacts-page').classList.remove('show');
+    document.getElementById('gallery-page').classList.remove('show');
+    
+    // Check if already authenticated
+    if (sessionStorage.getItem('meetingNotesAuthenticated') === 'true') {
+        showMeetingNotesContent();
+    } else {
+        document.getElementById('meeting-notes-content').style.display = 'block';
+    }
+}
+
+function checkMeetingNotesPassword() {
+    const password = document.getElementById('meeting-password').value;
+    // Password is "teachers2024" - change this to your preferred password
+    if (password === 'teachers2024') {
+        sessionStorage.setItem('meetingNotesAuthenticated', 'true');
+        showMeetingNotesContent();
+        document.getElementById('meeting-password-error').style.display = 'none';
+    } else {
+        document.getElementById('meeting-password-error').style.display = 'block';
+    }
+}
+
+function showMeetingNotesContent() {
+    const contentDiv = document.getElementById('meeting-notes-content');
+    
+    // Load meeting notes from the GitHub data
+    const meetingNotes = window.api.meetingNotes || [];
+    
+    // Default notes if none exist
+    const defaultNotes = [
+        {
+            date: 'April 4, 2026',
+            title: 'Colony Development Meeting',
+            attendees: 'Plot owners 25, 40, 15, 32',
+            agenda: ['Road construction update', 'Water connection status', 'Security arrangements'],
+            nextMeeting: 'April 18, 2026'
+        },
+        {
+            date: 'March 28, 2026',
+            title: 'General Body Meeting',
+            attendees: 'All plot owners',
+            agenda: ['Website development approved', 'Maintenance fees collected', 'Tree plantation drive planned'],
+            nextMeeting: ''
+        }
+    ];
+    
+    // Use meeting notes from GitHub or defaults
+    const notesToDisplay = meetingNotes.length > 0 ? meetingNotes : defaultNotes;
+    
+    let notesHTML = '<div class="meeting-notes-list">';
+    
+    notesToDisplay.forEach((note, index) => {
+        notesHTML += '<div class="meeting-note-item">' +
+            '<div class="meeting-date">' + note.date + '</div>' +
+            '<div class="meeting-title">' + note.title + '</div>' +
+            '<div class="meeting-content">' +
+                '<p><strong>Attendees:</strong> ' + note.attendees + '</p>' +
+                '<p><strong>Agenda/Decisions:</strong></p>' +
+                '<ul>';
         
-        await api.markAsContacted(formData);
+        note.agenda.forEach(item => {
+            notesHTML += '<li>' + item + '</li>';
+        });
+        
+        notesHTML += '</ul>';
+        
+        if (note.nextMeeting) {
+            notesHTML += '<p><strong>Next Meeting:</strong> ' + note.nextMeeting + '</p>';
+        }
+        
+        notesHTML += '</div></div>';
+    });
+    
+    notesHTML += '</div>';
+    
+    // Add Admin section
+    notesHTML += '<div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e0e0e0;">' +
+        '<button class="btn-primary" onclick="toggleAdminForm()" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">➕ Add New Meeting Note (Admin)</button>' +
+        '<div id="admin-form" style="display: none; margin-top: 20px; background: #f5f7fa; padding: 20px; border-radius: 10px;">' +
+            '<h4 style="color: #1e3c72; margin-bottom: 15px;">Add New Meeting Note</h4>' +
+            '<div class="form-group">' +
+                '<label class="form-label">Date</label>' +
+                '<input type="text" id="new-note-date" class="form-input" placeholder="e.g., April 10, 2026">' +
+            '</div>' +
+            '<div class="form-group">' +
+                '<label class="form-label">Meeting Title</label>' +
+                '<input type="text" id="new-note-title" class="form-input" placeholder="e.g., Monthly General Meeting">' +
+            '</div>' +
+            '<div class="form-group">' +
+                '<label class="form-label">Attendees</label>' +
+                '<input type="text" id="new-note-attendees" class="form-input" placeholder="e.g., All plot owners, Secretary">' +
+            '</div>' +
+            '<div class="form-group">' +
+                '<label class="form-label">Agenda Items (one per line)</label>' +
+                '<textarea id="new-note-agenda" class="form-input" rows="4" placeholder="Road construction update&#10;Water connection status"></textarea>' +
+            '</div>' +
+            '<div class="form-group">' +
+                '<label class="form-label">Next Meeting Date (optional)</label>' +
+                '<input type="text" id="new-note-next" class="form-input" placeholder="e.g., April 25, 2026">' +
+            '</div>' +
+            '<button class="btn-primary" onclick="addNewMeetingNote()">💾 Save & Sync to All Users</button>' +
+            '<button class="btn-secondary" onclick="toggleAdminForm()" style="margin-left: 10px;">Cancel</button>' +
+        '</div>' +
+    '</div>';
+    
+    contentDiv.innerHTML = notesHTML;
+    contentDiv.style.display = 'block';
+}
+
+function toggleAdminForm() {
+    const form = document.getElementById('admin-form');
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+}
+
+function addNewMeetingNote() {
+    const date = document.getElementById('new-note-date').value;
+    const title = document.getElementById('new-note-title').value;
+    const attendees = document.getElementById('new-note-attendees').value;
+    const agendaText = document.getElementById('new-note-agenda').value;
+    const nextMeeting = document.getElementById('new-note-next').value;
+    
+    if (!date || !title || !attendees || !agendaText) {
+        alert('Please fill in all required fields');
+        return;
+    }
+    
+    // Convert agenda text to array
+    const agenda = agendaText.split('\n').filter(item => item.trim() !== '');
+    
+    const newNote = {
+        date: date,
+        title: title,
+        attendees: attendees,
+        agenda: agenda,
+        nextMeeting: nextMeeting
     };
     
-    // Close modal when clicking outside
-    document.getElementById('modal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closePlotModal();
-        }
-    });
+    // Add to existing notes
+    if (!window.api.meetingNotes) {
+        window.api.meetingNotes = [];
+    }
+    window.api.meetingNotes.unshift(newNote);
     
-    // Close token modal when clicking outside
-    document.getElementById('token-modal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeTokenModal();
-        }
-    });
+    // Save to GitHub to sync across all users
+    window.api.saveMeetingNotesToGitHub();
+}
+
+async function saveMeetingNotesToGitHub() {
+    const token = prompt('Enter GitHub Personal Access Token to sync meeting notes to all users:');
+    if (!token) {
+        alert('GitHub sync cancelled. Note saved locally only.');
+        showMeetingNotesContent();
+        return;
+    }
     
-    // Handle token form submission
-    document.getElementById('token-form').addEventListener('submit', async function(e) {
-        e.preventDefault();
+    try {
+        window.api.showNotification('Saving meeting notes to GitHub...', 'info');
         
-        const newToken = document.getElementById('github-token').value;
-        const newGistId = document.getElementById('gist-id').value;
-        
-        // Update configuration
-        if (newToken) {
-            CONFIG.GITHUB.token = newToken;
-        }
-        
-        if (newGistId) {
-            CONFIG.GITHUB.gistId = newGistId;
-        }
-        
-        // Save to localStorage for persistence
-        localStorage.setItem('github_token', newToken);
-        if (newGistId) {
-            localStorage.setItem('gist_id', newGistId);
-        }
-        
-        // Update API instance
-        window.api = new TeachersColonyAPI();
-        
-        // Test the new token
-        api.showNotification('Testing new GitHub token...', 'info');
-        const success = await api.loadFromSharedStorage();
-        
-        if (success) {
-            closeTokenModal();
-            api.showNotification('GitHub token updated successfully!', 'success');
-        } else {
-            api.showNotification('Token update failed. Please check your token.', 'error');
-        }
-    });
-});
-
-// Token modal functions
-function openTokenModal() {
-    document.getElementById('token-modal').classList.add('show');
-}
-
-function closeTokenModal() {
-    document.getElementById('token-modal').classList.remove('show');
-}
-
-// Direct modal close function (backup)
-function closePlotModal() {
-    document.getElementById('modal').classList.remove('show');
-}
-
-// Auto-detect 401 errors and show token fix
-window.addEventListener('error', function(e) {
-    if (e.message && e.message.includes('401')) {
-        setTimeout(() => {
-            if (confirm('GitHub token error detected! Would you like to update your token?')) {
-                openTokenModal();
+        // First get the current file to get the SHA
+        const getResponse = await fetch('https://api.github.com/repos/Ilovenu/Teachers-/contents/teachers_colony_database.json', {
+            headers: {
+                'Authorization': 'token ' + token,
+                'Accept': 'application/vnd.github.v3+json'
             }
-        }, 1000);
+        });
+        
+        if (!getResponse.ok) {
+            throw new Error('Failed to get file: ' + getResponse.status);
+        }
+        
+        const fileData = await getResponse.json();
+        const sha = fileData.sha;
+        
+        // Get current content
+        const currentContent = JSON.parse(atob(fileData.content));
+        
+        // Add meeting notes to the data
+        currentContent.meeting_notes = window.api.meetingNotes;
+        currentContent.metadata.last_updated = new Date().toISOString();
+        
+        // Prepare the new content
+        const content = JSON.stringify(currentContent, null, 2);
+        
+        // Update the file
+        const putResponse = await fetch('https://api.github.com/repos/Ilovenu/Teachers-/contents/teachers_colony_database.json', {
+            method: 'PUT',
+            headers: {
+                'Authorization': 'token ' + token,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: 'Update meeting notes - added new meeting: ' + window.api.meetingNotes[0].title,
+                content: btoa(unescape(encodeURIComponent(content))),
+                sha: sha
+            })
+        });
+        
+        if (putResponse.ok) {
+            window.api.showNotification('Meeting note saved to GitHub! All users will see this update.', 'success');
+            showMeetingNotesContent();
+        } else {
+            const error = await putResponse.json();
+            throw new Error(error.message || 'Failed to save');
+        }
+    } catch (error) {
+        console.error('GitHub save error:', error);
+        window.api.showNotification('GitHub save failed: ' + error.message, 'error');
+        alert('Failed to sync to GitHub. Note saved locally only.');
+        showMeetingNotesContent();
+    }
+}
+
+function showDocumentsPage() {
+    document.querySelector('.main-container').style.display = 'none';
+    document.getElementById('documents-page').classList.add('show');
+    document.getElementById('contacts-page').classList.remove('show');
+    document.getElementById('gallery-page').classList.remove('show');
+    
+    // Check if already authenticated
+    if (sessionStorage.getItem('docsAuthenticated') === 'true') {
+        showDocumentsContent();
+    } else {
+        document.getElementById('documents-content').style.display = 'block';
+    }
+}
+
+function checkDocumentsPassword() {
+    const password = document.getElementById('doc-password').value;
+    // Password is "teachers2024" - change this to your preferred password
+    if (password === 'teachers2024') {
+        sessionStorage.setItem('docsAuthenticated', 'true');
+        showDocumentsContent();
+        document.getElementById('password-error').style.display = 'none';
+    } else {
+        document.getElementById('password-error').style.display = 'block';
+    }
+}
+
+function showDocumentsContent() {
+    const contentDiv = document.getElementById('documents-content');
+    contentDiv.innerHTML = '<iframe class="documents-iframe" src="https://drive.google.com/embeddedfolderview?id=1mUqWFHIQa08Z7wxsKGmXrsiHpqSuixKM#grid"></iframe>';
+    contentDiv.style.display = 'block';
+}
+
+function showContactsPage() {
+    console.log('showContactsPage called');
+    document.querySelector('.main-container').style.display = 'none';
+    document.getElementById('home-page').style.display = 'none';
+    document.getElementById('map-page').style.display = 'none';
+    
+    var contactsPage = document.getElementById('contacts-page');
+    console.log('contactsPage element:', contactsPage);
+    if (contactsPage) {
+        contactsPage.style.display = 'block';
+        contactsPage.classList.add('show');
+        console.log('contacts-page displayed');
+    } else {
+        console.error('contacts-page element not found!');
+    }
+    
+    document.getElementById('documents-page').classList.remove('show');
+    document.getElementById('documents-page').style.display = 'none';
+    document.getElementById('gallery-page').classList.remove('show');
+    document.getElementById('gallery-page').style.display = 'none';
+    document.getElementById('plot-issues-page').classList.remove('show');
+    document.getElementById('plot-issues-page').style.display = 'none';
+    document.getElementById('meeting-notes-page').classList.remove('show');
+    document.getElementById('meeting-notes-page').style.display = 'none';
+    
+    loadContactsList();
+}
+
+function showHomePage() {
+    // Hide all other pages
+    document.getElementById('contacts-page').classList.remove('show');
+    document.getElementById('documents-page').classList.remove('show');
+    document.getElementById('gallery-page').classList.remove('show');
+    document.getElementById('meeting-notes-page').classList.remove('show');
+    document.getElementById('plot-issues-page').classList.remove('show');
+    document.getElementById('map-page').style.display = 'none';
+    document.querySelector('.main-container').style.display = 'none';
+    
+    // Show home page
+    document.getElementById('home-page').style.display = 'block';
+    
+    // Update active nav
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.querySelector('.nav-links a[href="#home"]').classList.add('active');
+}
+
+function showMapPage() {
+    // Hide all other pages
+    document.getElementById('contacts-page').classList.remove('show');
+    document.getElementById('documents-page').classList.remove('show');
+    document.getElementById('gallery-page').classList.remove('show');
+    document.getElementById('meeting-notes-page').classList.remove('show');
+    document.getElementById('plot-issues-page').classList.remove('show');
+    document.getElementById('home-page').style.display = 'none';
+    
+    // Show map page
+    document.getElementById('map-page').style.display = 'block';
+    document.querySelector('.main-container').style.display = 'block';
+    
+    // Update active nav
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+}
+
+function loadContactsList() {
+    const listDiv = document.getElementById('contacts-list');
+
+    console.log('loadContactsList called');
+
+    if (!listDiv) {
+        console.error('contacts-list element not found!');
+        return;
+    }
+
+    // Ensure api exists
+    if (!window.api) {
+        window.api = { plotDatabase: [] };
+    }
+
+    // Check if data is still loading or empty
+    if (!window.api.plotDatabase || window.api.plotDatabase.length === 0) {
+        listDiv.innerHTML = `
+            <div style="text-align: center; padding: 40px; color: #666;">
+                <div style="font-size: 3rem; margin-bottom: 15px;">⏳</div>
+                <p>Loading data from Google Sheets...</p>
+                <p style="font-size: 0.9rem; color: #999; margin-top: 10px;">If this takes too long, <button onclick="window.loadGoogleSheetData()" style="background: #1e3c72; color: white; border: none; padding: 5px 15px; border-radius: 4px; cursor: pointer;">Click to Reload</button></p>
+                <p style="font-size: 0.8rem; color: #c62828; margin-top: 15px;">Note: Google Sheets may block localhost requests. Use sample data below for testing.</p>
+                <button onclick="loadSampleData()" style="background: #4caf50; color: white; border: none; padding: 8px 20px; border-radius: 4px; cursor: pointer; margin-top: 10px;">Load Sample Data</button>
+            </div>`;
+        return;
+    }
+
+    console.log('Loading contacts from Google Sheets data:', window.api.plotDatabase.length, 'plots');
+    
+    // Create a map of existing plots from Google Sheet for quick lookup
+    const existingPlotsMap = new Map();
+    window.api.plotDatabase.forEach(plot => {
+        const plotNum = String(plot.plot_number || plot['Plot No'] || '');
+        if (plotNum) {
+            existingPlotsMap.set(plotNum, plot);
+        }
+    });
+    
+    // Generate all plots 1-175
+    const allPlots = [];
+    for (let i = 1; i <= 175; i++) {
+        const plotNum = String(i);
+        if (existingPlotsMap.has(plotNum)) {
+            // Use existing data from Google Sheet
+            allPlots.push(existingPlotsMap.get(plotNum));
+        } else {
+            // Create empty plot entry
+            allPlots.push({
+                plot_number: plotNum,
+                'Plot No': plotNum,
+                owner_name: '',
+                'Owner': '',
+                primary_mobile: '',
+                'Mobile': '',
+                lrs_status: '',
+                'LRS': '',
+                tax_status: '',
+                'Tax': '',
+                isEmpty: true
+            });
+        }
+    }
+    
+    console.log('All plots generated:', allPlots.length);
+    
+    let html = '<table class="contacts-table"><thead><tr>' +
+        '<th>Plot #</th>' +
+        '<th>Owner Name</th>' +
+        '<th>Mobile</th>' +
+        '<th>Actions</th>' +
+        '</tr></thead><tbody>';
+    
+    allPlots.forEach(plot => {
+        const num = plot.plot_number || plot['Plot No'];
+        const owner = plot.owner_name || plot['Owner'] || '';
+        const mobile = plot.primary_mobile || plot['Mobile'] || '';
+        const cleanMobile = mobile.replace(/\D/g, '');
+        const isEmpty = plot.isEmpty || (!owner && !mobile);
+        
+        html += '<tr>' +
+            '<td class="contact-plot-num">' + num + '</td>' +
+            '<td class="contact-name">' + (owner || '-') + '</td>' +
+            '<td class="contact-mobile">' + (mobile || '-') + (cleanMobile ? ' <a href="tel:+91' + cleanMobile + '" style="color: #4CAF50; text-decoration: none; font-size: 1.1rem;">📞</a>' : '') + '</td>' +
+            '<td class="contact-actions-btns">' +
+                (!isEmpty && cleanMobile ? '<a href="tel:+91' + cleanMobile + '" class="btn-small btn-call">📞 Call</a>' : '') +
+                (!isEmpty && cleanMobile ? '<a href="https://wa.me/91' + cleanMobile + '" target="_blank" class="btn-small btn-whatsapp">💬 WhatsApp</a>' : '') +
+                (isEmpty ? 
+                    '<button onclick="openAddModal(' + num + ')" class="btn-small btn-add">➕ Add</button>' :
+                    '<button onclick="openEditModal(' + num + ')" class="btn-small btn-edit">✏️ Edit</button>'
+                ) +
+            '</td>' +
+            '</tr>';
+    });
+    
+    html += '</tbody></table>';
+    listDiv.innerHTML = html;
+}
+
+function searchPlots() {
+    const query = document.getElementById('search-input').value.toLowerCase().trim();
+    const resultsDiv = document.getElementById('search-results');
+    
+    if (!query) {
+        resultsDiv.classList.remove('show');
+        return;
+    }
+    
+    const results = window.api.plotDatabase.filter(p => {
+        const plotNum = String(p.plot_number || p['Plot Number'] || '');
+        const ownerName = String(p.owner_name || p['Owner Name'] || '').toLowerCase();
+        const mobile = String(p.primary_mobile || p['Primary Mobile'] || '').toLowerCase();
+        
+        return plotNum.includes(query) || ownerName.includes(query) || mobile.includes(query);
+    });
+    
+    if (results.length === 0) {
+        resultsDiv.innerHTML = '<div style="padding: 20px; text-align: center; color: #666;">No plots found matching "' + query + '"</div>';
+    } else {
+        let html = '<div style="font-weight: 600; margin-bottom: 15px; color: #1e3c72;">Found ' + results.length + ' result(s):</div>';
+        results.forEach(plot => {
+            const num = plot.plot_number || plot['Plot Number'];
+            const owner = plot.owner_name || plot['Owner Name'] || 'No owner';
+            const mobile = plot.primary_mobile || plot['Primary Mobile'] || 'No mobile';
+            html += '<div class="result-item" onclick="api.openModal(' + num + '); document.getElementById(\'search-results\').classList.remove(\'show\');">' +
+                '<div style="font-weight: 700; color: #1e3c72;">Plot #' + num + '</div>' +
+                '<div style="font-size: 0.9rem;">' + owner + '</div>' +
+                '<div style="font-size: 0.8rem; color: #666;">' + mobile + '</div>' +
+            '</div>';
+        });
+        resultsDiv.innerHTML = html;
+    }
+    
+    resultsDiv.classList.add('show');
+}
+
+// Check for saved dark mode preference
+document.addEventListener('DOMContentLoaded', function() {
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+        document.querySelector('.dark-mode-toggle').textContent = '☀️';
     }
 });
 
-console.log('Teachers Colony Application - Best Model Loaded');
-console.log('Features: Modular Architecture, Easy Token Updates, Central Storage, Original Layout');
+// Meeting Attendance Form Handling
+function populateAttendancePlotDropdown() {
+    const select = document.getElementById('attendance-plot');
+    if (!select || !window.api.plotDatabase) return;
+    
+    // Clear existing options except first
+    while (select.options.length > 1) {
+        select.remove(1);
+    }
+    
+    // Add all 175 plots
+    for (let i = 1; i <= 175; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = 'Plot #' + i;
+        select.appendChild(option);
+    }
+}
+
+// Load sample data for testing
+function loadSampleData() {
+    console.log('Loading sample data...');
+    window.api = window.api || {};
+    window.api.plotDatabase = [];
+    
+    // Create sample plots 1-175 with some having data
+    for (let i = 1; i <= 175; i++) {
+        const hasData = Math.random() > 0.6; // 40% have data
+        if (hasData) {
+            window.api.plotDatabase.push({
+                'Plot No': String(i),
+                'plot_number': String(i),
+                'Owner': `Owner ${i}`,
+                'owner_name': `Owner ${i}`,
+                'Mobile': `9${Math.floor(Math.random() * 1000000000)}`,
+                'primary_mobile': `9${Math.floor(Math.random() * 1000000000)}`,
+                'LRS': Math.random() > 0.5 ? 'Done' : 'Pending',
+                'lrs_status': Math.random() > 0.5 ? 'Done' : 'Pending',
+                'Tax': Math.random() > 0.5 ? 'Paid' : 'Pending',
+                'tax_status': Math.random() > 0.5 ? 'Paid' : 'Pending'
+            });
+        }
+    }
+    
+    console.log('Sample data loaded:', window.api.plotDatabase.length, 'plots');
+    
+    // Refresh contacts list if on contacts page
+    const contactsPage = document.getElementById('contacts-page');
+    if (contactsPage && contactsPage.classList.contains('show')) {
+        loadContactsList();
+    }
+    
+    // Update statistics if available
+    if (window.api.updateStatistics) {
+        window.api.updateStatistics();
+    }
+}
+
+// Populate dropdown when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(populateAttendancePlotDropdown, 1000);
+    
+    // Auto-load sample data after 2 seconds if Google Sheets fails
+    setTimeout(function() {
+        if (!window.api?.plotDatabase?.length) {
+            console.log('No data loaded from Google Sheets, loading sample data...');
+            loadSampleData();
+        }
+    }, 3000);
+});
+
+// Handle attendance form submission
+const attendanceForm = document.getElementById('meeting-attendance-form');
+if (attendanceForm) {
+    attendanceForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const phone = document.getElementById('attendance-phone').value.trim();
+        const plot = document.getElementById('attendance-plot').value;
+        const size = document.getElementById('attendance-size').value;
+        const messageDiv = document.getElementById('attendance-message');
+        
+        if (!phone || !plot || !size) {
+            messageDiv.textContent = '❌ Please fill all fields';
+            messageDiv.style.background = '#ffebee';
+            messageDiv.style.color = '#c62828';
+            messageDiv.style.display = 'block';
+            return;
+        }
+        
+        // Show loading
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = '⏳ Submitting...';
+        submitBtn.disabled = true;
+        
+        try {
+            // Google Apps Script Web App URL
+            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwVnTtMnLey8QpfBmXW0V9nq431ZtHf5HteU1J1mgFL-N4ffGwArQDH_Od2ZjORTK8_4w/exec';
+            
+            const data = {
+                phone: phone,
+                plot: plot,
+                size: size,
+                date: new Date().toLocaleDateString('en-IN'),
+                timestamp: new Date().toISOString()
+            };
+            
+            // Submit to Google Sheets
+            const response = await fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+                mode: 'no-cors'
+            });
+            
+            // Success message
+            messageDiv.innerHTML = '✅ <strong>Attendance Registered!</strong><br>Plot ' + plot + ' - ' + size + ' Yards<br>We will contact you at ' + phone + '<br><small>Data saved to Google Sheets</small>';
+            messageDiv.style.background = '#e8f5e9';
+            messageDiv.style.color = '#2e7d32';
+            messageDiv.style.display = 'block';
+            
+            // Reset form
+            this.reset();
+            
+        } catch (error) {
+            console.error('Error:', error);
+            messageDiv.innerHTML = '⚠️ <strong>Saved Locally</strong><br>Data stored temporarily. Admin will sync later.';
+            messageDiv.style.background = '#fff3e0';
+            messageDiv.style.color = '#e65100';
+            messageDiv.style.display = 'block';
+        } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+}
+
+console.log('Teachers Colony - Standalone Version Loaded');
+console.log('Data source: Google Sheets Sheet 2 (Plot Data)');
+console.log('Sheet URL: https://docs.google.com/spreadsheets/d/1VTTnNkhHVrxcHfQ0BDOUYjkFEjFvVhKrt34AO6a-7NA/edit?gid=1991758122');
 </script>
+
+<!-- Footer Credit -->
+<div style="position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 10px; font-size: 14px; z-index: 100; overflow: hidden;">
+    <div style="white-space: nowrap; animation: scroll 15s linear infinite;">
+        <span style="display: inline-block; padding-left: 100%;">Website Developed by 25 & 40 Plot Owners &nbsp;&nbsp;&nbsp; Website Developed by 25 & 40 Plot Owners &nbsp;&nbsp;&nbsp; Website Developed by 25 & 40 Plot Owners</span>
+    </div>
+</div>
+
+<style>
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+</style>
+
+<script>
+  // Facebook SDK initialization
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1567661720766908',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v18.0'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<!-- Modular Scripts - ORDER MATTERS: map-renderer must be after page-router -->
+<script src="app/js/data-loader.js"></script>
+<script src="app/js/modal-manager.js"></script>
+<script src="app/js/contacts-manager.js"></script>
+<script src="app/js/page-router.js"></script>
+<script src="app/js/map-renderer.js"></script>
+<script src="app/js/form-handlers.js"></script>
 
 </body>
 </html>

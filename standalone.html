@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teachers Colony - Plot Management</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'DM Sans', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; color: #333; }
+        .main-header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 20px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .header-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .logo-section { display: flex; align-items: center; gap: 15px; }
+        .logo-icon { width: 50px; height: 50px; background: linear-gradient(135deg, #ffd700, #ffed4e); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; color: #1e3c72; }
+        .logo-text h1 { font-size: 28px; font-weight: 700; margin-bottom: 5px; }
+        .logo-text .tagline { font-size: 14px; opacity: 0.9; font-style: italic; }
+        .header-contact { display: flex; gap: 20px; flex-wrap: wrap; }
+        .contact-item { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); padding: 8px 15px; border-radius: 20px; }
+        .contact-link { color: white; text-decoration: none; font-size: 14px; font-weight: 500; }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.1); }
+        .nav-links a:hover { background: rgba(255,255,255,0.2); }
+        .stats-bar { background: rgba(255,255,255,0.1); padding: 15px 0; }
+        .stats-container { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; }
+        .stat-item { text-align: center; background: rgba(255,255,255,0.1); padding: 15px 25px; border-radius: 15px; }
+        .stat-number { font-size: 24px; font-weight: 700; margin-bottom: 5px; }
+        .stat-label { font-size: 12px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; }
+        .main-container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .page { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .hdr { text-align: center; margin-bottom: 30px; position: relative; }
+        .compass { position: absolute; left: 10px; top: 0; font-size: 2rem; }
+        .badge { display: inline-block; background: #c0392b; color: #fff; font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; padding: 10px 30px; border-radius: 10px; margin-bottom: 10px; }
+        .sub1 { font-size: 0.9rem; color: #c0392b; margin-bottom: 5px; }
+        .sub2 { color: #1a3a6e; font-weight: 700; font-size: 1.1rem; margin-bottom: 5px; }
+        .sub3 { color: #1a3a6e; font-size: 1rem; }
+        .map-container { background: #f8f9fa; border-radius: 15px; padding: 20px; overflow-x: auto; }
+        .outer { display: table; width: 100%; border: 2px solid #444; border-collapse: collapse; min-width: 800px; }
+        .outer-row { display: table-row; }
+        .road-col { display: table-cell; width: 30px; background: #b0c4ce; vertical-align: middle; text-align: center; border: 1px solid #555; padding: 10px 5px; }
+        .road-col span { display: inline-block; writing-mode: vertical-rl; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; color: #1a237e; }
+        .road-col.left span { transform: rotate(180deg); }
+        .road-col.center span { writing-mode: horizontal-tb; font-size: 0.6rem; }
+        .map-col { display: table-cell; vertical-align: top; padding: 10px; }
+        .ptable { width: 100%; border-collapse: collapse; border: 1.5px solid #555; table-layout: fixed; }
+        .ptable td { border: 1px solid #aaa; text-align: center; padding: 5px 2px; cursor: pointer; vertical-align: middle; height: 35px; font-size: 0.6rem; }
+        .ptable td:hover { background: #fffbe6; transform: scale(1.05); }
+        .ptable td.owned { background: #e8f5e9; border-color: #4caf50; }
+        .ptable td.available { background: #ffffff; }
+        .pn { font-size: 0.6rem; font-weight: 700; color: #1a3a6e; display: block; }
+        .po { font-size: 0.4rem; color: #2e7d32; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .bot-road { background: #b0c4ce; text-align: center; font-weight: 700; font-size: 0.8rem; color: #1a237e; letter-spacing: 0.12em; padding: 10px 0; border-top: 2px solid #444; margin-top: 10px; border-radius: 0 0 15px 15px; }
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 999; align-items: center; justify-content: center; }
+        .modal-overlay.show { display: flex !important; }
+        .modal { background: white; border-radius: 20px; padding: 30px; width: 90%; max-width: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); position: relative; }
+        .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #888; width: 30px; height: 30px; border-radius: 50%; }
+        .modal-close:hover { background: #f0f0f0; }
+        .modal-title { font-family: 'Playfair Display', serif; font-size: 2rem; color: #c0392b; font-weight: 700; text-align: center; margin-bottom: 10px; }
+        .modal-subtitle { font-size: 0.9rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.07em; text-align: center; margin-bottom: 20px; }
+        .modal-plot { font-size: 1.2rem; font-weight: 600; color: #1565c0; text-align: center; margin-bottom: 20px; }
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; margin-bottom: 5px; font-weight: 600; color: #333; }
+        .btn-primary { width: 100%; padding: 15px; background: #c0392b; color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: 700; cursor: pointer; margin-bottom: 10px; display: block; text-align: center; text-decoration: none; }
+        .btn-primary:hover { background: #a03020; }
+        .btn-secondary { width: 100%; padding: 12px; background: #e8f5e9; color: #2e7d32; border: 2px solid #81c784; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; }
+        .notification { position: fixed; top: 20px; right: 20px; background: #4caf50; color: white; padding: 15px 20px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); z-index: 1000; opacity: 0; transform: translateX(100%); transition: all 0.3s ease; }
+        .notification.show { opacity: 1; transform: translateX(0); }
+        @media (max-width: 768px) {
+            .header-top { flex-direction: column; gap: 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 15px; }
+            .stats-container { flex-wrap: wrap; gap: 15px; }
+            .main-container { margin: 20px auto; padding: 0 15px; }
+            .page { padding: 20px; }
+            .modal { width: 95%; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="main-header">
+    <div class="header-container">
+        <div class="header-top">
+            <div class="logo-section">
+                <div class="logo-icon">TC</div>
+                <div class="logo-text">
+                    <h1>Teachers Colony</h1>
+                    <div class="tagline">Premium Residential Plots in Machilipatnam</div>
+                </div>
+            </div>
+            <div class="header-contact">
+                <div class="contact-item"><span>✉️</span><span>mahadevusomaraju@gmail.com</span></div>
+                <div class="contact-item"><span>💬</span><a href="https://wa.me/16693062113" target="_blank" class="contact-link">+16693062113</a></div>
+                <div class="contact-item"><span>📍</span><a href="https://maps.app.goo.gl/bNzYVPCLyYjtiE9e9" target="_blank" class="contact-link">Machilipatnam</a></div>
+            </div>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#">🏠 Home</a></li>
+                <li><a href="#" onclick="exportData(); return false;">📊 Export</a></li>
+            </ul>
+        </nav>
+        <div class="stats-bar">
+            <div class="stats-container">
+                <div class="stat-item"><div class="stat-number" id="total-plots">175</div><div class="stat-label">Total Plots</div></div>
+                <div class="stat-item"><div class="stat-number" id="owned-plots">0</div><div class="stat-label">Registered</div></div>
+                <div class="stat-item"><div class="stat-number" id="available-plots">175</div><div class="stat-label">Available</div></div>
+                <div class="stat-item"><div class="stat-number" id="ownership-rate">0%</div><div class="stat-label">Rate</div></div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="main-container">
+    <div class="page">
+        <div class="hdr">
+            <div class="compass">🧭</div>
+            <div class="badge">Teacher'S Colony</div>
+            <div class="sub1">Near Bye-pass Road · Pedana Road Cross</div>
+            <div class="sub2">Proposed House sites in</div>
+            <div class="sub3">Rs. No. 311 / 1, 2, 3</div>
+        </div>
+        <div class="map-container">
+            <div class="outer">
+                <div class="outer-row">
+                    <div class="road-col left"><span>100 FEET PORT ROAD</span></div>
+                    <div class="map-col">
+                        <div style="display: table; width: 100%;">
+                            <div style="display: table-row;">
+                                <div style="display: table-cell; width: 47%; vertical-align: top;">
+                                    <table class="ptable"><tbody id="left-body"></tbody></table>
+                                </div>
+                                <div class="road-col center"><span>40 FEET CENTER ROAD</span></div>
+                                <div style="display: table-cell; width: 47%; vertical-align: top;">
+                                    <table class="ptable"><tbody id="right-body"></tbody></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="road-col right"><span>100 FEET PORT ROAD</span></div>
+                </div>
+            </div>
+            <div class="bot-road">100 FEET PORT ROAD</div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <div class="modal-title" id="modal-owner-name">Plot Details</div>
+        <div class="modal-subtitle">Plot Number</div>
+        <div class="modal-plot" id="modal-plot-num">--</div>
+        <div id="contact-actions" style="display: none;">
+            <div class="form-group">
+                <label class="form-label">Mobile</label>
+                <div id="display-mobile" style="font-size: 1.2rem; color: #333;"></div>
+            </div>
+            <a id="call-btn" href="#" class="btn-primary">📞 Call</a>
+            <a id="whatsapp-btn" href="#" target="_blank" class="btn-primary" style="background: #25d366;">💬 WhatsApp</a>
+            <button type="button" class="btn-secondary" onclick="closeModal()">Close</button>
+        </div>
+        <div id="plot-form" style="display: none;">
+            <div class="form-group">
+                <label class="form-label">Status</label>
+                <div style="padding: 12px; background: #f5f5f5; border-radius: 10px;">Available for Registration</div>
+            </div>
+            <button type="button" class="btn-secondary" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+</div>
+
+<div class="notification" id="notification"></div>
+
+<script>
+const PLOT_DATA = [
+    {"Plot Number":"16", "Owner Name":"L. Subramanyam", "Primary Mobile":"+918499899833", "Status":"owned"},
+    {"Plot Number":"17", "Owner Name":"Jogi Kanakadurga", "Primary Mobile":"+919963729133", "Status":"owned"},
+    {"Plot Number":"25", "Owner Name":"K. Nagambicamani", "Primary Mobile":"+919949726566", "Status":"owned"},
+    {"Plot Number":"27", "Owner Name":"M. Sekhar", "Primary Mobile":"+919866172123", "Status":"owned"},
+    {"Plot Number":"29", "Owner Name":"MD. Basheer", "Primary Mobile":"+919491584669", "Status":"owned"},
+    {"Plot Number":"30", "Owner Name":"Kalilullah", "Primary Mobile":"+919000548786", "Status":"owned"},
+    {"Plot Number":"31", "Owner Name":"Gose", "Primary Mobile":"+919154078692", "Status":"owned"},
+    {"Plot Number":"32", "Owner Name":"MD. Basheer/Kalilullah/Gose", "Primary Mobile":"+919491584669", "Status":"owned"},
+    {"Plot Number":"33", "Owner Name":"MD. Basheer/Kalilullah/Gose", "Primary Mobile":"+919491584669", "Status":"owned"},
+    {"Plot Number":"34", "Owner Name":"MD. Basheer/Kalilullah/Gose", "Primary Mobile":"+919491584669", "Status":"owned"},
+    {"Plot Number":"35", "Owner Name":"MD. Basheer/Kalilullah/Gose", "Primary Mobile":"+919491584669", "Status":"owned"},
+    {"Plot Number":"36", "Owner Name":"MD. Basheer/Kalilullah/Gose", "Primary Mobile":"+919491584669", "Status":"owned"},
+    {"Plot Number":"37", "Owner Name":"V. Sivaji", "Primary Mobile":"+919949413409", "Status":"owned"},
+    {"Plot Number":"40", "Owner Name":"B. Radhakumari", "Primary Mobile":"+919491380096", "Status":"owned"},
+    {"Plot Number":"52", "Owner Name":"P. Anjaneya Das", "Primary Mobile":"+919848794767", "Status":"owned"},
+    {"Plot Number":"65", "Owner Name":"B. Padmavathi Devi", "Primary Mobile":"+918074937593", "Status":"owned"},
+    {"Plot Number":"73", "Owner Name":"P. Rakesh", "Primary Mobile":"+918919112471", "Status":"owned"},
+    {"Plot Number":"75", "Owner Name":"Gangaraju", "Primary Mobile":"+919393049750", "Status":"owned"},
+    {"Plot Number":"78", "Owner Name":"Sambasivarao", "Primary Mobile":"+919492482163", "Status":"owned"},
+    {"Plot Number":"84", "Owner Name":"M Naga Malleswara Rao", "Primary Mobile":"+919440667623", "Status":"owned"},
+    {"Plot Number":"85", "Owner Name":"M Venkat Rao", "Primary Mobile":"+918179238680", "Status":"owned"},
+    {"Plot Number":"95", "Owner Name":"Abdul Wajid", "Primary Mobile":"+917893774846", "Status":"owned"},
+    {"Plot Number":"102", "Owner Name":"MD. Kareemullah", "Primary Mobile":"+919291752412", "Status":"owned"},
+    {"Plot Number":"106", "Owner Name":"G. Kondababu", "Primary Mobile":"+919989120209", "Status":"owned"},
+    {"Plot Number":"109", "Owner Name":"Pulagani Ramadevi", "Primary Mobile":"+919393652827", "Status":"owned"},
+    {"Plot Number":"110", "Owner Name":"M. Nalani Kumari", "Primary Mobile":"+919393911464", "Status":"owned"},
+    {"Plot Number":"111", "Owner Name":"M. Nalani Kumari", "Primary Mobile":"+919393911464", "Status":"owned"},
+    {"Plot Number":"113", "Owner Name":"Collector Office Madam", "Primary Mobile":"+919154769111", "Status":"owned"},
+    {"Plot Number":"114", "Owner Name":"VV. Nagabushan", "Primary Mobile":"+918897972298", "Status":"owned"},
+    {"Plot Number":"116", "Owner Name":"V. Anitha", "Primary Mobile":"+918374924161", "Status":"owned"},
+    {"Plot Number":"121", "Owner Name":"Sudhakar", "Primary Mobile":"+919247402890", "Status":"owned"},
+    {"Plot Number":"123", "Owner Name":"MD. Abdullah", "Primary Mobile":"+917569958038", "Status":"owned"},
+    {"Plot Number":"124", "Owner Name":"S. Nagaraju", "Primary Mobile":"+919866341198", "Status":"owned"},
+    {"Plot Number":"125", "Owner Name":"L.V.N. Sastry", "Primary Mobile":"+919989347789", "Status":"owned"},
+    {"Plot Number":"127", "Owner Name":"V. Vasu", "Primary Mobile":"+919550529929", "Status":"owned"},
+    {"Plot Number":"130", "Owner Name":"CH. Rambabu", "Primary Mobile":"+916302122508", "Status":"owned"},
+    {"Plot Number":"132", "Owner Name":"CH. Nageswara Rao", "Primary Mobile":"+919849309522", "Status":"owned"},
+    {"Plot Number":"133", "Owner Name":"VV. Nagabushan", "Primary Mobile":"+918897972298", "Status":"owned"},
+    {"Plot Number":"137", "Owner Name":"M. Ramana", "Primary Mobile":"+919866172123", "Status":"owned"},
+    {"Plot Number":"141", "Owner Name":"M Venkat Rao", "Primary Mobile":"+918179238680", "Status":"owned"},
+    {"Plot Number":"146", "Owner Name":"A Madhavi Latha", "Primary Mobile":"+918106674778", "Status":"owned"},
+    {"Plot Number":"147", "Owner Name":"A Madhavi Latha", "Primary Mobile":"+918106674778", "Status":"owned"},
+    {"Plot Number":"148", "Owner Name":"A Madhavi Latha", "Primary Mobile":"+918106674778", "Status":"owned"},
+    {"Plot Number":"149", "Owner Name":"A Madhavi Latha", "Primary Mobile":"+918106674778", "Status":"owned"},
+    {"Plot Number":"150", "Owner Name":"A Madhavi Latha", "Primary Mobile":"+918106674778", "Status":"owned"},
+    {"Plot Number":"151", "Owner Name":"P. Kalpana Devi", "Primary Mobile":"+917036515490", "Status":"owned"},
+    {"Plot Number":"152", "Owner Name":"Tata Mounika", "Primary Mobile":"+917904349625", "Status":"owned"},
+    {"Plot Number":"216", "Owner Name":"Marakani Vasu", "Primary Mobile":"+919347222233", "Status":"owned"},
+    {"Plot Number":"224", "Owner Name":"V. Vijay Kumar", "Primary Mobile":"+919247330326", "Status":"owned"},
+    {"Plot Number":"225", "Owner Name":"L. Ramakrishna", "Primary Mobile":"+919440540395", "Status":"owned"}
+];
+
+const leftRows = [
+    [166,165,164,163,162,161,160,159,158,157,156,155,154,153],
+    [130,131,132,133,134,135,136,137],
+    [129,128,127,126,125,124,123,122],
+    [98,99,100,101,102,103,104,105],
+    [97,96,95,94,93,92,91,90],
+    [65,66,67,68,69,70,71,72],
+    [64,63,62,61,60,59,58,57],
+    [33,34,35,36,37,38,39,40],
+    [32,31,30,29,28,27,26,25],
+    [9,8,7,6,5,4,3,2],
+    [1]
+];
+
+const rightRows = [
+    [175,174,173,172,171,170,169,168,167],
+    [154,155,156,157,158,159,160,161],
+    [137,138,139,140,141,142,143,144,145],
+    [122,121,120,119,118,117,116,115,114],
+    [105,106,107,108,109,110,111,112,113],
+    [90,89,88,87,86,85,84,83,82],
+    [73,74,75,76,77,78,79,80,81],
+    [56,55,54,53,52,51,50,49,48],
+    [40,41,42,43,44,45,46,47],
+    [25,24,23,22,21,20,19,18],
+    [17,16,15,14,13,12,11,10],
+    [17,18,19,20,21,22,23,24]
+];
+
+let currentPlot = null;
+
+function init() {
+    renderTable('left-body', leftRows);
+    renderTable('right-body', rightRows);
+    updateStats();
+    showNotification('Teachers Colony - ' + PLOT_DATA.length + ' plots loaded');
+}
+
+function renderTable(bodyId, rows) {
+    const tbody = document.getElementById(bodyId);
+    let html = '';
+    rows.forEach(function(row) {
+        html += '<tr>';
+        row.forEach(function(num) {
+            const plot = PLOT_DATA.find(function(p) { return p['Plot Number'] == num; });
+            const status = plot ? 'owned' : 'available';
+            const owner = plot ? plot['Owner Name'] : '';
+            html += '<td class="' + status + '" onclick="openModal(' + num + ')">' +
+                '<span class="pn">' + num + '</span>' +
+                (owner ? '<span class="po">' + owner.substring(0, 12) + '</span>' : '') +
+            '</td>';
+        });
+        html += '</tr>';
+    });
+    tbody.innerHTML = html;
+}
+
+function updateStats() {
+    const owned = PLOT_DATA.length;
+    const available = 175 - owned;
+    const rate = Math.round((owned / 175) * 100);
+    document.getElementById('owned-plots').textContent = owned;
+    document.getElementById('available-plots').textContent = available;
+    document.getElementById('ownership-rate').textContent = rate + '%';
+}
+
+function openModal(num) {
+    currentPlot = num;
+    const plot = PLOT_DATA.find(function(p) { return p['Plot Number'] == num; });
+    document.getElementById('modal-plot-num').textContent = num;
+    if (plot) {
+        document.getElementById('modal-owner-name').textContent = plot['Owner Name'];
+        document.getElementById('display-mobile').textContent = plot['Primary Mobile'];
+        const cleanMobile = plot['Primary Mobile'].replace(/\D/g, '');
+        document.getElementById('call-btn').href = 'tel:+' + cleanMobile;
+        document.getElementById('whatsapp-btn').href = 'https://wa.me/' + cleanMobile;
+        document.getElementById('contact-actions').style.display = 'block';
+        document.getElementById('plot-form').style.display = 'none';
+    } else {
+        document.getElementById('modal-owner-name').textContent = 'Available Plot';
+        document.getElementById('contact-actions').style.display = 'none';
+        document.getElementById('plot-form').style.display = 'block';
+    }
+    document.getElementById('modal').classList.add('show');
+}
+
+function closeModal(e) {
+    if (!e || e.target.id === 'modal' || e.target.classList.contains('modal-close')) {
+        document.getElementById('modal').classList.remove('show');
+    }
+}
+
+function showNotification(message) {
+    const n = document.getElementById('notification');
+    n.textContent = message;
+    n.classList.add('show');
+    setTimeout(function() { n.classList.remove('show'); }, 3000);
+}
+
+function exportData() {
+    let csv = 'Plot Number,Owner Name,Mobile,Status\n';
+    PLOT_DATA.forEach(function(p) {
+        csv += p['Plot Number'] + ',' + p['Owner Name'] + ',' + p['Primary Mobile'] + ',' + p.Status + '\n';
+    });
+    const blob = new Blob([csv], {type: 'text/csv'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'teachers_colony_' + new Date().toISOString().split('T')[0] + '.csv';
+    a.click();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>

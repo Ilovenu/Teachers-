@@ -6,7 +6,7 @@
 
 // GitHub Configuration
 const GITHUB_CONFIG = {
-    token: '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',
+    token: localStorage.getItem('github_token') || '',  // Empty by default - user adds their own
     gistId: '5397a86680129b2d3534059577f8865c',
     gistUrl: 'https://gist.github.com/Ilovenu/5397a86680129b2d3534059577f8865c',
     apiEndpoint: 'https://api.github.com/gists'
